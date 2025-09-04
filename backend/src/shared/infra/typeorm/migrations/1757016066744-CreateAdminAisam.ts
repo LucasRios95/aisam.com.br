@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateCandidato1756149754971 implements MigrationInterface {
+export class CreateAdminAisam1757016066744 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: "candidato",
+            name: "admin_aisam",
             columns: [
                 {
                     name: "id",
@@ -19,60 +19,37 @@ export class CreateCandidato1756149754971 implements MigrationInterface {
 
                 {
                     name: "email",
-                    type: "varchar"
-
+                    type: "varchar",
+                    isUnique: true
                 },
 
                 {
-                    name: "telefone",
-                    type: "varchar"
-                },
-
-                {
-                    name: "cidade",
+                    name: "senha",
                     type: "varchar"
                 },
 
                 {
-                    name: "estado",
-                    type: "varchar"
-                },
-
-                {
-                    name: "resumo_curriculo",
-                    type: "text"
-                },
-
-                {
-                    name: "consentimento_dados",
-                    type: "boolean",
-                    default: false
+                    name: "mfa_enabled",
+                    type: "boolean"
                 },
 
                 {
                     name: "created_at",
                     type: "timestamp",
                     default: "now()"
-
-                },
-
-                {
-                    name: "acesso_expirado",
-                    type: "timestamp",
                 },
 
                 {
                     name: "updated_at",
                     type: "timestamp",
                     default: "now()"
-                },
+                }
             ]
-
-        }));
+        }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("candidato");
+        await queryRunner.dropTable("admin_aisam");
     }
 
 }

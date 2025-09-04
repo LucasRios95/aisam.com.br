@@ -20,8 +20,8 @@
 
 # FLUXO “ASSOCIE-SE”
 **RF**
-- Deve ser possível submeter um pedido de associação via formulário público.
-- Deve existir uma fila para **aprovação/recusa** do pedido por Admin AISAM.
+- Deve ser possível submeter um pedido de associação via formulário público. ok
+- Deve existir uma fila para **aprovação/recusa** do pedido por Admin AISAM. ok
 - Ao aprovar, o sistema deve **criar o associado** e enviar convites para recrutadores.
 
 **RN**
