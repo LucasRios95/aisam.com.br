@@ -3,8 +3,6 @@ import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPed
 import { Pedido_Associacao } from "modules/Associado/infra/typeorm/entities/Pedido_Associado";
 
 
-
-
 @injectable()
 class ListPedidosAssociacaoUseCase {
     constructor(

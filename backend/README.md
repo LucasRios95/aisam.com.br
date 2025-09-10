@@ -8,15 +8,15 @@
 
 # CADASTRO DE ASSOCIADO (EMPRESA)
 **RF**
-- Deve ser possível cadastrar um associado a partir de um pedido “Associe-se” aprovado.
-- Deve ser possível listar/editar/desativar associados.
+- Deve ser possível cadastrar um associado a partir de um pedido “Associe-se” aprovado. ok
+- Deve ser possível listar/editar/desativar associados. 
 - Deve ser possível convidar e gerenciar recrutadores vinculados ao associado.
 
 **RN**
-- Apenas usuários com perfil **Admin AISAM** podem criar/editar/desativar associados.
-- O CNPJ do associado deve ser **único** no sistema.
+- Apenas usuários com perfil **Admin AISAM** podem criar/editar/desativar associados. ok
+- O CNPJ do associado deve ser **único** no sistema. ok
 - Um recrutador pertence **exclusivamente** a um associado.
-- O associado possui status: **pendente | aprovado | inativo**.
+- O associado possui status: **pendente | aprovado | inativo**. ok
 
 # FLUXO “ASSOCIE-SE”
 **RF**
