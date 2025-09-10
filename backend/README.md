@@ -9,7 +9,7 @@
 # CADASTRO DE ASSOCIADO (EMPRESA)
 **RF**
 - Deve ser possível cadastrar um associado a partir de um pedido “Associe-se” aprovado. ok
-- Deve ser possível listar/editar/desativar associados. 
+- Deve ser possível listar/editar/desativar associados. ok
 - Deve ser possível convidar e gerenciar recrutadores vinculados ao associado.
 
 **RN**
@@ -22,7 +22,7 @@
 **RF**
 - Deve ser possível submeter um pedido de associação via formulário público. ok
 - Deve existir uma fila para **aprovação/recusa** do pedido por Admin AISAM. ok
-- Ao aprovar, o sistema deve **criar o associado** e enviar convites para recrutadores.
+- Ao aprovar, o sistema deve **criar o associado** ok
 
 **RN**
 - Apenas pedidos **aprovados** resultam em criação de associado.
