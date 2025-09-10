@@ -4,7 +4,7 @@ import { Pedido_Associacao } from "../infra/typeorm/entities/Pedido_Associado";
 
 interface IPedidoAssociacaoRepository {
     create(data: ICreatePedidoAssociacao): Promise<Pedido_Associacao>;
-    updateStatus(data: IUpdateStatusDTO): Promise<void>;
+    updateStatus(data: IUpdateStatusDTO): Promise<Pedido_Associacao>;
     findByCnpj(cnpj: string): Promise<Pedido_Associacao>;
     findById(id: string): Promise<Pedido_Associacao>;
     list(): Promise<Pedido_Associacao[]>;

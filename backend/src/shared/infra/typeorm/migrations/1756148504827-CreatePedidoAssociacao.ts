@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreatePedidoAssociacao1756148504827 implements MigrationInterface {
 
@@ -91,17 +91,42 @@ export class CreatePedidoAssociacao1756148504827 implements MigrationInterface {
                     },
 
                     {
+                        name: "Aprovado_por",
+                        type: "uuid",
+                        isNullable: true
+                    },
+
+                    {
+                        name: "Recusado_por",
+                        type: "uuid",
+                        isNullable: true
+                    },
+
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()"
                     }
                 ]
             }
-        ))
+        ));
+
+        // await queryRunner.createForeignKey(
+        //     "pedido_associacao",
+        //     new TableForeignKey({
+        //         name: "FK_PedidoAssociacaoAprovado",
+        //         columnNames: ["Aprovado_por"],
+        //         referencedColumnNames: ["id"],
+        //         referencedTableName: "admin_aisam",
+        //         onDelete: "SET NULL",
+        //         onUpdate: "CASCADE"
+        //     })
+        // )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("pedido_associacao")
+        await queryRunner.dropTable("pedido_associacao");
+        // await queryRunner.dropForeignKey("pedido_associacao", "FK_PedidoAssociacaoAprovado");
     }
 
 }

@@ -11,7 +11,6 @@ class AdminAisamRepository implements IAdminAisamRepository {
         this.repository = getRepository(AdminAisam);
     }
 
-
     async create({
         id,
         nome,
@@ -32,15 +31,19 @@ class AdminAisamRepository implements IAdminAisamRepository {
         return admin_aisam;
     }
 
-    list(): Promise<AdminAisam[]> {
-        const listUsers = this.repository.find();
+    async list(): Promise<AdminAisam[]> {
+        const listUsers = await this.repository.find();
         return listUsers;
     }
 
-    findById(id: string): Promise<AdminAisam> {
-        const user = this.repository.findOne(id);
+    async findById(id: string): Promise<AdminAisam> {
+        const user = await this.repository.findOne(id);
         return user;
+    }
 
+    async findByEmail(email: string): Promise<AdminAisam> {
+        const user = await this.repository.findOne({ email });
+        return user;
     }
 
     async delete(id: string): Promise<boolean> {
@@ -53,3 +56,6 @@ class AdminAisamRepository implements IAdminAisamRepository {
         return true;
     }
 }
+
+export { AdminAisamRepository };
+

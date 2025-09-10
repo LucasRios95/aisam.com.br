@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Dele
 
 import { v4 as uuidv4 } from "uuid"
 
-export enum Status {
+export enum StatusAssociado {
     ATIVO = "ativo",
     INATIVO = "inativo"
 }
@@ -19,8 +19,8 @@ export class Associado {
     @Column()
     cnpj: string;
 
-    @Column({ type: 'enum', enum: Status })
-    status: Status;
+    @Column({ type: 'enum', enum: StatusAssociado })
+    status: StatusAssociado;
 
     @CreateDateColumn()
     created_at: Date;

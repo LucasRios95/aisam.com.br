@@ -1,11 +1,11 @@
 import { StatusAssociado } from "../infra/typeorm/entities/Associado";
 
-interface ICreateAssociadoDTO {
+interface IUpdateAssociadoDTO {
     id?: string;
     razao_social: string;
     cnpj: string;
     status: StatusAssociado;
-    created_at: Date;
+    updated_at: Date;
 }
 
-export { ICreateAssociadoDTO }
+export { IUpdateAssociadoDTO }

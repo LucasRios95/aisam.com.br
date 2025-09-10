@@ -1,9 +1,8 @@
 import { ICreatePedidoAssociacao } from "modules/Associado/dtos/ICreatePedidoAssociacaoDTO";
 import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPedidoAssociacaoRepository";
 import { Repository, getRepository } from "typeorm";
-import { Pedido_Associacao } from "../entities/Pedido_Associado";
+import { Pedido_Associacao, Status } from "../entities/Pedido_Associado";
 import { IUpdateStatusDTO } from "modules/Associado/dtos/IUpdateStatusDTO";
-
 
 class PedidoAssociacaoRepository implements IPedidoAssociacaoRepository {
     private repository: Repository<Pedido_Associacao>;
@@ -55,8 +54,14 @@ class PedidoAssociacaoRepository implements IPedidoAssociacaoRepository {
 
     }
 
-    async updateStatus({ id, status }): Promise<void> {
-        await this.repository.save({ id, status });
+    async updateStatus({ id, status, Aprovado_Por }: IUpdateStatusDTO): Promise<Pedido_Associacao> {
+        const pedidoUpdated = await this.repository.save({
+            id,
+            status: Status[status],
+            Aprovado_Por
+        });
+
+        return pedidoUpdated;
     }
 
     async findByCnpj(cnpj: string): Promise<Pedido_Associacao> {

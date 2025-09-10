@@ -27,10 +27,6 @@ export class AdminAisam {
     @CreateDateColumn()
     updated_at: Date;
 
-    @DeleteDateColumn()
-    deleted_at: Date;
-
-
     constructor() {
         if (!this.id) {
             this.id = uuidv4();

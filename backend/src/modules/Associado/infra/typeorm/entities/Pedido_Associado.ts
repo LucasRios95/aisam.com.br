@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
+import { uuid } from "aws-sdk/clients/customerprofiles";
+import { AdminAisam } from "modules/AdminAisam/infra/typeorm/entities/AdminAisam";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinTable, JoinColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid"
 
 export enum Status {
@@ -57,6 +59,12 @@ export class Pedido_Associacao {
     @Column({ type: "enum", enum: Status, default: Status.PENDENTE })
     status: Status;
 
+    @ManyToOne(() => AdminAisam)
+    @JoinColumn({ name: "Aprovado_Por" })
+    admin: AdminAisam;
+
+    @Column()
+    Aprovado_Por: string;
 
     @CreateDateColumn()
     created_at: Date;
