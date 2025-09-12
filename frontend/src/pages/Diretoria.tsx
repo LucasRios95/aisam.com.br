@@ -7,47 +7,49 @@ import { UserIcon, Mail, Phone } from "lucide-react";
 const Diretoria = () => {
   const diretores = [
     {
-      name: "José Silva",
+      name: "Vinicio César Pensa",
       position: "Presidente",
-      company: "Indústrias Silva S.A.",
-      email: "presidente@aisam.com.br",
-      phone: "(11) 9999-9999"
+      company: "Vifranca Incorporacoes Ltda",
+      email: "vinicio@aisam.com.br",
+
     },
     {
-      name: "Maria Santos",
+      name: "Élvio Luiz Lorieri",
       position: "Vice-Presidente",
-      company: "Santos Metalúrgica Ltda.",
-      email: "vice@aisam.com.br",
-      phone: "(11) 8888-8888"
+      company: "SOLDATOPO-FLADAFI CONTAINERS",
+      email: "aisam@aisam.com.br",
     },
     {
-      name: "Carlos Oliveira",
-      position: "Diretor Financeiro",
-      company: "Oliveira Equipamentos",
-      email: "financeiro@aisam.com.br",
-      phone: "(11) 7777-7777"
+      name: "Eduardo Estefano Filho",
+      position: "Conselheiro Consultivo e Fiscal",
+      company: "Cambuci S.A.",
+      email: "aisam@aisam.com.br",
     },
     {
-      name: "Ana Costa",
-      position: "Diretora de Relações Institucionais",
-      company: "Costa & Associados",
-      email: "institucional@aisam.com.br",
-      phone: "(11) 6666-6666"
+      name: "José Luiz Gavazzi",
+      position: "Conselheiro Consultivo",
+      company: "Fábrica de Artefatos de Latex Sao Roque Ltda",
+      email: "aisam@aisam.com.br",
     },
     {
-      name: "Roberto Lima",
-      position: "Diretor de Desenvolvimento",
-      company: "Lima Indústria Química",
-      email: "desenvolvimento@aisam.com.br",
-      phone: "(11) 5555-5555"
+      name: "Paulo Zanão",
+      position: "Conselheiro Consultivo",
+      company: "Caglaggi Sanmitsu",
+      email: "aisam@aisam.com.br",
     },
     {
-      name: "Fernanda Rocha",
-      position: "Diretora de Comunicação",
-      company: "Rocha Telecomunicações",
-      email: "comunicacao@aisam.com.br",
-      phone: "(11) 4444-4444"
-    }
+      name: "Luiz Gonzaga Fontes",
+      position: "Conselheiro Consultivo",
+      company: "",
+      email: "aisam@aisam.com.br",
+    },
+    {
+      name: "Reinaldo Mastrogiuseppe",
+      position: "Conselheiro Consultivo",
+      company: "",
+      email: "aisam@aisam.com.br",
+    },
+
   ];
 
   return (
@@ -57,7 +59,7 @@ const Diretoria = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Introdução */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -67,8 +69,8 @@ const Diretoria = () => {
             className="text-center mb-12"
           >
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Nossa diretoria é composta por empresários experientes e comprometidos com o 
-              desenvolvimento industrial da região, trabalhando para fortalecer os laços entre 
+              Nossa diretoria é composta por empresários experientes e comprometidos com o
+              desenvolvimento industrial da região, trabalhando para fortalecer os laços entre
               as empresas associadas e promover o crescimento sustentável do setor.
             </p>
           </motion.div>
@@ -105,10 +107,6 @@ const Diretoria = () => {
                         <Mail className="w-4 h-4 text-primary" />
                         <span className="truncate">{diretor.email}</span>
                       </div>
-                      <div className="flex items-center space-x-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                        <Phone className="w-4 h-4 text-primary" />
-                        <span>{diretor.phone}</span>
-                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -128,8 +126,8 @@ const Diretoria = () => {
               Gestão Transparente e Comprometida
             </h3>
             <p className="text-muted-foreground mb-6 max-w-3xl mx-auto">
-              Nossa diretoria é eleita democraticamente pelos associados para mandatos de dois anos, 
-              garantindo representatividade e renovação constante de ideias. Todas as decisões são 
+              Nossa diretoria é eleita democraticamente pelos associados para mandatos de dois anos,
+              garantindo representatividade e renovação constante de ideias. Todas as decisões são
               tomadas de forma transparente e sempre visando o benefício comum de todos os associados.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">

@@ -7,21 +7,74 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          applied_at: string
+          id: string
+          job_id: string
+          notes: string | null
+          resume_id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          applied_at?: string
+          id?: string
+          job_id: string
+          notes?: string | null
+          resume_id: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          applied_at?: string
+          id?: string
+          job_id?: string
+          notes?: string | null
+          resume_id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_resume_id_fkey"
+            columns: ["resume_id"]
+            isOneToOne: false
+            referencedRelation: "resumes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       jobs: {
         Row: {
           company: string
+          company_id: string | null
           contact_email: string
           created_at: string
           description: string
           id: string
           location: string | null
+          posted_by: string
           requirements: string | null
           salary_range: string | null
           title: string
@@ -29,11 +82,13 @@ export type Database = {
         }
         Insert: {
           company: string
+          company_id?: string | null
           contact_email: string
           created_at?: string
           description: string
           id?: string
           location?: string | null
+          posted_by: string
           requirements?: string | null
           salary_range?: string | null
           title: string
@@ -41,15 +96,56 @@ export type Database = {
         }
         Update: {
           company?: string
+          company_id?: string | null
           contact_email?: string
           created_at?: string
           description?: string
           id?: string
           location?: string | null
+          posted_by?: string
           requirements?: string | null
           salary_range?: string | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          company: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string | null
+          position: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          phone?: string | null
+          position?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          position?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -60,12 +156,14 @@ export type Database = {
           email: string
           experience: string
           expires_at: string
+          file_path: string | null
           id: string
           name: string
           phone: string | null
           skills: string
           summary: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -73,12 +171,14 @@ export type Database = {
           email: string
           experience: string
           expires_at?: string
+          file_path?: string | null
           id?: string
           name: string
           phone?: string | null
           skills: string
           summary?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -86,12 +186,41 @@ export type Database = {
           email?: string
           experience?: string
           expires_at?: string
+          file_path?: string | null
           id?: string
           name?: string
           phone?: string | null
           skills?: string
           summary?: string | null
           updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -104,9 +233,25 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: number
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "admin"
+        | "associado_aprovado"
+        | "associado_pendente"
+        | "candidato"
+        | "recrutador"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -233,6 +378,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "admin",
+        "associado_aprovado",
+        "associado_pendente",
+        "candidato",
+        "recrutador",
+      ],
+    },
   },
 } as const

@@ -17,7 +17,7 @@ const Header = () => {
     { name: "Serviços", href: "/servicos" },
     { name: "Associe-se", href: "/associe-se" },
     { name: "Links Úteis", href: "/links-uteis" },
-    { name: "Notícias", href: "/noticias" },
+    { name: "Notícias", href: "noticias" },
   ];
 
   const isActivePage = (href: string) => {
@@ -32,14 +32,14 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center space-x-3 group"
               aria-label="AISAM - Página inicial"
             >
-              <img 
-                src="/src/assets/aisam-logo.webp" 
-                alt="AISAM" 
+              <img
+                src="/src/assets/aisam-logo.webp"
+                alt="AISAM"
                 className="h-12 w-auto group-hover:scale-105 transition-all duration-300"
               />
             </Link>
@@ -69,7 +69,7 @@ const Header = () => {
           {/* Login Button */}
           <div className="hidden lg:block">
             <Button variant="outline" asChild>
-              <Link to="/login">Login/Cadastre-se</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </Button>
           </div>
 
@@ -110,8 +110,8 @@ const Header = () => {
               ))}
               <div className="pt-4">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                    Login/Cadastre-se
+                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                    Dashboard
                   </Link>
                 </Button>
               </div>

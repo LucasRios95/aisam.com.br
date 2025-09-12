@@ -23,7 +23,7 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
               AISAM
             </h1>
             <p className="text-xl md:text-2xl font-medium mb-4 opacity-90">

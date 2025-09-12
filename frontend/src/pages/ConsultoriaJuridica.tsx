@@ -79,7 +79,7 @@ const ConsultoriaJuridica = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Introdução */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -89,8 +89,8 @@ const ConsultoriaJuridica = () => {
             className="text-center mb-16"
           >
             <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
-              A AISAM oferece consultoria jurídica especializada para suas empresas associadas, 
-              proporcionando segurança jurídica e orientação estratégica para o desenvolvimento 
+              A AISAM oferece consultoria jurídica especializada para suas empresas associadas,
+              proporcionando segurança jurídica e orientação estratégica para o desenvolvimento
               dos negócios industriais.
             </p>
           </motion.div>
@@ -131,12 +131,12 @@ const ConsultoriaJuridica = () => {
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
               Nossos Serviços
             </h2>
-            
+
             <div className="max-w-4xl mx-auto">
               <Accordion type="single" collapsible className="space-y-4">
                 {servicos.map((servico, index) => (
-                  <AccordionItem 
-                    key={index} 
+                  <AccordionItem
+                    key={index}
                     value={`item-${index}`}
                     className="border border-border/50 rounded-lg px-6 hover:border-primary/30 transition-colors duration-300"
                   >
@@ -189,11 +189,11 @@ const ConsultoriaJuridica = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex items-center justify-center space-x-3 text-muted-foreground">
                     <Phone className="w-5 h-5 text-primary" />
-                    <span>(11) 4712-2513</span>
+                    <span>(11)99848-0708</span>
                   </div>
                   <div className="flex items-center justify-center space-x-3 text-muted-foreground">
                     <Mail className="w-5 h-5 text-primary" />
-                    <span>juridico@aisam.com.br</span>
+                    <span>contato@emgsa.com.br</span>
                   </div>
                 </div>
                 <Button size="lg" className="mt-6">
