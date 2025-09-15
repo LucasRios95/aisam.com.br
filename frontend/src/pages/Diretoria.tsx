@@ -1,7 +1,7 @@
 import PageLayout from "@/components/PageLayout";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserIcon, Mail, Phone } from "lucide-react";
 
 const Diretoria = () => {
@@ -11,31 +11,35 @@ const Diretoria = () => {
       position: "Presidente",
       company: "Vifranca Incorporacoes Ltda",
       email: "vinicio@aisam.com.br",
-
+      image: "../src/assets/vinicio.png"
     },
     {
       name: "Élvio Luiz Lorieri",
       position: "Vice-Presidente",
       company: "SOLDATOPO-FLADAFI CONTAINERS",
       email: "aisam@aisam.com.br",
+      image: "../src/assets/elvio.png"
     },
     {
       name: "Eduardo Estefano Filho",
       position: "Conselheiro Consultivo e Fiscal",
       company: "Cambuci S.A.",
       email: "aisam@aisam.com.br",
+      image: "../src/assets/eduardo.png"
     },
     {
       name: "José Luiz Gavazzi",
       position: "Conselheiro Consultivo",
       company: "Fábrica de Artefatos de Latex Sao Roque Ltda",
       email: "aisam@aisam.com.br",
+      image: '../src/assets/jose-luis-gavazzi.png'
     },
     {
       name: "Paulo Zanão",
       position: "Conselheiro Consultivo",
       company: "Caglaggi Sanmitsu",
       email: "aisam@aisam.com.br",
+      image: "../src/assets/paulo-zanao.png"
     },
     {
       name: "Luiz Gonzaga Fontes",
@@ -88,9 +92,10 @@ const Diretoria = () => {
                 <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
                   <CardHeader className="text-center pb-4">
                     <div className="relative mx-auto mb-4">
-                      <Avatar className="w-20 h-20 mx-auto border-4 border-primary/20 group-hover:border-primary/40 transition-colors duration-300">
+                      <Avatar className="w-20 h-20 mx-auto border-4 border-primary/20 group-hover:border-primary/40 transition-colors duration-300" >
+                        <AvatarImage className="w-full h-full" src={diretor.image} alt="" />
                         <AvatarFallback className="bg-gradient-to-br from-primary/10 to-accent/10 text-primary text-lg font-semibold">
-                          <UserIcon className="w-10 h-10" />
+                          <img src="{diretor.image}" className="w-full h-full" alt="" />
                         </AvatarFallback>
                       </Avatar>
                       <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
