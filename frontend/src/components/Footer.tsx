@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
+import logo from '@/assets/aisam-logo.webp'
 
 const Footer = () => {
   const quickLinks = [
@@ -30,7 +31,7 @@ const Footer = () => {
                   aria-label="AISAM - Página inicial"
                 >
                   <img
-                    src="/src/assets/aisam-logo.webp"
+                    src={logo}
                     alt="AISAM"
                     className="h-12 w-auto group-hover:scale-105 transition-all duration-300"
                   />

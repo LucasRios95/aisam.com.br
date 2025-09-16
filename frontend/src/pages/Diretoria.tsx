@@ -3,6 +3,15 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserIcon, Mail, Phone } from "lucide-react";
+import vinicio from "@/assets/vinicio.png"
+import elvio from "@/assets/elvio.png"
+import eduardo from "@/assets/eduardo.png"
+import jose from "@/assets/jose-luis-gavazzi.png"
+import paulo from "@/assets/paulo-zanao.png"
+import luiz from "@/assets/luiz-gonzaga.png"
+import reinaldo from "@/assets/reinaldo.png"
+import antonio from "@/assets/Antonio-Carlos-Bonfante.png"
+
 
 const Diretoria = () => {
   const diretores = [
@@ -11,56 +20,56 @@ const Diretoria = () => {
       position: "Presidente",
       company: "Vifranca Incorporacoes Ltda",
       email: "vinicio@aisam.com.br",
-      image: "../src/assets/vinicio.png"
+      image: `${vinicio}`
     },
     {
       name: "Élvio Luiz Lorieri",
       position: "Vice-Presidente",
       company: "SOLDATOPO-FLADAFI CONTAINERS",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/elvio.png"
+      image: `${elvio}`
     },
     {
       name: "Eduardo Estefano Filho",
       position: "Conselheiro Consultivo e Fiscal",
       company: "Cambuci S.A.",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/eduardo.png"
+      image: `${eduardo}`
     },
     {
       name: "José Luiz Gavazzi",
       position: "Conselheiro Consultivo",
       company: "Fábrica de Artefatos de Latex Sao Roque Ltda",
       email: "aisam@aisam.com.br",
-      image: '../src/assets/jose-luis-gavazzi.png'
+      image: `${jose}`
     },
     {
       name: "Paulo Zanão",
       position: "Conselheiro Consultivo",
       company: "Caglaggi Sanmitsu",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/paulo-zanao.png"
+      // image: `${paulo}`
     },
     {
       name: "Luiz Gonzaga Fontes",
       position: "Conselheiro Consultivo",
       company: "",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/luiz-gonzaga.png"
+      image: `${luiz}`
     },
     {
       name: "Reinaldo Mastrogiuseppe",
       position: "Conselheiro Consultivo",
       company: "",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/reinaldo.png"
+      image: `${reinaldo}`
     },
     {
       name: "Antônio Carlos Bonfante",
       position: "Conselheiro Fiscal",
       company: "Indústria Brasileira de Balões",
       email: "aisam@aisam.com.br",
-      image: "../src/assets/Antonio-Carlos-Bonfante.png"
+      image: `${antonio}`
     },
     {
       name: "Luciano Lopreto De Souza Dias",

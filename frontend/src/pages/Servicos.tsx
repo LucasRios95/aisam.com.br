@@ -2,12 +2,12 @@ import PageLayout from "@/components/PageLayout";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  Scale, 
-  Handshake, 
-  TrendingUp, 
-  MessageSquare, 
+import {
+  Users,
+  Scale,
+  Handshake,
+  TrendingUp,
+  MessageSquare,
   Calendar,
   FileText,
   Building2,
@@ -122,7 +122,7 @@ const Servicos = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Introdução */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -132,8 +132,8 @@ const Servicos = () => {
             className="text-center mb-16"
           >
             <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-              A AISAM oferece uma gama completa de serviços desenvolvidos especialmente para 
-              atender às necessidades das empresas industriais, promovendo seu crescimento 
+              A AISAM oferece uma gama completa de serviços desenvolvidos especialmente para
+              atender às necessidades das empresas industriais, promovendo seu crescimento
               e fortalecimento no mercado.
             </p>
           </motion.div>
@@ -229,7 +229,7 @@ const Servicos = () => {
                   Pronto para Fazer Parte da AISAM?
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Junte-se à maior associação industrial da região e tenha acesso a todos 
+                  Junte-se à maior associação industrial da região e tenha acesso a todos
                   esses serviços e benefícios exclusivos para empresas associadas.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -246,15 +246,15 @@ const Servicos = () => {
                     </a>
                   </Button>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 pt-6 border-t border-border/30">
                   <div className="flex items-center space-x-3 text-muted-foreground">
                     <Phone className="w-5 h-5 text-primary" />
-                    <span>(11) 4712-2513</span>
+                    <span>(11) 4712-6979</span>
                   </div>
                   <div className="flex items-center space-x-3 text-muted-foreground">
                     <Mail className="w-5 h-5 text-primary" />
-                    <span>contato@aisam.com.br</span>
+                    <span>aisam@aisam.com.br</span>
                   </div>
                 </div>
               </CardContent>

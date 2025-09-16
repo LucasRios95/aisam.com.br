@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from '@/assets/aisam-logo.webp'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ const Header = () => {
               aria-label="AISAM - Página inicial"
             >
               <img
-                src="/src/assets/aisam-logo.webp"
+                src={logo}
                 alt="AISAM"
                 className="h-12 w-auto group-hover:scale-105 transition-all duration-300"
               />

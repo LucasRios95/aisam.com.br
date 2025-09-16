@@ -2,13 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Building2, Users, HandshakeIcon } from "lucide-react";
+import backgroundImage from "@/assets/fabril-background.jpg";
+
 
 const Hero = () => {
   return (
     <section className="hero-section text-primary-foreground relative overflow-hidden">
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/src/assets/fabril-background.jpg)' }}
+        style={{ background: `url(${backgroundImage})` }}
       ></div>
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-accent/30"></div>
@@ -30,7 +32,7 @@ const Hero = () => {
               Associação das Indústrias de São Roque, Araçariguama, Alumínio e Mairinque
             </p>
             <p className="text-lg md:text-xl mb-8 opacity-80 leading-relaxed">
-              Fundada em 1986, reunimos as indústrias da região para fortalecer 
+              Fundada em 1986, reunimos as indústrias da região para fortalecer
               a união empresarial e defender nossos interesses comuns.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
