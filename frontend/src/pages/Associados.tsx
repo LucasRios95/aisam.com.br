@@ -9,7 +9,8 @@ const Associados = () => {
     {
       name: "MGV RECURSOS HUMANOS E TERCEIRIZAÇÃO",
       sector: "RH – Recrutamento e Terceirização",
-      description: "Especializada em soluções completas de recursos humanos e terceirização de serviços."
+      description: "Especializada em soluções completas de recursos humanos e terceirização de serviços.",
+      image: "../src/assets/mgv.png"
     },
     {
       name: "SEAP ADMINISTRAÇÃO DE BENS LTDA.",
@@ -19,7 +20,8 @@ const Associados = () => {
     {
       name: "SOLDATOPO – FLADAFI CONTAINERS LTDA",
       sector: "Fundição de Ferro e Aço",
-      description: "Soldagem especializada e fabricação de containers industriais."
+      description: "Soldagem especializada e fabricação de containers industriais.",
+      image: "../src/assets/Soldatopo.BMP"
     },
     {
       name: "IBB – Indústria Brasileira de Balões",
@@ -75,7 +77,7 @@ const Associados = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Call to Action */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -89,7 +91,7 @@ const Associados = () => {
               Seja um Associado AISAM
             </h2>
             <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Junte-se a dezenas de empresas que já fazem parte da nossa rede. 
+              Junte-se a dezenas de empresas que já fazem parte da nossa rede.
               Conheça os benefícios e fortaleça sua empresa através da união industrial.
             </p>
             <Button size="lg" asChild>
@@ -142,7 +144,7 @@ const Associados = () => {
               Para mais informações sobre nossos associados
             </h2>
             <p className="text-muted-foreground mb-6">
-              Entre em contato conosco para conhecer melhor as empresas parceiras 
+              Entre em contato conosco para conhecer melhor as empresas parceiras
               e oportunidades de negócio em nossa rede.
             </p>
             <Button variant="outline" size="lg">

@@ -46,13 +46,28 @@ const Diretoria = () => {
       position: "Conselheiro Consultivo",
       company: "",
       email: "aisam@aisam.com.br",
+      image: "../src/assets/luiz-gonzaga.png"
     },
     {
       name: "Reinaldo Mastrogiuseppe",
       position: "Conselheiro Consultivo",
       company: "",
       email: "aisam@aisam.com.br",
+      image: "../src/assets/reinaldo.png"
     },
+    {
+      name: "Antônio Carlos Bonfante",
+      position: "Conselheiro Fiscal",
+      company: "Indústria Brasileira de Balões",
+      email: "aisam@aisam.com.br",
+      image: "../src/assets/Antonio-Carlos-Bonfante.png"
+    },
+    {
+      name: "Luciano Lopreto De Souza Dias",
+      position: "Conselheiro Fiscal",
+      company: "",
+      email: "aisam@aisam.com.br",
+    }
 
   ];
 
