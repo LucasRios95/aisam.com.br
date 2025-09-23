@@ -99,15 +99,11 @@ const Servicos = () => {
       description: "Rede sólida de empresários industriais"
     },
     {
-      number: "37",
+      number: "39",
       label: "Anos de Experiência",
       description: "Tradição em representação industrial"
     },
-    {
-      number: "24/7",
-      label: "Suporte Disponível",
-      description: "Atendimento sempre que precisar"
-    },
+
     {
       number: "100%",
       label: "Comprometimento",
