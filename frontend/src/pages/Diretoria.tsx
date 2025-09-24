@@ -7,10 +7,12 @@ import vinicio from "@/assets/vinicio.png"
 import elvio from "@/assets/elvio.png"
 import eduardo from "@/assets/eduardo.png"
 import jose from "@/assets/jose-luis-gavazzi.png"
-import paulo from "@/assets/paulo-zanao.png"
+import paulo from "@/assets/paulo.jpeg"
 import luiz from "@/assets/luiz-gonzaga.png"
 import reinaldo from "@/assets/reinaldo.png"
 import antonio from "@/assets/Antonio-Carlos-Bonfante.png"
+import claudio from "@/assets/claudio.jfif"
+
 
 
 const Diretoria = () => {
@@ -48,22 +50,22 @@ const Diretoria = () => {
       position: "Conselheiro Consultivo",
       company: "Caglaggi Sanmitsu",
       email: "aisam@aisam.com.br",
-      // image: `${paulo}`
+      image: `${paulo}`
     },
-    {
-      name: "Luiz Gonzaga Fontes",
-      position: "Conselheiro Consultivo",
-      company: "",
-      email: "aisam@aisam.com.br",
-      image: `${luiz}`
-    },
-    {
-      name: "Reinaldo Mastrogiuseppe",
-      position: "Conselheiro Consultivo",
-      company: "",
-      email: "aisam@aisam.com.br",
-      image: `${reinaldo}`
-    },
+    // {
+    //   name: "Luiz Gonzaga Fontes",
+    //   position: "Conselheiro Consultivo",
+    //   company: "",
+    //   email: "aisam@aisam.com.br",
+    //   image: `${luiz}`
+    // },
+    // {
+    //   name: "Reinaldo Mastrogiuseppe",
+    //   position: "Conselheiro Consultivo",
+    //   company: "",
+    //   email: "aisam@aisam.com.br",
+    //   image: `${reinaldo}`
+    // },
     {
       name: "Antônio Carlos Bonfante",
       position: "Conselheiro Fiscal",
@@ -76,6 +78,7 @@ const Diretoria = () => {
       position: "Conselheiro Fiscal",
       company: "",
       email: "aisam@aisam.com.br",
+      image: `${claudio}`
     }
 
   ];
