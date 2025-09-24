@@ -51,24 +51,56 @@ const AssocieSe = () => {
 
   const onSubmit = async (data: MembershipFormData) => {
     setIsSubmitting(true);
-    
+
     try {
-      // Simular envio - aqui você integrará com seu backend Node.js
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      console.log('Dados do formulário:', data);
-      
+      // Formatação do email
+      const emailSubject = `Nova Solicitação de Associação - ${data.companyName}`;
+      const emailBody = `
+NOVA SOLICITAÇÃO DE ASSOCIAÇÃO AISAM
+
+=== DADOS DA EMPRESA ===
+Empresa: ${data.companyName}
+CNPJ: ${data.cnpj}
+Setor Industrial: ${data.industry}
+Número de Funcionários: ${data.employees}
+
+=== DADOS DE CONTATO ===
+Responsável: ${data.responsibleName}
+Email: ${data.email}
+Telefone: ${data.phone}
+
+=== ENDEREÇO ===
+Endereço: ${data.address}
+Cidade: ${data.city}
+
+=== INFORMAÇÕES ADICIONAIS ===
+Descrição da Empresa:
+${data.description}
+
+Motivação para Associação:
+${data.motivation}
+
+---
+Solicitação enviada em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}
+      `.trim();
+
+      // Criar link mailto formatado
+      const mailtoLink = `mailto:aisam@aisam.com.br?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+      // Abrir cliente de email
+      window.location.href = mailtoLink;
+
       toast({
-        title: "Solicitação registrada!",
-        description: "Seus dados foram salvos. Integre com seu backend Node.js para envio por email.",
+        title: "Email preparado!",
+        description: "Seu cliente de email foi aberto com os dados formatados. Revise e envie o email.",
       });
 
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
-        title: "Erro ao enviar solicitação",
-        description: "Houve um problema ao processar sua solicitação. Tente novamente.",
+        title: "Erro ao preparar email",
+        description: "Houve um problema ao preparar o email. Tente novamente.",
         variant: "destructive",
       });
     } finally {

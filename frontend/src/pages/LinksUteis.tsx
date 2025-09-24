@@ -39,7 +39,7 @@ const LinksUteis = () => {
         {
           name: "Planalto - Legislação",
           description: "Portal da legislação federal brasileira",
-          url: "http://www.planalto.gov.br/ccivil_03/leis/"
+          url: "https://www.planalto.gov.br/ccivil_03/leis/"
         },
         {
           name: "Consolidação das Leis do Trabalho",

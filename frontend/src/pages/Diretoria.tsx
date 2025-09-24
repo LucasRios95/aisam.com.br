@@ -72,7 +72,7 @@ const Diretoria = () => {
       image: `${antonio}`
     },
     {
-      name: "Luciano Lopreto De Souza Dias",
+      name: "Cláudio José de Góes",
       position: "Conselheiro Fiscal",
       company: "",
       email: "aisam@aisam.com.br",
@@ -169,7 +169,7 @@ const Diretoria = () => {
                 <div className="text-sm text-muted-foreground">Membros da Diretoria</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-2">37</div>
+                <div className="text-3xl font-bold text-primary mb-2">39</div>
                 <div className="text-sm text-muted-foreground">Anos de Experiência</div>
               </div>
             </div>

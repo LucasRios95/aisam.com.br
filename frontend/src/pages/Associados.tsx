@@ -4,69 +4,93 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Building2 } from "lucide-react";
 
+// Importar logos dos associados
+import logoMGV from "@/assets/Logo CMYK (002).jpg";
+import logoSEAP from "@/assets/LOGO ESCURO.png";
+import logoSoldatopo from "@/assets/LOGO FLADAFI SOLDATOPO desde 1967.bmp";
+import logoIBB from "@/assets/Logotipo IBB.TIF";
+import logoCefri from "@/assets/Cefri.jpg";
+import logoCambuci from "@/assets/Cambucci.jpg";
+import logoCablaggi from "@/assets/Cablaggi.jpg";
+import logoCelutex from "@/assets/INALTEX-INDUSTRIA-BRASILEIRA-LTDA.webp";
+import logoConcentrol from "@/assets/Concentrol.jpg";
+import logoEngeformas from "@/assets/Logo Engeformas correto - 2025.jpg";
+import logoGerdau from "@/assets/fabril-background.jpg"; // placeholder
+import logoReckitt from "@/assets/fabril-background.jpg"; // placeholder
+
 const Associados = () => {
   const associados = [
     {
       name: "MGV RECURSOS HUMANOS E TERCEIRIZAÇÃO",
       sector: "RH – Recrutamento e Terceirização",
       description: "Especializada em soluções completas de recursos humanos e terceirização de serviços.",
-      image: "../src/assets/mgv.png"
+      logo: logoMGV
     },
     {
       name: "SEAP ADMINISTRAÇÃO DE BENS LTDA.",
       sector: "Administração de Empresas",
-      description: "Administração profissional de bens e serviços empresariais."
+      description: "Administração profissional de bens e serviços empresariais.",
+      logo: logoSEAP
     },
     {
       name: "SOLDATOPO – FLADAFI CONTAINERS LTDA",
       sector: "Fundição de Ferro e Aço",
       description: "Soldagem especializada e fabricação de containers industriais.",
-      image: "../src/assets/Soldatopo.BMP"
+      logo: logoSoldatopo
     },
     {
       name: "IBB – Indústria Brasileira de Balões",
       sector: "Indústria de Látex",
-      description: "Fabricação de artefatos de látex e produtos infláveis."
+      description: "Fabricação de artefatos de látex e produtos infláveis.",
+      logo: logoIBB
     },
     {
       name: "CEFRI – LOGÍSTICA E ARMAZENAGEM FRIGORIFICADA",
       sector: "Indústrias de Alimentação e Bebidas",
-      description: "Soluções em logística e armazenagem frigorificada para agroindústria."
+      description: "Soluções em logística e armazenagem frigorificada para agroindústria.",
+      logo: logoCefri
     },
     {
       name: "CAMBUCI S/A",
       sector: "Indústria de Material Esportivo",
-      description: "Fabricação de equipamentos e uniformes esportivos."
+      description: "Fabricação de equipamentos e uniformes esportivos.",
+      logo: logoCambuci
     },
     {
       name: "CABLAGGI SANMITSU",
       sector: "Telecomunicações",
-      description: "Soluções em cabeamento e infraestrutura de telecomunicações."
+      description: "Soluções em cabeamento e infraestrutura de telecomunicações.",
+      logo: logoCablaggi
     },
     {
       name: "CELUTEX NÃO TECIDOS",
       sector: "Indústria Textil",
-      description: "Produção de tecidos não-tecidos para diversas aplicações industriais."
+      description: "Produção de tecidos não-tecidos para diversas aplicações industriais.",
+      logo: logoCelutex
     },
     {
       name: "CONCENTROL DO BRASIL",
       sector: "Indústria Química",
-      description: "Indústria e comércio de produtos químicos especializados."
+      description: "Indústria e comércio de produtos químicos especializados.",
+      logo: logoConcentrol
     },
     {
       name: "ENGEFORMAS INDÚSTRIA E COMÉRCIO",
       sector: "Equipamentos Industriais",
-      description: "Indústria e comércio de auto peças e equipamentos industriais."
+      description: "Indústria e comércio de auto peças e equipamentos industriais.",
+      logo: logoEngeformas
     },
     {
       name: "GERDAU AÇOS LONGOS",
       sector: "Metalurgia",
-      description: "Usina siderúrgica de Araçariguama, produção de aços longos."
+      description: "Usina siderúrgica de Araçariguama, produção de aços longos.",
+      logo: logoGerdau
     },
     {
       name: "RECKITT BENCKISER (BRASIL) LTDA.",
       sector: "Indústria de Cosméticos",
-      description: "Produtos de higiene pessoal, cosméticos e perfumaria."
+      description: "Produtos de higiene pessoal, cosméticos e perfumaria.",
+      logo: logoReckitt
     }
   ];
 
@@ -114,8 +138,16 @@ const Associados = () => {
               >
                 <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <Building2 className="h-6 w-6 text-primary" />
+                    <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mb-4 overflow-hidden shadow-sm">
+                      {associado.logo ? (
+                        <img
+                          src={associado.logo}
+                          alt={`Logo ${associado.name}`}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <Building2 className="h-8 w-8 text-primary" />
+                      )}
                     </div>
                     <h3 className="font-bold text-foreground mb-2 text-sm leading-tight">
                       {associado.name}
@@ -147,8 +179,10 @@ const Associados = () => {
               Entre em contato conosco para conhecer melhor as empresas parceiras
               e oportunidades de negócio em nossa rede.
             </p>
-            <Button variant="outline" size="lg">
-              Entre em Contato
+            <Button variant="outline" size="lg" asChild>
+              <a href="/contato">
+                Entre em Contato
+              </a>
             </Button>
           </motion.div>
         </div>

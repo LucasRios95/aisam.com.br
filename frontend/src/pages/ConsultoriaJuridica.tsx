@@ -189,15 +189,17 @@ const ConsultoriaJuridica = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex items-center justify-center space-x-3 text-muted-foreground">
                     <Phone className="w-5 h-5 text-primary" />
-                    <span>(11)99848-0708</span>
+                    <span>(11) 99848-0088</span>
                   </div>
                   <div className="flex items-center justify-center space-x-3 text-muted-foreground">
                     <Mail className="w-5 h-5 text-primary" />
                     <span>contato@emgsa.com.br</span>
                   </div>
                 </div>
-                <Button size="lg" className="mt-6">
-                  Agendar Consulta
+                <Button size="lg" className="mt-6" asChild>
+                  <a href="tel:+5511998480088">
+                    Agendar Consulta
+                  </a>
                 </Button>
               </CardContent>
             </Card>

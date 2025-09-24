@@ -44,7 +44,7 @@ const Aisam = () => {
                 <Card className="card-shadow">
                   <CardContent className="p-6 text-center">
                     <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
-                    <h3 className="text-2xl font-bold text-foreground">35+</h3>
+                    <h3 className="text-2xl font-bold text-foreground">Mais de 39</h3>
                     <p className="text-muted-foreground">Anos de Experiência</p>
                   </CardContent>
                 </Card>

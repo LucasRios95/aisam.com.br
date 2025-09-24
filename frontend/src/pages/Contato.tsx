@@ -75,7 +75,7 @@ const Contato = () => {
     {
       nome: "Consultoria Jurídica",
       email: "juridico@aisam.com.br",
-      telefone: "(11) 4712-2513",
+      telefone: "(11) 4712-6979",
       responsavel: "Setor Jurídico"
     },
     {
