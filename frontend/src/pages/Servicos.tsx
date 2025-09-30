@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Users,
-  Scale,
   Handshake,
   TrendingUp,
   MessageSquare,
@@ -13,23 +12,13 @@ import {
   Building2,
   Phone,
   Mail,
-  ExternalLink
+  ExternalLink,
+  MessageCircle
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Servicos = () => {
   const servicos = [
-    {
-      icon: Scale,
-      title: "Consultoria Jurídica",
-      description: "Assessoria jurídica especializada em direito empresarial, trabalhista e tributário para empresas industriais.",
-      features: [
-        "Consultoria trabalhista e tributária",
-        "Assessoria em contratos empresariais",
-        "Orientação em legislação industrial",
-        "Suporte em questões regulatórias"
-      ],
-      link: "/consultoria-juridica"
-    },
     {
       icon: Users,
       title: "Networking Empresarial",
@@ -49,8 +38,7 @@ const Servicos = () => {
       features: [
         "Consultoria em gestão empresarial",
         "Orientação para expansão",
-        "Modernização de processos",
-        "Acesso a linhas de crédito"
+        "Modernização de processos"
       ],
       link: "/associe-se"
     },
@@ -102,11 +90,6 @@ const Servicos = () => {
       number: "39+",
       label: "Anos de Experiência",
       description: "Tradição em representação industrial"
-    },
-    {
-      number: "24/7",
-      label: "Suporte Disponível",
-      description: "Atendimento sempre que precisar"
     },
     {
       number: "100%",
@@ -168,10 +151,10 @@ const Servicos = () => {
                       ))}
                     </ul>
                     <Button variant="outline" size="sm" asChild className="w-full">
-                      <a href={servico.link}>
+                      <Link to={servico.link}>
                         Saiba Mais
                         <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -190,7 +173,7 @@ const Servicos = () => {
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
               Nossa Força em Números
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {vantagens.map((vantagem, index) => (
                 <motion.div
                   key={vantagem.label}
@@ -234,15 +217,21 @@ const Servicos = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" asChild>
-                    <a href="/associe-se">
+                    <Link to="/associe-se">
                       Associe-se Agora
                       <ExternalLink className="ml-2 h-5 w-5" />
-                    </a>
+                    </Link>
                   </Button>
                   <Button size="lg" variant="outline" asChild>
-                    <a href="/contato">
-                      Entre em Contato
-                      <Phone className="ml-2 h-5 w-5" />
+                    <Link to="/contato">
+                      Saiba Mais
+                      <ExternalLink className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="secondary" asChild>
+                    <a href="https://wa.me/551147126979" target="_blank" rel="noopener noreferrer">
+                      WhatsApp
+                      <MessageCircle className="ml-2 h-5 w-5" />
                     </a>
                   </Button>
                 </div>

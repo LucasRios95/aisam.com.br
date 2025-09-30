@@ -8,12 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
-  Send, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
   Building2,
   MessageSquare,
   User,
@@ -27,7 +27,7 @@ const Contato = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setCarregando(true);
-    
+
     // Simular envio (aqui você integraria com sua API)
     setTimeout(() => {
       toast({
@@ -54,7 +54,7 @@ const Contato = () => {
     {
       icon: Mail,
       title: "E-mail",
-      info: "contato@aisam.com.br",
+      info: "aisam@aisam.com.br",
       complemento: "Resposta em até 24 horas"
     },
     {
@@ -68,25 +68,25 @@ const Contato = () => {
   const departamentos = [
     {
       nome: "Diretoria Geral",
-      email: "diretoria@aisam.com.br",
+      email: "aisam@aisam.com.br",
       telefone: "(11) 4712-6979",
       responsavel: "Departamento Executivo"
     },
     {
       nome: "Consultoria Jurídica",
-      email: "juridico@aisam.com.br",
+      email: "aisam@aisam.com.br",
       telefone: "(11) 4712-6979",
       responsavel: "Setor Jurídico"
     },
     {
       nome: "Relacionamento com Associados",
-      email: "associados@aisam.com.br",
+      email: "aisam@aisam.com.br",
       telefone: "(11) 4712-6979",
       responsavel: "Departamento de Relacionamento"
     },
     {
       nome: "Eventos e Capacitação",
-      email: "eventos@aisam.com.br",
+      email: "aisam@aisam.com.br",
       telefone: "(11) 4712-6979",
       responsavel: "Setor de Desenvolvimento"
     }
@@ -99,7 +99,7 @@ const Contato = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Informações de Contato */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -163,7 +163,7 @@ const Contato = () => {
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="empresa">Empresa</Label>
                         <div className="relative">
@@ -176,7 +176,7 @@ const Contato = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="email">E-mail *</Label>
@@ -191,7 +191,7 @@ const Contato = () => {
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="telefone">Telefone *</Label>
                         <div className="relative">
@@ -206,7 +206,7 @@ const Contato = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="assunto">Assunto</Label>
                       <Select>
@@ -222,7 +222,7 @@ const Contato = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="mensagem">Mensagem *</Label>
                       <Textarea
@@ -232,10 +232,10 @@ const Contato = () => {
                         required
                       />
                     </div>
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full" 
+
+                    <Button
+                      type="submit"
+                      className="w-full"
                       disabled={carregando}
                       size="lg"
                     >
@@ -266,7 +266,7 @@ const Contato = () => {
                   <Briefcase className="h-6 w-6 mr-3 text-primary" />
                   Contatos por Departamento
                 </h2>
-                
+
                 <div className="space-y-4">
                   {departamentos.map((departamento, index) => (
                     <motion.div
@@ -316,7 +316,7 @@ const Contato = () => {
                       Nossa Localização
                     </h3>
                     <p className="text-muted-foreground text-sm mb-4">
-                      Estamos localizados no coração de São Roque, com fácil acesso 
+                      Estamos localizados no coração de São Roque, com fácil acesso
                       para todas as cidades da região.
                     </p>
                     <div className="bg-muted/30 rounded-lg p-4 text-left">

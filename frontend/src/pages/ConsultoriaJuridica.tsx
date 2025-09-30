@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Scale, FileText, Shield, Clock, Phone, Mail } from "lucide-react";
+import { Scale, FileText, Shield, Clock, Phone, Mail, User, Award } from "lucide-react";
+import martinhoLogo from "@/assets/martinho-advocacia.jfif";
 
 const ConsultoriaJuridica = () => {
   const servicos = [
@@ -15,16 +16,6 @@ const ConsultoriaJuridica = () => {
         "Orientação sobre cumprimento da CLT",
         "Assessoria em processos trabalhistas",
         "Consultoria em convenções coletivas"
-      ]
-    },
-    {
-      title: "Consultoria Tributária",
-      description: "Suporte especializado em questões fiscais e tributárias para empresas industriais.",
-      details: [
-        "Planejamento tributário estratégico",
-        "Orientação sobre ICMS e IPI",
-        "Consultoria em benefícios fiscais",
-        "Assessoria em auditorias fiscais"
       ]
     },
     {
@@ -169,40 +160,87 @@ const ConsultoriaJuridica = () => {
             </div>
           </motion.div>
 
-          {/* Contato */}
+          {/* Consultores */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="mb-16"
           >
-            <Card className="max-w-4xl mx-auto border-0 bg-gradient-to-br from-primary/5 to-accent/5">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl text-foreground mb-4">
-                  Precisa de Consultoria Jurídica?
-                </CardTitle>
-                <p className="text-muted-foreground">
-                  Entre em contato conosco para agendar uma consulta com nossos especialistas
-                </p>
-              </CardHeader>
-              <CardContent className="text-center space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex items-center justify-center space-x-3 text-muted-foreground">
-                    <Phone className="w-5 h-5 text-primary" />
-                    <span>(11) 99848-0088</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-3 text-muted-foreground">
-                    <Mail className="w-5 h-5 text-primary" />
-                    <span>contato@emgsa.com.br</span>
-                  </div>
-                </div>
-                <Button size="lg" className="mt-6" asChild>
-                  <a href="tel:+5511998480088">
-                    Agendar Consulta
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Nossos Consultores
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Profissionais experientes e especializados para atender às necessidades jurídicas das empresas industriais
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                      <User className="h-10 w-10 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Dr. Waldemar</h3>
+                    <p className="text-primary font-medium mb-4">Advogado Sênior</p>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Award className="w-4 h-4" />
+                      <span className="text-sm">Especialista em Direito Empresarial</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Ampla experiência em consultoria jurídica para empresas industriais,
+                      especialização em direito trabalhista e tributário.
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-full max-w-xs mx-auto mb-6 rounded-xl bg-white flex items-center justify-center p-8">
+                      <img src={martinhoLogo} alt="Ergesse Martinho e Guimarães - Sociedade de Advogados" className="w-full h-auto object-contain" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Ergesse Martinho e Guimarães - Sociedade de Advogados</h3>
+                    <p className="text-primary font-medium mb-4">Advogado Especialista</p>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Award className="w-4 h-4" />
+                      <span className="text-sm">Direito Ambiental e Empresarial</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                      Consultor especializado em questões ambientais e licenciamento industrial,
+                      com foco em compliance e gestão de riscos jurídicos.
+                    </p>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span className="text-sm">(11) 99495-5059</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Mail className="w-4 h-4 text-primary" />
+                      <span className="text-sm">ana@emgsa.com.br</span>
+                    </div>
+                    <Button size="lg" className="w-full" asChild>
+                      <a href="tel:+5511994955059">
+                        Agendar Consulta
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>

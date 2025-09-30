@@ -16,9 +16,10 @@ const Header = () => {
     { name: "Diretoria", href: "/diretoria" },
     { name: "Consultoria Jurídica", href: "/consultoria-juridica" },
     { name: "Serviços", href: "/servicos" },
+    { name: "JAISAM", href: "/jaisam" },
     { name: "Associe-se", href: "/associe-se" },
     { name: "Links Úteis", href: "/links-uteis" },
-    { name: "Notícias", href: "noticias" },
+    { name: "Notícias", href: "/noticias" },
   ];
 
   const isActivePage = (href: string) => {
@@ -30,7 +31,7 @@ const Header = () => {
   return (
     <header className="bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50 sticky top-0 z-50">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
@@ -41,7 +42,7 @@ const Header = () => {
               <img
                 src={logo}
                 alt="AISAM"
-                className="h-12 w-auto group-hover:scale-105 transition-all duration-300"
+                className="h-16 w-auto group-hover:scale-105 transition-all duration-300"
               />
             </Link>
           </div>

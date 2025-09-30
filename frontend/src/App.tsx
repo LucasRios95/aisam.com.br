@@ -20,6 +20,7 @@ import Vagas from "./pages/Vagas";
 import AdminUsers from "./pages/AdminUsers";
 import MeuCurriculo from "./pages/MeuCurriculo";
 import PublicarVaga from "./pages/PublicarVaga";
+import Jaisam from "./pages/Jaisam";
 import NotFound from "./pages/NotFound";
 
 
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/meu-curriculo" element={<MeuCurriculo />} />
           <Route path="/publicar-vaga" element={<PublicarVaga />} />
+          <Route path="/jaisam" element={<Jaisam />} />
           <Route path="/contato" element={<Contato />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

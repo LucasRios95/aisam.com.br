@@ -33,13 +33,13 @@ const Hero = () => {
             </p>
             <p className="text-lg md:text-xl mb-8 opacity-80 leading-relaxed">
               Fundada em 1986, reunimos as indústrias da região para fortalecer
-              a união empresarial e defender nossos interesses comuns.
+              a união empresarial e defender os interesses da classe.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/associe-se">
                   <HandshakeIcon className="mr-2 h-5 w-5" />
-                  Associe-se
+                  Associe-se agora
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
