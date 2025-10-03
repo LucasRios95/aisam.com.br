@@ -2,6 +2,7 @@ import "reflect-metadata"
 
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
+import path from "path";
 
 import createConnection from "../typeorm";
 import "../../container";
@@ -14,6 +15,9 @@ createConnection();
 const app = express();
 
 app.use(express.json());
+
+// Servir arquivos estáticos (uploads)
+app.use("/files", express.static(path.resolve(__dirname, "..", "..", "..", "tmp", "uploads")));
 
 app.use(router);
 

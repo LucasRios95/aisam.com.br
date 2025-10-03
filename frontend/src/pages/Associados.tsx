@@ -33,7 +33,10 @@ import logoGoes from "@/assets/Logo Góes (2).jpg";
 import logoUnimed from "@/assets/Unimed.jpg";
 import logoDemocrata from "@/assets/O democrata.jpg";
 import logoInova from "@/assets/logo-inovacao.jpg";
-import logoNovosPs from "@/assets/Logo-novosPS.png"
+import logoNovosPs from "@/assets/Logo-novosPS.png";
+import logoJE from "@/assets/logo-je.png";
+import logoValeman from "@/assets/Valemam logo.jpg";
+import logoMGV from "@/assets/logo-mgv.png";
 
 const Associados = () => {
   const associados = [
@@ -122,6 +125,12 @@ const Associados = () => {
       logo: logoLatex
     },
     {
+      name: "FÁBRICA DE ARTEFATOS DE LÁTEX SÃO ROQUE",
+      sector: "Indústria de Látex",
+      description: "Fabricação de artefatos de látex e produtos especializados.",
+      logo: logoLatex
+    },
+    {
       name: "FIORE CAIXAS LTDA",
       sector: "Indústria de Embalagens",
       description: "Fabricação de caixas e embalagens personalizadas.",
@@ -170,16 +179,16 @@ const Associados = () => {
       logo: logoMasterfew
     },
     {
-      name: "MELLO COMUNICAÇÕES",
-      sector: "Internet e TI",
-      description: "Serviços de comunicação e tecnologia da informação.",
-      logo: null
+      name: "JORNAL DA ECONOMIA",
+      sector: "Jornal e comunição",
+      description: "Serviços de comunicação",
+      logo: logoJE,
     },
     {
-      name: "MGV RECURSOS HUMANOS",
+      name: "GRUPO DIAS - TERCEIRIZAÇÃO E RH",
       sector: "RH – Recrutamento e Terceirização",
       description: "Especializada em soluções completas de recursos humanos e terceirização de serviços.",
-      logo: null
+      logo: logoMGV
     },
     {
       name: "NZ COOPERPOLYMER TERMOPLÁSTICOS ENGENHARIA",
@@ -206,7 +215,7 @@ const Associados = () => {
       logo: logoNovosPs
     },
     {
-      name: "O DEMOCRATA - IRMÃOS BOCATO",
+      name: "O DEMOCRATA",
       sector: "Comunicação",
       description: "Jornal e serviços de comunicação regional.",
       logo: logoDemocrata
@@ -221,7 +230,7 @@ const Associados = () => {
       name: "VALEMAM",
       sector: "Comércio",
       description: "Comércio de produtos diversos.",
-      logo: null
+      logo: logoValeman
     },
     {
       name: "VIFRANCA CORPORAÇÕES LTDA",

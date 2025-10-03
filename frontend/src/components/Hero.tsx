@@ -68,7 +68,7 @@ const Hero = () => {
                 <Users className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-2">Desde 1986</h3>
-              <p className="text-sm opacity-90">Mais de 35 anos defendendo nossos associados</p>
+              <p className="text-sm opacity-90">Mais de 39 anos defendendo nossos associados</p>
             </div>
           </motion.div>
         </div>

@@ -2,7 +2,9 @@ import PageLayout from "@/components/PageLayout";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Building2, Scale, TrendingUp, FileText, Shield } from "lucide-react";
+import { ExternalLink, Building2, Scale, TrendingUp, FileText, Shield, MessageCircle } from "lucide-react";
+import { url } from "inspector";
+import { Link } from "react-router-dom";
 
 const LinksUteis = () => {
   const categorias = [
@@ -81,6 +83,11 @@ const LinksUteis = () => {
           name: "SENAI",
           description: "Serviço Nacional de Aprendizagem Industrial",
           url: "https://www.sp.senai.br/"
+        },
+        {
+          name: "SESI",
+          description: "Serviço Social da Indústria",
+          url: "https://www.sesi.org.br/"
         }
       ]
     },
@@ -145,7 +152,7 @@ const LinksUteis = () => {
     >
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Introdução */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -155,7 +162,7 @@ const LinksUteis = () => {
             className="text-center mb-16"
           >
             <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-              Compilamos os principais links e recursos que toda empresa industrial precisa ter à mão. 
+              Compilamos os principais links e recursos que toda empresa industrial precisa ter à mão.
               Facilite o acesso às informações essenciais para o seu negócio.
             </p>
           </motion.div>
@@ -176,7 +183,7 @@ const LinksUteis = () => {
                   </div>
                   <h2 className="text-2xl font-bold text-foreground">{categoria.title}</h2>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                   {categoria.links.map((link, linkIndex) => (
                     <motion.div
@@ -197,10 +204,10 @@ const LinksUteis = () => {
                           <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                             {link.description}
                           </p>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            asChild 
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            asChild
                             className="w-full group-hover:border-primary/30 transition-colors duration-300"
                           >
                             <a href={link.url} target="_blank" rel="noopener noreferrer">
@@ -232,15 +239,29 @@ const LinksUteis = () => {
                   Precisa de Mais Informações?
                 </h2>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Nossa equipe está sempre disponível para ajudar você a encontrar os recursos 
+                  Nossa equipe está sempre disponível para ajudar você a encontrar os recursos
                   e informações necessários para o seu negócio. Entre em contato conosco!
                 </p>
-                <Button size="lg" asChild>
-                  <a href="/contato">
-                    Entre em Contato
-                    <ExternalLink className="ml-2 h-5 w-5" />
-                  </a>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" asChild>
+                    <Link to="/associe-se">
+                      Associe-se Agora
+                      <ExternalLink className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button size="lg" asChild>
+                    <a href="/contato">
+                      Entre em Contato
+                      <ExternalLink className="ml-2 h-5 w-5" />
+                    </a>
+                  </Button>
+                  <Button size="lg" variant="secondary" asChild>
+                    <a href="https://wa.me/551147126979" target="_blank" rel="noopener noreferrer">
+                      WhatsApp
+                      <MessageCircle className="ml-2 h-5 w-5" />
+                    </a>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
