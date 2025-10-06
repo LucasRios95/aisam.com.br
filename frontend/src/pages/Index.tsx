@@ -5,9 +5,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Users, HandshakeIcon, Handshake, UserCheck } from "lucide-react";
+import { ArrowRight, Building2, Users, HandshakeIcon, Handshake, UserCheck, Briefcase, Lightbulb } from "lucide-react";
 import senaiLogo from "@/assets/senai.svg";
 import sesiLogo from "@/assets/Logo-SESI-SP.svg";
+import aciaLogo from "@/assets/logo-aciasaoroque.jpg";
+import soriosLogo from "@/assets/logo-sorios.png";
+import mindadaptLogo from "@/assets/logo-mindadapt.png";
+import spcCdlLogo from "@/assets/logo-spc-cdl.png";
 
 const Index = () => {
   return (
@@ -125,7 +129,7 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -136,12 +140,12 @@ const Index = () => {
                 <CardContent className="p-6 text-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative z-10">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Users className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={aciaLogo} alt="ACÍA" className="w-full h-full object-contain" />
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">Empresas Sócias</h3>
+                    <h3 className="font-bold text-foreground mb-2">ACÍA</h3>
                     <p className="text-muted-foreground text-sm">
-                      Rede colaborativa de empresas associadas
+                      Associação Comercial de São Roque
                     </p>
                   </div>
                 </CardContent>
@@ -159,11 +163,11 @@ const Index = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative z-10">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
-                      <img src={senaiLogo} alt="SENAI" className="w-full h-full object-contain" />
+                      <img src={soriosLogo} alt="SORIOS" className="w-full h-full object-contain" />
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">SENAI</h3>
+                    <h3 className="font-bold text-foreground mb-2">SORIOS</h3>
                     <p className="text-muted-foreground text-sm">
-                      Capacitação profissional - SENAI Alumínio, SENAI Mairinque
+                      Soluções Empresariais
                     </p>
                   </div>
                 </CardContent>
@@ -181,17 +185,19 @@ const Index = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative z-10">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
-                      <img src={sesiLogo} alt="SESI" className="w-full h-full object-contain" />
+                      <img src={mindadaptLogo} alt="MINDADAPT" className="w-full h-full object-contain" />
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">SESI</h3>
+                    <h3 className="font-bold text-foreground mb-2">MINDADAPT</h3>
                     <p className="text-muted-foreground text-sm">
-                      Saúde ocupacional - SESI São Roque, SESI Alumínio
+                      Soluções em Tecnologia e Inovação
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -202,8 +208,52 @@ const Index = () => {
                 <CardContent className="p-6 text-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative z-10">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <UserCheck className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={senaiLogo} alt="SENAI Alumínio" className="w-full h-full object-contain" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-2">SENAI Alumínio</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Capacitação profissional
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                <CardContent className="p-6 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={senaiLogo} alt="SENAI Mairinque" className="w-full h-full object-contain" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-2">SENAI Mairinque</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Capacitação profissional
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                <CardContent className="p-6 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={spcCdlLogo} alt="SPC/CDL" className="w-full h-full object-contain" />
                     </div>
                     <h3 className="font-bold text-foreground mb-2">SPC/CDL</h3>
                     <p className="text-muted-foreground text-sm">
@@ -215,10 +265,56 @@ const Index = () => {
             </motion.div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                <CardContent className="p-6 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={sesiLogo} alt="SESI São Roque" className="w-full h-full object-contain" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-2">SESI São Roque</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Saúde ocupacional
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                <CardContent className="p-6 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                      <img src={sesiLogo} alt="SESI Alumínio" className="w-full h-full object-contain" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-2">SESI Alumínio</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Saúde ocupacional
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
             viewport={{ once: true }}
             className="mt-12 text-center"
           >
