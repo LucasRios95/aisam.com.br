@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { Scale, FileText, Shield, Clock, Phone, Mail, User, Award } from "lucide-react";
 import martinhoLogo from "@/assets/martinho-advocacia.jfif";
+import logoEGS from "@/assets/EGS2.png";
 
 const ConsultoriaJuridica = () => {
   const servicos = [
@@ -177,7 +178,7 @@ const ConsultoriaJuridica = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -204,24 +205,24 @@ const ConsultoriaJuridica = () => {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
-                    <div className="w-full max-w-xs mx-auto mb-6 rounded-xl bg-white flex items-center justify-center p-8">
+                    <div className="w-full max-w-[200px] mx-auto mb-6 rounded-xl bg-white flex items-center justify-center p-4">
                       <img src={martinhoLogo} alt="Ergesse Martinho e Guimarães - Sociedade de Advogados" className="w-full h-auto object-contain" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">Ergesse Martinho e Guimarães - Sociedade de Advogados</h3>
-                    <p className="text-primary font-medium mb-4">Advogado Especialista</p>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Ergesse Martinho e Guimarães</h3>
+                    <p className="text-primary font-medium mb-4">Sociedade de Advogados</p>
                     <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
                       <Award className="w-4 h-4" />
                       <span className="text-sm">Direito Ambiental e Empresarial</span>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                      Consultor especializado em questões ambientais e licenciamento industrial,
+                      Consultoria especializada em questões ambientais e licenciamento industrial,
                       com foco em compliance e gestão de riscos jurídicos.
                     </p>
                     <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
@@ -234,6 +235,44 @@ const ConsultoriaJuridica = () => {
                     </div>
                     <Button size="lg" className="w-full" asChild>
                       <a href="tel:+5511994955059">
+                        Agendar Consulta
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-full max-w-[250px] mx-auto mb-6 rounded-xl bg-slate-700 flex items-center justify-center p-8 overflow-hidden">
+                      <img src={logoEGS} alt="EGS Advogados" className="w-full h-auto object-contain scale-125" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">EGS Advogados</h3>
+                    <p className="text-primary font-medium mb-4">Escritório Especializado</p>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Award className="w-4 h-4" />
+                      <span className="text-sm">Direito Empresarial, Tributário, Trabalhista e Ambiental</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                      Escritório especializado em consultoria empresarial e licenciamento industrial,
+                      com foco em compliance e gestão de riscos jurídicos.
+                    </p>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span className="text-sm">(11) 3371-2890</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
+                      <Mail className="w-4 h-4 text-primary" />
+                      <span className="text-sm">contato@egsadvogados.com.br</span>
+                    </div>
+                    <Button size="lg" className="w-full" asChild>
+                      <a href="tel:+551133712890">
                         Agendar Consulta
                       </a>
                     </Button>

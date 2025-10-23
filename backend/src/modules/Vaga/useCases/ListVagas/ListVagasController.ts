@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { ListVagasUseCase } from "./ListVagasUseCase";
+import { VagaSerializer } from "../../utils/VagaSerializer";
 
 class ListVagasController {
     async handle(request: Request, response: Response): Promise<Response> {
@@ -18,7 +19,11 @@ class ListVagasController {
             offset: offset ? Number(offset) : undefined
         });
 
-        return response.json(vagas);
+        // Se o usuário estiver autenticado, incluir mais detalhes
+        const isAuthenticated = !!request.user;
+        const serializedVagas = VagaSerializer.serializeList(vagas, isAuthenticated);
+
+        return response.json(serializedVagas);
     }
 }
 

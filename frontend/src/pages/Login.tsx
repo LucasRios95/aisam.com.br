@@ -6,30 +6,46 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, User, Building, Phone } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Phone, MapPin, Shield, Briefcase } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 const Login = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [carregandoLogin, setCarregandoLogin] = useState(false);
-  const [carregandoCadastro, setCarregandoCadastro] = useState(false);
-  
-  // Login state
-  const [emailLogin, setEmailLogin] = useState("");
-  const [senhaLogin, setSenhaLogin] = useState("");
-  
-  // Cadastro state
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Candidato Login state
+  const [emailCandidato, setEmailCandidato] = useState("");
+
+  // Candidato Cadastro state
+  const [nomeCadastro, setNomeCadastro] = useState("");
   const [emailCadastro, setEmailCadastro] = useState("");
-  const [empresa, setEmpresa] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [senhaCadastro, setSenhaCadastro] = useState("");
-  
-  const { signIn, signUp, user } = useAuth();
+  const [telefoneCadastro, setTelefoneCadastro] = useState("");
+  const [cidadeCadastro, setCidadeCadastro] = useState("");
+  const [estadoCadastro, setEstadoCadastro] = useState("");
+  const [consentimento, setConsentimento] = useState(false);
+
+  // Recrutador Login state
+  const [emailRecrutador, setEmailRecrutador] = useState("");
+  const [senhaRecrutador, setSenhaRecrutador] = useState("");
+
+  // Admin Login state
+  const [emailAdmin, setEmailAdmin] = useState("");
+  const [senhaAdmin, setSenhaAdmin] = useState("");
+
+  // Tab state
+  const [candidatoTab, setCandidatoTab] = useState<"login" | "cadastro">("login");
+
+  const {
+    user,
+    signInCandidato,
+    signUpCandidato,
+    signInRecrutador,
+    signInAdmin
+  } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in
@@ -39,63 +55,105 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  // Candidato Magic Link
+  const handleLoginCandidato = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCarregandoLogin(true);
-    
+    setLoading(true);
+
     try {
-      const result = await signIn(emailLogin, senhaLogin);
-      if (!result.error) {
-        toast.success("Login realizado com sucesso!");
-        navigate("/dashboard");
+      const result = await signInCandidato(emailCandidato);
+      if (result.success) {
+        toast.success(result.message || "Link de acesso enviado!");
+        setEmailCandidato("");
       } else {
-        console.error("Auth error:", result.error);
-        toast.error(
-          result.error.message === "Invalid login credentials" 
-            ? "Email ou senha incorretos" 
-            : result.error.message
-        );
+        toast.error(result.message || "Erro ao enviar link");
       }
     } catch (error) {
-      console.error("Erro:", error);
       toast.error("Erro inesperado. Tente novamente.");
     } finally {
-      setCarregandoLogin(false);
+      setLoading(false);
     }
   };
 
-  const handleCadastro = async (e: React.FormEvent) => {
+  // Candidato Cadastro
+  const handleCadastroCandidato = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCarregandoCadastro(true);
-    
-    const fullName = `${nome} ${sobrenome}`.trim();
-    
-    if (!fullName) {
-      toast.error("Nome completo é obrigatório!");
-      setCarregandoCadastro(false);
+
+    if (!consentimento) {
+      toast.error("Você precisa aceitar o consentimento de dados");
       return;
     }
-    
+
+    setLoading(true);
+
     try {
-      const result = await signUp(emailCadastro, senhaCadastro, fullName);
-      if (!result.error) {
-        toast.success("Cadastro realizado! Verifique seu email para confirmar.");
+      const result = await signUpCandidato({
+        nome: nomeCadastro,
+        email: emailCadastro,
+        telefone: telefoneCadastro || undefined,
+        cidade: cidadeCadastro || undefined,
+        estado: estadoCadastro || undefined,
+        consentimento_dados: consentimento
+      });
+
+      if (result.success) {
+        toast.success(result.message || "Cadastro realizado!");
         // Clear form
-        setNome("");
-        setSobrenome("");
+        setNomeCadastro("");
         setEmailCadastro("");
-        setEmpresa("");
-        setTelefone("");
-        setSenhaCadastro("");
+        setTelefoneCadastro("");
+        setCidadeCadastro("");
+        setEstadoCadastro("");
+        setConsentimento(false);
+        // Switch to login tab
+        setCandidatoTab("login");
       } else {
-        console.error("Auth error:", result.error);
-        toast.error(result.error.message || "Erro ao criar conta");
+        toast.error(result.message || "Erro ao cadastrar");
       }
     } catch (error) {
-      console.error("Erro:", error);
       toast.error("Erro inesperado. Tente novamente.");
     } finally {
-      setCarregandoCadastro(false);
+      setLoading(false);
+    }
+  };
+
+  // Recrutador Login
+  const handleLoginRecrutador = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const result = await signInRecrutador(emailRecrutador, senhaRecrutador);
+      if (result.success) {
+        toast.success("Login realizado com sucesso!");
+        navigate("/dashboard");
+      } else {
+        toast.error(result.message || "Email ou senha incorretos");
+      }
+    } catch (error) {
+      toast.error("Erro inesperado. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Admin Login
+  const handleLoginAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const result = await signInAdmin(emailAdmin, senhaAdmin);
+      if (result.success) {
+        toast.success("Login realizado com sucesso!");
+        navigate("/dashboard");
+      } else {
+        toast.error(result.message || "Email ou senha incorretos");
+      }
+    } catch (error) {
+      toast.error("Erro inesperado. Tente novamente.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,46 +174,199 @@ const Login = () => {
                 <CardHeader className="text-center">
                   <CardTitle className="text-2xl text-foreground">Portal AISAM</CardTitle>
                   <p className="text-muted-foreground">
-                    Acesse sua conta ou cadastre-se para usufruir dos benefícios exclusivos
+                    Acesse sua conta conforme seu perfil
                   </p>
                 </CardHeader>
                 <CardContent>
-                  <Tabs defaultValue="login" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 mb-6">
-                      <TabsTrigger value="login">Entrar</TabsTrigger>
-                      <TabsTrigger value="cadastro">Cadastrar</TabsTrigger>
+                  <Tabs defaultValue="candidato" className="w-full">
+                    <TabsList className="grid w-full grid-cols-3 mb-6">
+                      <TabsTrigger value="candidato" className="text-xs">
+                        <User className="h-3 w-3 mr-1" />
+                        Candidato
+                      </TabsTrigger>
+                      <TabsTrigger value="recrutador" className="text-xs">
+                        <Briefcase className="h-3 w-3 mr-1" />
+                        Recrutador
+                      </TabsTrigger>
+                      <TabsTrigger value="admin" className="text-xs">
+                        <Shield className="h-3 w-3 mr-1" />
+                        Admin
+                      </TabsTrigger>
                     </TabsList>
-                    
-                    {/* Tab de Login */}
-                    <TabsContent value="login">
-                      <form onSubmit={handleLogin} className="space-y-4">
+
+                    {/* CANDIDATO TAB */}
+                    <TabsContent value="candidato">
+                      <Tabs value={candidatoTab} onValueChange={(v) => setCandidatoTab(v as "login" | "cadastro")}>
+                        <TabsList className="grid w-full grid-cols-2 mb-4">
+                          <TabsTrigger value="login">Entrar</TabsTrigger>
+                          <TabsTrigger value="cadastro">Cadastrar</TabsTrigger>
+                        </TabsList>
+
+                        {/* Login Candidato */}
+                        <TabsContent value="login">
+                          <form onSubmit={handleLoginCandidato} className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="email-candidato">E-mail</Label>
+                              <div className="relative">
+                                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                  id="email-candidato"
+                                  type="email"
+                                  placeholder="seu@email.com"
+                                  className="pl-10"
+                                  value={emailCandidato}
+                                  onChange={(e) => setEmailCandidato(e.target.value)}
+                                  required
+                                />
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                Enviaremos um link de acesso para seu email
+                              </p>
+                            </div>
+
+                            <Button
+                              type="submit"
+                              className="w-full"
+                              disabled={loading}
+                            >
+                              {loading ? "Enviando..." : "Enviar Link de Acesso"}
+                            </Button>
+                          </form>
+                        </TabsContent>
+
+                        {/* Cadastro Candidato */}
+                        <TabsContent value="cadastro">
+                          <form onSubmit={handleCadastroCandidato} className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="nome-cadastro">Nome Completo *</Label>
+                              <div className="relative">
+                                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                  id="nome-cadastro"
+                                  placeholder="Seu nome completo"
+                                  className="pl-10"
+                                  value={nomeCadastro}
+                                  onChange={(e) => setNomeCadastro(e.target.value)}
+                                  required
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <Label htmlFor="email-cadastro-candidato">E-mail *</Label>
+                              <div className="relative">
+                                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                  id="email-cadastro-candidato"
+                                  type="email"
+                                  placeholder="seu@email.com"
+                                  className="pl-10"
+                                  value={emailCadastro}
+                                  onChange={(e) => setEmailCadastro(e.target.value)}
+                                  required
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <Label htmlFor="telefone-cadastro">Telefone</Label>
+                              <div className="relative">
+                                <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                  id="telefone-cadastro"
+                                  type="tel"
+                                  placeholder="(11) 99999-9999"
+                                  className="pl-10"
+                                  value={telefoneCadastro}
+                                  onChange={(e) => setTelefoneCadastro(e.target.value)}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="cidade-cadastro">Cidade</Label>
+                                <Input
+                                  id="cidade-cadastro"
+                                  placeholder="São Paulo"
+                                  value={cidadeCadastro}
+                                  onChange={(e) => setCidadeCadastro(e.target.value)}
+                                />
+                              </div>
+
+                              <div className="space-y-2">
+                                <Label htmlFor="estado-cadastro">Estado</Label>
+                                <Input
+                                  id="estado-cadastro"
+                                  placeholder="SP"
+                                  maxLength={2}
+                                  value={estadoCadastro}
+                                  onChange={(e) => setEstadoCadastro(e.target.value.toUpperCase())}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="consentimento"
+                                checked={consentimento}
+                                onCheckedChange={(checked) => setConsentimento(checked as boolean)}
+                                required
+                              />
+                              <Label
+                                htmlFor="consentimento"
+                                className="text-sm font-normal leading-tight cursor-pointer"
+                              >
+                                Concordo com o tratamento dos meus dados conforme LGPD *
+                              </Label>
+                            </div>
+
+                            <Button
+                              type="submit"
+                              className="w-full"
+                              disabled={loading}
+                            >
+                              {loading ? "Cadastrando..." : "Cadastrar"}
+                            </Button>
+
+                            <p className="text-xs text-muted-foreground text-center">
+                              Após o cadastro, você receberá um email com link de acesso
+                            </p>
+                          </form>
+                        </TabsContent>
+                      </Tabs>
+                    </TabsContent>
+
+                    {/* RECRUTADOR TAB */}
+                    <TabsContent value="recrutador">
+                      <form onSubmit={handleLoginRecrutador} className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="email-login">E-mail</Label>
+                          <Label htmlFor="email-recrutador">E-mail</Label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input
-                              id="email-login"
+                              id="email-recrutador"
                               type="email"
-                              placeholder="seu@email.com"
+                              placeholder="recrutador@empresa.com"
                               className="pl-10"
-                              value={emailLogin}
-                              onChange={(e) => setEmailLogin(e.target.value)}
+                              value={emailRecrutador}
+                              onChange={(e) => setEmailRecrutador(e.target.value)}
                               required
                             />
                           </div>
                         </div>
-                        
+
                         <div className="space-y-2">
-                          <Label htmlFor="senha-login">Senha</Label>
+                          <Label htmlFor="senha-recrutador">Senha</Label>
                           <div className="relative">
                             <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input
-                              id="senha-login"
+                              id="senha-recrutador"
                               type={mostrarSenha ? "text" : "password"}
                               placeholder="Sua senha"
                               className="pl-10 pr-10"
-                              value={senhaLogin}
-                              onChange={(e) => setSenhaLogin(e.target.value)}
+                              value={senhaRecrutador}
+                              onChange={(e) => setSenhaRecrutador(e.target.value)}
                               required
                             />
                             <Button
@@ -165,118 +376,55 @@ const Login = () => {
                               className="absolute right-0 top-0 h-full px-3"
                               onClick={() => setMostrarSenha(!mostrarSenha)}
                             >
-                              {mostrarSenha ? (
-                                <EyeOff className="h-4 w-4" />
-                              ) : (
-                                <Eye className="h-4 w-4" />
-                              )}
+                              {mostrarSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                             </Button>
                           </div>
                         </div>
-                        
-                        <Button 
-                          type="submit" 
-                          className="w-full" 
-                          disabled={carregandoLogin}
+
+                        <Button
+                          type="submit"
+                          className="w-full"
+                          disabled={loading}
                         >
-                          {carregandoLogin ? "Entrando..." : "Entrar"}
+                          {loading ? "Entrando..." : "Entrar como Recrutador"}
                         </Button>
-                        
-                        <div className="text-center">
-                          <Button variant="link" size="sm">
-                            Esqueceu sua senha?
-                          </Button>
-                        </div>
+
+                        <p className="text-xs text-muted-foreground text-center">
+                          Credenciais fornecidas pelo administrador AISAM
+                        </p>
                       </form>
                     </TabsContent>
-                    
-                    {/* Tab de Cadastro */}
-                    <TabsContent value="cadastro">
-                      <form onSubmit={handleCadastro} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="nome">Nome</Label>
-                            <div className="relative">
-                              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                              <Input
-                                id="nome"
-                                placeholder="Nome"
-                                className="pl-10"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                                required
-                              />
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="sobrenome">Sobrenome</Label>
-                            <Input
-                              id="sobrenome"
-                              placeholder="Sobrenome"
-                              value={sobrenome}
-                              onChange={(e) => setSobrenome(e.target.value)}
-                              required
-                            />
-                          </div>
-                        </div>
-                        
+
+                    {/* ADMIN TAB */}
+                    <TabsContent value="admin">
+                      <form onSubmit={handleLoginAdmin} className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="email-cadastro">E-mail</Label>
+                          <Label htmlFor="email-admin">E-mail</Label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input
-                              id="email-cadastro"
+                              id="email-admin"
                               type="email"
-                              placeholder="seu@email.com"
+                              placeholder="admin@aisam.com.br"
                               className="pl-10"
-                              value={emailCadastro}
-                              onChange={(e) => setEmailCadastro(e.target.value)}
+                              value={emailAdmin}
+                              onChange={(e) => setEmailAdmin(e.target.value)}
                               required
                             />
                           </div>
                         </div>
-                        
+
                         <div className="space-y-2">
-                          <Label htmlFor="empresa">Empresa</Label>
-                          <div className="relative">
-                            <Building className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              id="empresa"
-                              placeholder="Nome da empresa"
-                              className="pl-10"
-                              value={empresa}
-                              onChange={(e) => setEmpresa(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="telefone">Telefone</Label>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              id="telefone"
-                              type="tel"
-                              placeholder="(11) 99999-9999"
-                              className="pl-10"
-                              value={telefone}
-                              onChange={(e) => setTelefone(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="senha-cadastro">Senha</Label>
+                          <Label htmlFor="senha-admin">Senha</Label>
                           <div className="relative">
                             <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input
-                              id="senha-cadastro"
+                              id="senha-admin"
                               type={mostrarSenha ? "text" : "password"}
-                              placeholder="Crie uma senha"
+                              placeholder="Sua senha"
                               className="pl-10 pr-10"
-                              value={senhaCadastro}
-                              onChange={(e) => setSenhaCadastro(e.target.value)}
+                              value={senhaAdmin}
+                              onChange={(e) => setSenhaAdmin(e.target.value)}
                               required
                             />
                             <Button
@@ -286,28 +434,24 @@ const Login = () => {
                               className="absolute right-0 top-0 h-full px-3"
                               onClick={() => setMostrarSenha(!mostrarSenha)}
                             >
-                              {mostrarSenha ? (
-                                <EyeOff className="h-4 w-4" />
-                              ) : (
-                                <Eye className="h-4 w-4" />
-                              )}
+                              {mostrarSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                             </Button>
                           </div>
                         </div>
-                        
-                        <Button 
-                          type="submit" 
-                          className="w-full" 
-                          disabled={carregandoCadastro}
+
+                        <Button
+                          type="submit"
+                          className="w-full"
+                          disabled={loading}
                         >
-                          {carregandoCadastro ? "Cadastrando..." : "Cadastrar"}
+                          {loading ? "Entrando..." : "Entrar como Admin"}
                         </Button>
                       </form>
                     </TabsContent>
                   </Tabs>
-                  
+
                   <Separator className="my-6" />
-                  
+
                   <div className="text-center">
                     <p className="text-sm text-muted-foreground mb-4">
                       Ainda não é associado?

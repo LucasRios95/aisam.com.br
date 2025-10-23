@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getConnection, Repository } from "typeorm";
 import { ICreateVagaDTO } from "modules/Vaga/dtos/ICreateVagaDTO";
 import { IUpdateVagaDTO } from "modules/Vaga/dtos/IUpdateVagaDTO";
 import { IFilterVagasDTO } from "modules/Vaga/dtos/IFilterVagasDTO";
@@ -9,7 +9,7 @@ class VagaRepository implements IVagaRepository {
     private repository: Repository<Vaga>;
 
     constructor() {
-        this.repository = getRepository(Vaga);
+        this.repository = getConnection("vagas").getRepository(Vaga);
     }
 
     async create({

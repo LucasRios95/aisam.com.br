@@ -9,19 +9,33 @@ class AssociadoRepository implements IAssociadoRepository {
     private associadoRepository: Repository<Associado>;
 
     constructor() {
-        this.associadoRepository = getRepository(Associado);
+        this.associadoRepository = getRepository(Associado, "vagas");
     }
 
     async create({
         razao_social,
+        nome_fantasia,
         cnpj,
+        email,
+        telefone,
+        endereco,
+        cidade,
+        estado,
+        cep,
         status,
         created_at,
 
     }: ICreateAssociadoDTO): Promise<Associado> {
         const associado = this.associadoRepository.create({
             razao_social,
+            nome_fantasia,
             cnpj,
+            email,
+            telefone,
+            endereco,
+            cidade,
+            estado,
+            cep,
             status,
             created_at,
         });
@@ -34,17 +48,37 @@ class AssociadoRepository implements IAssociadoRepository {
     }
 
     async update({
+        id,
         razao_social,
-        cnpj,
-        status,
-        updated_at
-    }: IUpdateAssociadoDTO): Promise<void> {
-        await this.associadoRepository.save({
-            razao_social,
-            cnpj,
-            status,
-            updated_at
-        });
+        nome_fantasia,
+        email,
+        telefone,
+        endereco,
+        cidade,
+        estado,
+        cep,
+        status
+    }: IUpdateAssociadoDTO): Promise<Associado> {
+        const associado = await this.associadoRepository.findOne(id);
+
+        if (!associado) {
+            throw new Error("Associado não encontrado");
+        }
+
+        // Atualizar apenas os campos fornecidos
+        if (razao_social !== undefined) associado.razao_social = razao_social;
+        if (nome_fantasia !== undefined) associado.nome_fantasia = nome_fantasia;
+        if (email !== undefined) associado.email = email;
+        if (telefone !== undefined) associado.telefone = telefone;
+        if (endereco !== undefined) associado.endereco = endereco;
+        if (cidade !== undefined) associado.cidade = cidade;
+        if (estado !== undefined) associado.estado = estado;
+        if (cep !== undefined) associado.cep = cep;
+        if (status !== undefined) associado.status = status;
+
+        await this.associadoRepository.save(associado);
+
+        return associado;
     }
 
     async list(): Promise<Associado[]> {

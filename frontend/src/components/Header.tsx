@@ -12,6 +12,7 @@ const Header = () => {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "AISAM", href: "/aisam" },
+    { name: "Vagas", href: "/vagas" },
     { name: "Associados", href: "/associados" },
     { name: "Diretoria", href: "/diretoria" },
     { name: "Consultoria Jurídica", href: "/consultoria-juridica" },
@@ -71,7 +72,9 @@ const Header = () => {
           {/* Login Button */}
           <div className="hidden lg:block">
             <Button variant="outline" asChild>
-              <Link to="/dashboard">Dashboard</Link>
+              <a href="http://localhost:5175" target="_blank" rel="noopener noreferrer">
+                Acessar Sistema
+              </a>
             </Button>
           </div>
 
@@ -112,9 +115,14 @@ const Header = () => {
               ))}
               <div className="pt-4">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                    Dashboard
-                  </Link>
+                  <a
+                    href="http://localhost:5175"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Acessar Sistema
+                  </a>
                 </Button>
               </div>
             </div>

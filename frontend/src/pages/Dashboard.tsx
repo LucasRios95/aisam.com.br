@@ -6,20 +6,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { 
-  Users, 
-  Briefcase, 
-  FileText, 
-  Settings, 
-  UserCheck, 
-  UserX,
+import {
+  Users,
+  Briefcase,
+  FileText,
+  Settings,
+  UserCheck,
   PlusCircle,
-  Eye
+  Eye,
+  LogOut
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const { user, profile, userRoles, loading, isAdmin, hasRole } = useAuth();
+  const { user, loading, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +42,16 @@ const Dashboard = () => {
 
   if (!user) return null;
 
-  const userRoleNames = userRoles.map(role => role.role);
+  const roleLabels = {
+    CANDIDATO: 'Candidato',
+    RECRUTADOR: 'Recrutador',
+    ADMIN_AISAM: 'Administrador'
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/");
+  };
 
   return (
     <PageLayout>
@@ -53,20 +62,29 @@ const Dashboard = () => {
           transition={{ duration: 0.5 }}
         >
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Dashboard
-            </h1>
-            <p className="text-muted-foreground">
-              Bem-vindo, {profile?.full_name || user.email}
-            </p>
-            <div className="flex gap-2 mt-2">
-              {userRoleNames.map((role) => (
-                <Badge key={role} variant="secondary">
-                  {role.replace('_', ' ')}
+          <div className="mb-8 flex justify-between items-start">
+            <div>
+              <h1 className="text-3xl font-bold text-foreground mb-2">
+                Dashboard
+              </h1>
+              <p className="text-muted-foreground">
+                Bem-vindo, {user.nome || user.email}
+              </p>
+              {user.razao_social && (
+                <p className="text-sm text-muted-foreground">
+                  {user.razao_social}
+                </p>
+              )}
+              <div className="flex gap-2 mt-2">
+                <Badge variant="secondary">
+                  {roleLabels[user.role]}
                 </Badge>
-              ))}
+              </div>
             </div>
+            <Button variant="outline" onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Sair
+            </Button>
           </div>
 
           {/* Admin Dashboard */}
@@ -106,7 +124,7 @@ const Dashboard = () => {
                   </CardHeader>
                   <CardContent>
                     <Button asChild className="w-full">
-                      <Link to="/admin/jobs">
+                      <Link to="/vagas">
                         <Eye className="mr-2 h-4 w-4" />
                         Visualizar
                       </Link>
@@ -126,7 +144,7 @@ const Dashboard = () => {
                   </CardHeader>
                   <CardContent>
                     <Button asChild className="w-full">
-                      <Link to="/admin/resumes">
+                      <Link to="/meu-curriculo">
                         <Eye className="mr-2 h-4 w-4" />
                         Visualizar
                       </Link>
@@ -138,6 +156,7 @@ const Dashboard = () => {
           )}
 
           {/* User Dashboard */}
+          <h2 className="text-2xl font-semibold mb-4">Área do Usuário</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Vagas */}
             <Card className="card-shadow hover:scale-105 transition-transform">
@@ -160,29 +179,31 @@ const Dashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Meu Currículo */}
-            <Card className="card-shadow hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-primary" />
-                  Meu Currículo
-                </CardTitle>
-                <CardDescription>
-                  Gerencie seu perfil profissional
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/meu-curriculo">
-                    <Settings className="mr-2 h-4 w-4" />
-                    Gerenciar
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+            {/* Meu Currículo - Apenas para candidatos */}
+            {user.role === 'CANDIDATO' && (
+              <Card className="card-shadow hover:scale-105 transition-transform">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-primary" />
+                    Meu Currículo
+                  </CardTitle>
+                  <CardDescription>
+                    Gerencie seu perfil profissional
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild className="w-full">
+                    <Link to="/meu-curriculo">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Gerenciar
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
 
-            {/* Publicar Vaga (para associados aprovados) */}
-            {(hasRole('associado_aprovado') || hasRole('recrutador') || isAdmin()) && (
+            {/* Publicar Vaga - Para recrutadores e admins */}
+            {(user.role === 'RECRUTADOR' || isAdmin()) && (
               <Card className="card-shadow hover:scale-105 transition-transform">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -204,43 +225,29 @@ const Dashboard = () => {
               </Card>
             )}
 
-            {/* Minhas Candidaturas */}
-            <Card className="card-shadow hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <UserCheck className="h-5 w-5 text-primary" />
-                  Minhas Candidaturas
-                </CardTitle>
-                <CardDescription>
-                  Acompanhe suas aplicações
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/minhas-candidaturas">
-                    <Eye className="mr-2 h-4 w-4" />
-                    Ver Status
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+            {/* Minhas Candidaturas - Apenas para candidatos */}
+            {user.role === 'CANDIDATO' && (
+              <Card className="card-shadow hover:scale-105 transition-transform">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <UserCheck className="h-5 w-5 text-primary" />
+                    Minhas Candidaturas
+                  </CardTitle>
+                  <CardDescription>
+                    Acompanhe suas aplicações
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild className="w-full">
+                    <Link to="/minhas-candidaturas">
+                      <Eye className="mr-2 h-4 w-4" />
+                      Ver Status
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
-
-          {/* Status de Associado Pendente */}
-          {hasRole('associado_pendente') && (
-            <Card className="mt-8 border-l-4 border-l-amber-500">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-amber-600">
-                  <UserX className="h-5 w-5" />
-                  Associação Pendente
-                </CardTitle>
-                <CardDescription>
-                  Sua solicitação de associação está aguardando aprovação administrativa.
-                  Você poderá publicar vagas após a aprovação.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          )}
         </motion.div>
       </div>
     </PageLayout>

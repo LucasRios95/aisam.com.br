@@ -22,6 +22,10 @@ import MeuCurriculo from "./pages/MeuCurriculo";
 import PublicarVaga from "./pages/PublicarVaga";
 import Jaisam from "./pages/Jaisam";
 import NotFound from "./pages/NotFound";
+import VagaDetalhes from "./pages/VagaDetalhes";
+import MinhasCandidaturas from "./pages/MinhasCandidaturas";
+import CandidatoAcesso from "./pages/CandidatoAcesso";
+import AceitarConviteRecrutador from "./pages/AceitarConviteRecrutador";
 
 
 const queryClient = new QueryClient();
@@ -46,11 +50,15 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/vagas" element={<Vagas />} />
+          <Route path="/vaga/:id" element={<VagaDetalhes />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/meu-curriculo" element={<MeuCurriculo />} />
           <Route path="/publicar-vaga" element={<PublicarVaga />} />
           <Route path="/jaisam" element={<Jaisam />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/minhas-candidaturas" element={<MinhasCandidaturas />} />
+          <Route path="/candidato/acesso" element={<CandidatoAcesso />} />
+          <Route path="/aceitar-convite/:token" element={<AceitarConviteRecrutador />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

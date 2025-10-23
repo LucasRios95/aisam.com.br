@@ -8,7 +8,7 @@ class AdminAisamRepository implements IAdminAisamRepository {
     private repository: Repository<AdminAisam>;
 
     constructor() {
-        this.repository = getRepository(AdminAisam);
+        this.repository = getRepository(AdminAisam, "vagas");
     }
 
     async create({

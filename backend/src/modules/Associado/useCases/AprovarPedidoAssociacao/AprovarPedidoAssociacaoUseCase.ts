@@ -41,12 +41,19 @@ class AprovarPedidoAssociacaoUseCase {
                 await this.associadoRepository.create({
                     razao_social: pedidoAssociacao.razao_social,
                     cnpj: pedidoAssociacao.cnpj,
+                    email: pedidoAssociacao.email_corporativo,
+                    telefone: pedidoAssociacao.telefone,
+                    endereco: pedidoAssociacao.endereco,
+                    cidade: pedidoAssociacao.cidade,
+                    estado: pedidoAssociacao.estado,
+                    cep: pedidoAssociacao.cep,
                     status: StatusAssociado.ATIVO,
                     created_at: new Date(),
                 });
 
             } catch (error) {
-                throw new AppError("Erro ao criar associado");
+                console.error("Erro ao criar associado:", error);
+                throw new AppError(`Erro ao criar associado: ${error.message}`);
             }
         }
 

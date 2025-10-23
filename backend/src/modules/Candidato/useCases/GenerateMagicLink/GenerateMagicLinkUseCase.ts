@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { sign } from "jsonwebtoken";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 import { AppError } from "shared/errors/AppError";
 import authConfig from "config/auth";
 
@@ -17,7 +18,10 @@ interface IResponse {
 class GenerateMagicLinkUseCase {
     constructor(
         @inject("CandidatoRepository")
-        private candidatoRepository: ICandidatoRepository
+        private candidatoRepository: ICandidatoRepository,
+
+        @inject("MailProvider")
+        private mailProvider: IMailProvider
     ) { }
 
     async execute({ email }: IRequest): Promise<IResponse> {
@@ -54,6 +58,27 @@ class GenerateMagicLinkUseCase {
                 expiresIn: "24h"
             }
         );
+
+        // Calcula dias restantes até expiração total
+        const diasRestantes = Math.ceil((expiresAt.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+
+        // Gera o link mágico
+        const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+        const magicLink = `${baseUrl}/candidato/acesso?token=${token}`;
+
+        // Envia email com o link mágico
+        await this.mailProvider.sendMail({
+            to: email,
+            subject: "Seu Link de Acesso - Sistema AISAM",
+            template: "magic-link-candidato",
+            variables: {
+                nome: candidato.nome,
+                magic_link: magicLink,
+                dias_restantes: diasRestantes,
+                data_expiracao: expiresAt.toLocaleDateString("pt-BR"),
+                ano: new Date().getFullYear()
+            }
+        });
 
         return {
             token,

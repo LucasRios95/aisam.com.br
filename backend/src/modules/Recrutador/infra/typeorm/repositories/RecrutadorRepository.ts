@@ -8,7 +8,7 @@ class RecrutadorRepository implements IRecrutadorRepository {
     private repository: Repository<Recrutador>;
 
     constructor() {
-        this.repository = getRepository(Recrutador);
+        this.repository = getRepository(Recrutador, "vagas");
     }
 
     async create({
@@ -69,21 +69,26 @@ class RecrutadorRepository implements IRecrutadorRepository {
         return recrutadores;
     }
 
-    async update({
-        id,
-        nome,
-        email,
-        perfil,
-        status,
-        associado_id
-    }: IUpdateRecrutadorDTO): Promise<Recrutador> {
+    async update(data: IUpdateRecrutadorDTO | Recrutador): Promise<Recrutador> {
+        // Se for um objeto Recrutador completo, apenas salva
+        if (data instanceof Recrutador) {
+            await this.repository.save(data);
+            return data;
+        }
+
+        // Se for um DTO, faz update parcial
+        const { id, nome, email, perfil, status, associado_id } = data;
         const recrutador = await this.repository.findOne(id);
 
-        if (nome) recrutador.nome = nome;
-        if (email) recrutador.email = email;
-        if (perfil) recrutador.perfil = perfil;
-        if (status) recrutador.status = status;
-        if (associado_id) recrutador.associado_id = associado_id;
+        if (!recrutador) {
+            throw new Error("Recrutador não encontrado");
+        }
+
+        if (nome !== undefined) recrutador.nome = nome;
+        if (email !== undefined) recrutador.email = email;
+        if (perfil !== undefined) recrutador.perfil = perfil;
+        if (status !== undefined) recrutador.status = status;
+        if (associado_id !== undefined) recrutador.associado_id = associado_id;
 
         await this.repository.save(recrutador);
 

@@ -1,0 +1,17 @@
+{
+    "name": "default",
+    "type": "postgres",
+    "port": 5432,
+    "host": "localhost",
+    "username": "docker",
+    "password": "Lc_150595",
+    "database": "database_aisam",
+    "schema": "noticias",
+    "entities": [
+        "./src/modules/Noticia/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": ["./src/shared/infra/typeorm/migrations/noticias/*.ts"],
+    "cli": {
+        "migrationsDir": "./src/shared/infra/typeorm/migrations/noticias"
+    }
+}

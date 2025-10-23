@@ -8,7 +8,7 @@ class PedidoAssociacaoRepository implements IPedidoAssociacaoRepository {
     private repository: Repository<Pedido_Associacao>;
 
     constructor() {
-        this.repository = getRepository(Pedido_Associacao);
+        this.repository = getRepository(Pedido_Associacao, "vagas");
     }
 
     async create({

@@ -49,6 +49,12 @@ export class Recrutador {
     @Column({ default: false })
     convite_aceito: boolean;
 
+    @Column({ nullable: true })
+    reset_password_token: string;
+
+    @Column({ nullable: true })
+    reset_password_expires_at: Date;
+
     @CreateDateColumn()
     created_at: Date;
 

@@ -1,139 +1,254 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
-import { Database } from '@/integrations/supabase/types';
+import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+import axios from 'axios';
 
-type Profile = Database['public']['Tables']['profiles']['Row'];
-type UserRole = Database['public']['Tables']['user_roles']['Row'];
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3333";
+
+interface User {
+  id: string;
+  nome?: string;
+  email: string;
+  role: 'CANDIDATO' | 'RECRUTADOR' | 'ADMIN_AISAM';
+  razao_social?: string; // Para recrutadores/associados
+}
 
 interface AuthContextType {
   user: User | null;
-  session: Session | null;
-  profile: Profile | null;
-  userRoles: UserRole[];
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>;
-  signOut: () => Promise<void>;
+  signInCandidato: (email: string) => Promise<{ success: boolean; message?: string }>;
+  signUpCandidato: (data: SignUpCandidatoData) => Promise<{ success: boolean; message?: string }>;
+  signInRecrutador: (email: string, senha: string) => Promise<{ success: boolean; message?: string }>;
+  signInAdmin: (email: string, senha: string) => Promise<{ success: boolean; message?: string }>;
+  verifyMagicToken: (token: string) => Promise<{ success: boolean; message?: string }>;
+  signOut: () => void;
+  isAuthenticated: () => boolean;
   hasRole: (role: string) => boolean;
   isAdmin: () => boolean;
-  refreshProfile: () => Promise<void>;
+}
+
+interface SignUpCandidatoData {
+  nome: string;
+  email: string;
+  telefone?: string;
+  cidade?: string;
+  estado?: string;
+  consentimento_dados: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+const TOKEN_KEY = '@AisamAuth:token';
+const USER_KEY = '@AisamAuth:user';
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchUserProfile = async (userId: string) => {
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .single();
-    
-    const { data: rolesData } = await supabase
-      .from('user_roles')
-      .select('*')
-      .eq('user_id', userId);
-
-    setProfile(profileData);
-    setUserRoles(rolesData || []);
-  };
-
-  const refreshProfile = async () => {
-    if (user) {
-      await fetchUserProfile(user.id);
+  // Decode JWT token to extract user info
+  const decodeToken = (token: string): any => {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
     }
   };
 
+  // Load user from localStorage on mount
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          setTimeout(() => {
-            fetchUserProfile(session.user.id);
-          }, 0);
-        } else {
-          setProfile(null);
-          setUserRoles([]);
+    const loadUser = async () => {
+      try {
+        const token = localStorage.getItem(TOKEN_KEY);
+        const savedUser = localStorage.getItem(USER_KEY);
+
+        if (token && savedUser) {
+          const parsed = JSON.parse(savedUser);
+
+          // Check if token is expired
+          const decoded = decodeToken(token);
+          if (decoded && decoded.exp) {
+            const isExpired = Date.now() >= decoded.exp * 1000;
+            if (isExpired) {
+              // Token expired, clear auth
+              localStorage.removeItem(TOKEN_KEY);
+              localStorage.removeItem(USER_KEY);
+              setUser(null);
+            } else {
+              setUser(parsed);
+            }
+          } else {
+            setUser(parsed);
+          }
         }
+      } catch (error) {
+        console.error('Error loading user:', error);
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+      } finally {
         setLoading(false);
       }
-    );
+    };
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchUserProfile(session.user.id);
-      }
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    loadUser();
   }, []);
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: {
-          full_name: fullName
+  // Sign up candidato
+  const signUpCandidato = async (data: SignUpCandidatoData): Promise<{ success: boolean; message?: string }> => {
+    try {
+      await axios.post(`${API_URL}/candidatos`, data);
+      return {
+        success: true,
+        message: 'Cadastro realizado! Você receberá um email com link de acesso.'
+      };
+    } catch (error: any) {
+      console.error('SignUp error:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Erro ao criar conta'
+      };
+    }
+  };
+
+  // Sign in candidato (magic link)
+  const signInCandidato = async (email: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      await axios.post(`${API_URL}/auth/candidato/magic-link`, { email });
+      return {
+        success: true,
+        message: 'Link de acesso enviado para seu email!'
+      };
+    } catch (error: any) {
+      console.error('SignIn candidato error:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Erro ao enviar link de acesso'
+      };
+    }
+  };
+
+  // Verify magic token
+  const verifyMagicToken = async (token: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      // Set token in header
+      const response = await axios.get(`${API_URL}/candidatos/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      }
-    });
-    
-    return { error };
+      });
+
+      const candidato = response.data;
+      const userData: User = {
+        id: candidato.id,
+        nome: candidato.nome,
+        email: candidato.email,
+        role: 'CANDIDATO'
+      };
+
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+      setUser(userData);
+
+      return { success: true };
+    } catch (error: any) {
+      console.error('Verify token error:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Token inválido ou expirado'
+      };
+    }
   };
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    
-    return { error };
+  // Sign in recrutador
+  const signInRecrutador = async (email: string, senha: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/recrutador`, { email, senha });
+      const { token, recrutador } = response.data;
+
+      const userData: User = {
+        id: recrutador.id,
+        nome: recrutador.nome,
+        email: recrutador.email,
+        role: 'RECRUTADOR',
+        razao_social: recrutador.associado?.razao_social
+      };
+
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+      setUser(userData);
+
+      return { success: true };
+    } catch (error: any) {
+      console.error('SignIn recrutador error:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Email ou senha incorretos'
+      };
+    }
   };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
+  // Sign in admin
+  const signInAdmin = async (email: string, senha: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/admin`, { email, senha });
+      const { token, admin } = response.data;
+
+      const userData: User = {
+        id: admin.id,
+        nome: admin.nome,
+        email: admin.email,
+        role: 'ADMIN_AISAM'
+      };
+
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+      setUser(userData);
+
+      return { success: true };
+    } catch (error: any) {
+      console.error('SignIn admin error:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Email ou senha incorretos'
+      };
+    }
   };
+
+  // Sign out
+  const signOut = () => {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    setUser(null);
+  };
+
+  // Helper functions
+  const isAuthenticated = () => !!user;
 
   const hasRole = (role: string) => {
-    return userRoles.some(ur => ur.role === role);
+    if (!user) return false;
+    return user.role === role;
   };
 
-  const isAdmin = () => {
-    return hasRole('admin');
-  };
+  const isAdmin = () => hasRole('ADMIN_AISAM');
 
-  const value = {
+  const value: AuthContextType = {
     user,
-    session,
-    profile,
-    userRoles,
     loading,
-    signIn,
-    signUp,
+    signInCandidato,
+    signUpCandidato,
+    signInRecrutador,
+    signInAdmin,
+    verifyMagicToken,
     signOut,
+    isAuthenticated,
     hasRole,
-    isAdmin,
-    refreshProfile
+    isAdmin
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -146,3 +261,29 @@ export const useAuth = () => {
   }
   return context;
 };
+
+// Axios interceptor to add token to requests
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Axios interceptor to handle 401 errors
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);

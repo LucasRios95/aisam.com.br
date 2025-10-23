@@ -1,30 +1,41 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import PageLayout from "@/components/PageLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { motion } from "framer-motion";
-import { Briefcase, Save, Building, MapPin, DollarSign } from "lucide-react";
+import { Briefcase, Save, MapPin, Mail, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import axios from "axios";
+
+interface AreaAtuacao {
+  id: string;
+  nome: string;
+  slug: string;
+  ativo: boolean;
+}
 
 const PublicarVaga = () => {
   const [loading, setLoading] = useState(false);
+  const [areasAtuacao, setAreasAtuacao] = useState<AreaAtuacao[]>([]);
   const [formData, setFormData] = useState({
-    title: "",
-    company: "",
-    location: "",
-    salaryRange: "",
-    description: "",
-    requirements: "",
-    contactEmail: ""
+    titulo: "",
+    descricao: "",
+    senioridade: "",
+    areas_atuacao: [] as string[],
+    regime: "",
+    localidade: "",
+    email_contato: "",
+    empresa_anonima: false
   });
 
-  const { user, hasRole, isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,19 +43,42 @@ const PublicarVaga = () => {
       navigate("/login");
       return;
     }
-    
-    // Check if user can post jobs
-    if (!hasRole('associado_aprovado') && !hasRole('recrutador') && !isAdmin()) {
+
+    // Check if user can post jobs (RECRUTADOR or ADMIN)
+    if (user.role !== 'RECRUTADOR' && !isAdmin()) {
       navigate("/dashboard");
-      toast.error("Apenas associados aprovados podem publicar vagas");
+      toast.error("Apenas recrutadores e administradores podem publicar vagas");
       return;
     }
-  }, [user, hasRole, isAdmin, navigate]);
 
-  const handleInputChange = (field: string, value: string) => {
+    carregarAreasAtuacao();
+  }, [user, isAdmin, navigate]);
+
+  async function carregarAreasAtuacao() {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL || "http://localhost:3333"}/areas-atuacao`
+      );
+      setAreasAtuacao(response.data.filter((area: AreaAtuacao) => area.ativo));
+    } catch (err) {
+      console.error("Erro ao carregar áreas de atuação:", err);
+      toast.error("Erro ao carregar áreas de atuação");
+    }
+  }
+
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
+    }));
+  };
+
+  const toggleAreaAtuacao = (areaId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      areas_atuacao: prev.areas_atuacao.includes(areaId)
+        ? prev.areas_atuacao.filter(id => id !== areaId)
+        : [...prev.areas_atuacao, areaId]
     }));
   };
 
@@ -52,43 +86,65 @@ const PublicarVaga = () => {
     e.preventDefault();
     if (!user) return;
 
+    // Validações
+    if (formData.areas_atuacao.length === 0) {
+      toast.error("Selecione pelo menos uma área de atuação");
+      return;
+    }
+
     setLoading(true);
     try {
-      const jobData = {
-        title: formData.title,
-        company: formData.company,
-        location: formData.location || null,
-        salary_range: formData.salaryRange || null,
-        description: formData.description,
-        requirements: formData.requirements || null,
-        contact_email: formData.contactEmail,
-        posted_by: user.id,
-        company_id: user.id
+      const token = localStorage.getItem("@AisamAuth:token");
+
+      if (!token) {
+        toast.error("Você precisa estar autenticado");
+        navigate("/login");
+        return;
+      }
+
+      // Prepare data for backend
+      const vagaData = {
+        titulo: formData.titulo,
+        descricao: formData.descricao,
+        senioridade: formData.senioridade,
+        areas_atuacao: formData.areas_atuacao,
+        regime: formData.regime,
+        localidade: formData.localidade || undefined,
+        email_contato: formData.email_contato,
+        empresa_anonima: formData.empresa_anonima,
+        recrutador_id: user.id,
+        associado_id: user.id // Assuming same user for now
       };
 
-      const { error } = await supabase
-        .from('jobs')
-        .insert(jobData);
-
-      if (error) throw error;
+      await axios.post(
+        `${import.meta.env.VITE_API_URL || "http://localhost:3333"}/vagas`,
+        vagaData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
 
       toast.success('Vaga publicada com sucesso!');
-      
+
       // Reset form
       setFormData({
-        title: "",
-        company: "",
-        location: "",
-        salaryRange: "",
-        description: "",
-        requirements: "",
-        contactEmail: ""
+        titulo: "",
+        descricao: "",
+        senioridade: "",
+        areas_atuacao: [],
+        regime: "",
+        localidade: "",
+        email_contato: "",
+        empresa_anonima: false
       });
-      
+
       navigate('/vagas');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating job:', error);
-      toast.error('Erro ao publicar vaga');
+      toast.error(error.response?.data?.message || 'Erro ao publicar vaga');
     } finally {
       setLoading(false);
     }
@@ -131,111 +187,161 @@ const PublicarVaga = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="title">Título da Vaga *</Label>
+                  <Label htmlFor="titulo">Título da Vaga *</Label>
                   <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => handleInputChange('title', e.target.value)}
+                    id="titulo"
+                    value={formData.titulo}
+                    onChange={(e) => handleInputChange('titulo', e.target.value)}
                     placeholder="Ex: Analista de Sistemas Sênior"
                     required
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="company" className="flex items-center gap-2">
-                      <Building className="h-4 w-4" />
-                      Empresa *
-                    </Label>
-                    <Input
-                      id="company"
-                      value={formData.company}
-                      onChange={(e) => handleInputChange('company', e.target.value)}
-                      placeholder="Nome da empresa"
+                    <Label htmlFor="senioridade">Senioridade *</Label>
+                    <Select
+                      value={formData.senioridade}
+                      onValueChange={(value) => handleInputChange('senioridade', value)}
                       required
-                    />
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a senioridade" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="estagio">Estágio</SelectItem>
+                        <SelectItem value="junior">Júnior</SelectItem>
+                        <SelectItem value="pleno">Pleno</SelectItem>
+                        <SelectItem value="senior">Sênior</SelectItem>
+                        <SelectItem value="especialista">Especialista</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
-                  
+
                   <div>
-                    <Label htmlFor="location" className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4" />
-                      Localização
-                    </Label>
-                    <Input
-                      id="location"
-                      value={formData.location}
-                      onChange={(e) => handleInputChange('location', e.target.value)}
-                      placeholder="Ex: São Roque - SP"
-                    />
+                    <Label htmlFor="regime">Regime de Trabalho *</Label>
+                    <Select
+                      value={formData.regime}
+                      onValueChange={(value) => handleInputChange('regime', value)}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o regime" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="presencial">Presencial</SelectItem>
+                        <SelectItem value="hibrido">Híbrido</SelectItem>
+                        <SelectItem value="remoto">Remoto</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="salaryRange" className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4" />
-                    Faixa Salarial
+                  <Label htmlFor="localidade" className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    Localização
                   </Label>
                   <Input
-                    id="salaryRange"
-                    value={formData.salaryRange}
-                    onChange={(e) => handleInputChange('salaryRange', e.target.value)}
-                    placeholder="Ex: R$ 5.000 - R$ 8.000"
+                    id="localidade"
+                    value={formData.localidade}
+                    onChange={(e) => handleInputChange('localidade', e.target.value)}
+                    placeholder="Ex: São Roque - SP"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="contactEmail">E-mail para Contato *</Label>
+                  <Label htmlFor="email_contato" className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" />
+                    E-mail para Contato *
+                  </Label>
                   <Input
-                    id="contactEmail"
+                    id="email_contato"
                     type="email"
-                    value={formData.contactEmail}
-                    onChange={(e) => handleInputChange('contactEmail', e.target.value)}
+                    value={formData.email_contato}
+                    onChange={(e) => handleInputChange('email_contato', e.target.value)}
                     placeholder="recrutamento@empresa.com"
                     required
                   />
                 </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="empresa_anonima"
+                    checked={formData.empresa_anonima}
+                    onCheckedChange={(checked) =>
+                      handleInputChange('empresa_anonima', checked as boolean)
+                    }
+                  />
+                  <Label
+                    htmlFor="empresa_anonima"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2 cursor-pointer"
+                  >
+                    <EyeOff className="h-4 w-4" />
+                    Empresa Confidencial (ocultar nome da empresa)
+                  </Label>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Areas de Atuação */}
+            <Card className="card-shadow">
+              <CardHeader>
+                <CardTitle>Áreas de Atuação *</CardTitle>
+                <CardDescription>
+                  Selecione uma ou mais áreas relacionadas à vaga
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {areasAtuacao.map((area) => (
+                    <div key={area.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`area-${area.id}`}
+                        checked={formData.areas_atuacao.includes(area.id)}
+                        onCheckedChange={() => toggleAreaAtuacao(area.id)}
+                      />
+                      <Label
+                        htmlFor={`area-${area.id}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        {area.nome}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+                {areasAtuacao.length === 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    Carregando áreas de atuação...
+                  </p>
+                )}
               </CardContent>
             </Card>
 
             {/* Job Description */}
             <Card className="card-shadow">
               <CardHeader>
-                <CardTitle>Descrição da Vaga</CardTitle>
+                <CardTitle>Descrição da Vaga *</CardTitle>
                 <CardDescription>
-                  Descreva as responsabilidades e atividades do cargo
+                  Descreva as responsabilidades, atividades e informações importantes sobre a vaga
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Textarea
-                  value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
-                  placeholder="Descreva as principais responsabilidades, atividades do dia a dia, objetivos da posição..."
-                  className="min-h-32"
+                  value={formData.descricao}
+                  onChange={(e) => handleInputChange('descricao', e.target.value)}
+                  placeholder="Descreva as principais responsabilidades, atividades do dia a dia, requisitos, benefícios, etc."
+                  className="min-h-48"
                   required
                 />
-              </CardContent>
-            </Card>
-
-            {/* Requirements */}
-            <Card className="card-shadow">
-              <CardHeader>
-                <CardTitle>Requisitos e Qualificações</CardTitle>
-                <CardDescription>
-                  Liste os requisitos técnicos e comportamentais necessários
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Textarea
-                  value={formData.requirements}
-                  onChange={(e) => handleInputChange('requirements', e.target.value)}
-                  placeholder="Ex:&#10;- Graduação em Engenharia ou áreas relacionadas&#10;- Experiência com Python e JavaScript&#10;- Conhecimento em bancos de dados SQL&#10;- Inglês intermediário"
-                  className="min-h-32"
-                />
+                <p className="text-sm text-muted-foreground mt-2">
+                  Dica: Inclua responsabilidades, requisitos obrigatórios, requisitos desejáveis, benefícios e outras informações relevantes.
+                </p>
               </CardContent>
             </Card>
 
             {/* Submit Button */}
-            <Button 
+            <Button
               type="submit"
               disabled={loading}
               size="lg"

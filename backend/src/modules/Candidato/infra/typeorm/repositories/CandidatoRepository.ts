@@ -8,7 +8,7 @@ class CandidatoRepository implements ICandidatoRepository {
     private repository: Repository<Candidato>;
 
     constructor() {
-        this.repository = getRepository(Candidato);
+        this.repository = getRepository(Candidato, "vagas");
     }
 
     async create({

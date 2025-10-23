@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import PageLayout from "@/components/PageLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,9 +10,22 @@ import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import { FileText, Upload, Save, User } from "lucide-react";
 import { toast } from "sonner";
-import { Database } from "@/integrations/supabase/types";
 
-type Resume = Database['public']['Tables']['resumes']['Row'];
+// TODO: Definir tipos adequados para o novo backend
+interface Resume {
+  id: string;
+  user_id: string;
+  name: string;
+  email: string;
+  phone: string;
+  summary: string;
+  experience: string;
+  education: string;
+  skills: string;
+  file_path?: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const MeuCurriculo = () => {
   const [resume, setResume] = useState<Resume | null>(null);
@@ -45,17 +57,19 @@ const MeuCurriculo = () => {
 
   const fetchResume = async () => {
     if (!user) return;
-    
-    try {
-      const { data, error } = await supabase
-        .from('resumes')
-        .select('*')
-        .eq('user_id', user.id)
-        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') throw error;
-      
-      if (data) {
+    try {
+      // TODO: Implementar chamada para o novo backend
+      // Endpoint sugerido: GET /api/resumes/me
+      /*
+      const response = await fetch('/api/resumes/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
         setResume(data);
         setFormData({
           name: data.name || "",
@@ -73,6 +87,13 @@ const MeuCurriculo = () => {
           email: user.email || ""
         }));
       }
+      */
+
+      // Temporariamente, apenas inicializa com email do usuário
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || ""
+      }));
     } catch (error) {
       console.error('Error fetching resume:', error);
       toast.error('Erro ao carregar currículo');
@@ -93,16 +114,28 @@ const MeuCurriculo = () => {
 
     setUploading(true);
     try {
-      const fileExt = cvFile.name.split('.').pop();
-      const fileName = `${user.id}/cv_${Date.now()}.${fileExt}`;
+      // TODO: Implementar upload para o novo backend
+      // Endpoint sugerido: POST /api/resumes/upload
+      /*
+      const formData = new FormData();
+      formData.append('file', cvFile);
 
-      const { error: uploadError } = await supabase.storage
-        .from('cvs')
-        .upload(fileName, cvFile);
+      const response = await fetch('/api/resumes/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
 
-      if (uploadError) throw uploadError;
+      if (!response.ok) throw new Error('Upload failed');
 
-      return fileName;
+      const data = await response.json();
+      return data.filePath;
+      */
+
+      toast.warning('Upload de arquivo ainda não implementado');
+      return null;
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Erro ao fazer upload do arquivo');
@@ -128,7 +161,6 @@ const MeuCurriculo = () => {
       }
 
       const resumeData = {
-        user_id: user.id,
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -139,27 +171,27 @@ const MeuCurriculo = () => {
         file_path: filePath
       };
 
-      let result;
-      if (resume) {
-        // Update existing resume
-        result = await supabase
-          .from('resumes')
-          .update(resumeData)
-          .eq('id', resume.id)
-          .select()
-          .single();
-      } else {
-        // Create new resume
-        result = await supabase
-          .from('resumes')
-          .insert(resumeData)
-          .select()
-          .single();
-      }
+      // TODO: Implementar chamada para o novo backend
+      // Endpoint sugerido: POST/PUT /api/resumes
+      /*
+      const method = resume ? 'PUT' : 'POST';
+      const url = resume ? `/api/resumes/${resume.id}` : '/api/resumes';
 
-      if (result.error) throw result.error;
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(resumeData)
+      });
 
-      setResume(result.data);
+      if (!response.ok) throw new Error('Failed to save resume');
+
+      const data = await response.json();
+      setResume(data);
+      */
+
       setCvFile(null);
       toast.success('Currículo salvo com sucesso!');
     } catch (error) {

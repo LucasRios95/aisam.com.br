@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import IndustryGrid from "@/components/IndustryGrid";
+import CadastroCandidato from "@/components/CadastroCandidato";
 import PageLayout from "@/components/PageLayout";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -272,20 +273,22 @@ const Index = () => {
               transition={{ duration: 0.4, delay: 0.7 }}
               viewport={{ once: true }}
             >
-              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
-                <CardContent className="p-6 text-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative z-10">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
-                      <img src={sesiLogo} alt="SESI São Roque" className="w-full h-full object-contain" />
+              <a href="https://sesi-sesifront-prd-homolog.azurewebsites.net/educacao/educacao/sao-roque" target="_blank" rel="noopener noreferrer" className="block">
+                <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                  <CardContent className="p-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                        <img src={sesiLogo} alt="SESI São Roque" className="w-full h-full object-contain" />
+                      </div>
+                      <h3 className="font-bold text-foreground mb-2">SESI São Roque</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Saúde ocupacional
+                      </p>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">SESI São Roque</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Saúde ocupacional
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </a>
             </motion.div>
 
             <motion.div
@@ -294,20 +297,22 @@ const Index = () => {
               transition={{ duration: 0.4, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
-                <CardContent className="p-6 text-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative z-10">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
-                      <img src={sesiLogo} alt="SESI Alumínio" className="w-full h-full object-contain" />
+              <a href="https://sesi-sesifront-prd-homolog.azurewebsites.net/educacao/educacao/aluminio" target="_blank" rel="noopener noreferrer" className="block">
+                <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm group">
+                  <CardContent className="p-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 p-2">
+                        <img src={sesiLogo} alt="SESI Alumínio" className="w-full h-full object-contain" />
+                      </div>
+                      <h3 className="font-bold text-foreground mb-2">SESI Alumínio</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Saúde ocupacional
+                      </p>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">SESI Alumínio</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Saúde ocupacional
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </a>
             </motion.div>
           </div>
 

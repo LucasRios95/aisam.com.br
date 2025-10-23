@@ -1,5 +1,4 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "shared/infra/typeorm";
+import { Repository, getRepository } from "typeorm";
 import { INotificacaoRepository } from "modules/Notificacao/repositories/INotificacaoRepository";
 import { ICreateNotificacaoDTO } from "modules/Notificacao/dtos/ICreateNotificacaoDTO";
 import { IFilterNotificacoesDTO } from "modules/Notificacao/dtos/IFilterNotificacoesDTO";
@@ -9,7 +8,7 @@ class NotificacaoRepository implements INotificacaoRepository {
     private repository: Repository<Notificacao>;
 
     constructor() {
-        this.repository = AppDataSource.getRepository(Notificacao);
+        this.repository = getRepository(Notificacao, "common");
     }
 
     async create(data: ICreateNotificacaoDTO): Promise<Notificacao> {

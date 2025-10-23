@@ -18,6 +18,13 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "resolveJsonModule": true,
-      "skipDefaultLibCheck": true
+      "skipDefaultLibCheck": true,
+      "paths": {
+        "@modules/*": ["modules/*"],
+        "@config/*": ["config/*"],
+        "@shared/*": ["shared/*"],
+        "@errors/*": ["shared/errors/*"],
+        "@utils/*": ["utils/*"]
+      }
     }
   }

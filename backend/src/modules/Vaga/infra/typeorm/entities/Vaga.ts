@@ -5,6 +5,7 @@ import { Associado } from "modules/Associado/infra/typeorm/entities/Associado";
 
 export enum StatusVaga {
     ABERTA = "aberta",
+    PAUSADA = "pausada",
     FECHADA = "fechada",
     ARQUIVADA = "arquivada"
 }

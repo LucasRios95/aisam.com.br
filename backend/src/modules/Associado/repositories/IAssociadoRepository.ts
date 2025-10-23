@@ -4,7 +4,7 @@ import { IUpdateAssociadoDTO } from "../dtos/IUpdateAssociadoDTO";
 
 interface IAssociadoRepository {
     create(data: ICreateAssociadoDTO): Promise<Associado>;
-    update(data: IUpdateAssociadoDTO): Promise<void>;
+    update(data: IUpdateAssociadoDTO): Promise<Associado>;
     list(): Promise<Associado[]>;
     delete(id: string): Promise<boolean>;
     findById(id: string): Promise<Associado | undefined>;

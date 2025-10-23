@@ -1,28 +1,52 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import PageLayout from "@/components/PageLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { UserCheck, UserX, Shield, Users } from "lucide-react";
+import { UserCheck, UserX, Shield, Users, CheckCircle, XCircle, UserPlus } from "lucide-react";
 import { toast } from "sonner";
-import { Database } from "@/integrations/supabase/types";
+import axios from "axios";
 
-type Profile = Database['public']['Tables']['profiles']['Row'];
-type UserRole = Database['public']['Tables']['user_roles']['Row'];
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3333";
 
-interface UserWithRoles extends Profile {
-  user_roles: UserRole[];
+interface Associado {
+  id: string;
+  razao_social: string;
+  cnpj: string;
+}
+
+interface Recrutador {
+  id: string;
+  nome: string;
+  email: string;
+  perfil: "recrutador" | "admin";
+  status: "ativo" | "inativo";
+  associado_id: string;
+  associado?: Associado;
+  convite_aceito: boolean;
+  created_at: string;
 }
 
 const AdminUsers = () => {
-  const [users, setUsers] = useState<UserWithRoles[]>([]);
+  const [recrutadores, setRecrutadores] = useState<Recrutador[]>([]);
+  const [associados, setAssociados] = useState<Associado[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [sendingInvite, setSendingInvite] = useState(false);
+
+  // Form state
+  const [nomeConvite, setNomeConvite] = useState("");
+  const [emailConvite, setEmailConvite] = useState("");
+  const [associadoIdConvite, setAssociadoIdConvite] = useState("");
+
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
@@ -35,101 +59,94 @@ const AdminUsers = () => {
       navigate("/dashboard");
       return;
     }
-    fetchUsers();
+    fetchRecrutadores();
+    fetchAssociados();
   }, [user, isAdmin, navigate]);
 
-  const fetchUsers = async () => {
+  const fetchRecrutadores = async () => {
     try {
-      // First get profiles
-      const { data: profiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (profilesError) throw profilesError;
-
-      // Then get roles for each user
-      const usersWithRoles = await Promise.all(
-        (profiles || []).map(async (profile) => {
-          const { data: roles } = await supabase
-            .from('user_roles')
-            .select('*')
-            .eq('user_id', profile.user_id);
-          
-          return {
-            ...profile,
-            user_roles: roles || []
-          };
-        })
-      );
-
-      setUsers(usersWithRoles);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      toast.error('Erro ao carregar usuários');
+      const response = await axios.get(`${API_URL}/recrutadores`);
+      setRecrutadores(response.data);
+    } catch (error: any) {
+      console.error('Error fetching recrutadores:', error);
+      toast.error(error.response?.data?.error || 'Erro ao carregar recrutadores');
     } finally {
       setLoading(false);
     }
   };
 
-  const updateUserRole = async (userId: string, newRole: string) => {
+  const fetchAssociados = async () => {
     try {
-      // Remove existing roles
-      await supabase
-        .from('user_roles')
-        .delete()
-        .eq('user_id', userId);
-
-      // Add new role
-      const { error } = await supabase
-        .from('user_roles')
-        .insert({
-          user_id: userId,
-          role: newRole as any,
-          approved_by: user?.id,
-          approved_at: new Date().toISOString()
-        });
-
-      if (error) throw error;
-      
-      toast.success('Papel do usuário atualizado com sucesso!');
-      fetchUsers(); // Refresh the list
-    } catch (error) {
-      console.error('Error updating user role:', error);
-      toast.error('Erro ao atualizar papel do usuário');
+      const response = await axios.get(`${API_URL}/associados?ativo=true`);
+      setAssociados(response.data);
+    } catch (error: any) {
+      console.error('Error fetching associados:', error);
     }
   };
 
-  const getRoleColor = (role: string) => {
-    switch (role) {
-      case 'admin':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'associado_aprovado':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'associado_pendente':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'recrutador':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+  const handleEnviarConvite = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSendingInvite(true);
+
+    try {
+      await axios.post(`${API_URL}/recrutadores/convite`, {
+        nome: nomeConvite,
+        email: emailConvite,
+        associado_id: associadoIdConvite || undefined
+      });
+
+      toast.success('Convite enviado com sucesso! O recrutador receberá um email.');
+      setOpenDialog(false);
+      setNomeConvite("");
+      setEmailConvite("");
+      setAssociadoIdConvite("");
+      fetchRecrutadores();
+    } catch (error: any) {
+      console.error('Error sending invite:', error);
+      toast.error(error.response?.data?.error || 'Erro ao enviar convite');
+    } finally {
+      setSendingInvite(false);
     }
   };
 
-  const getRoleName = (role: string) => {
-    switch (role) {
-      case 'admin':
-        return 'Administrador';
-      case 'associado_aprovado':
-        return 'Associado Aprovado';
-      case 'associado_pendente':
-        return 'Associado Pendente';
-      case 'recrutador':
-        return 'Recrutador';
-      case 'candidato':
-        return 'Candidato';
-      default:
-        return role;
+  const toggleRecrutadorStatus = async (recrutadorId: string, currentStatus: string) => {
+    try {
+      const newStatus = currentStatus === "ativo" ? "inativo" : "ativo";
+
+      await axios.put(`${API_URL}/recrutadores/${recrutadorId}`, {
+        status: newStatus
+      });
+
+      toast.success(`Recrutador ${newStatus === "ativo" ? "ativado" : "desativado"} com sucesso!`);
+      fetchRecrutadores(); // Refresh the list
+    } catch (error: any) {
+      console.error('Error updating recrutador status:', error);
+      toast.error(error.response?.data?.error || 'Erro ao atualizar status do recrutador');
     }
+  };
+
+  const getStatusBadge = (status: string) => {
+    if (status === "ativo") {
+      return (
+        <Badge className="bg-green-100 text-green-800 border-green-200">
+          <CheckCircle className="h-3 w-3 mr-1" />
+          Ativo
+        </Badge>
+      );
+    }
+    return (
+      <Badge variant="secondary" className="bg-red-100 text-red-800 border-red-200">
+        <XCircle className="h-3 w-3 mr-1" />
+        Inativo
+      </Badge>
+    );
+  };
+
+  const getPerfilBadge = (perfil: string) => {
+    if (perfil === "admin") {
+      return <Badge variant="default">Admin</Badge>;
+    }
+    return <Badge variant="outline">Recrutador</Badge>;
   };
 
   if (loading) {
@@ -153,29 +170,104 @@ const AdminUsers = () => {
           transition={{ duration: 0.5 }}
         >
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
-            <div className="p-3 bg-primary/10 rounded-lg">
-              <Users className="h-8 w-8 text-primary" />
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-primary/10 rounded-lg">
+                <Users className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  Gerenciar Recrutadores
+                </h1>
+                <p className="text-muted-foreground">
+                  Ative ou desative recrutadores do sistema
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                Gerenciar Usuários
-              </h1>
-              <p className="text-muted-foreground">
-                Administre papéis e permissões dos usuários do sistema
-              </p>
-            </div>
+
+            {/* Botão Enviar Convite */}
+            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+              <DialogTrigger asChild>
+                <Button>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Enviar Convite
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Enviar Convite de Recrutador</DialogTitle>
+                  <DialogDescription>
+                    Preencha os dados abaixo para enviar um convite. O recrutador receberá um email com link para criar sua senha.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleEnviarConvite} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="nome-convite">Nome Completo *</Label>
+                    <Input
+                      id="nome-convite"
+                      placeholder="Nome do recrutador"
+                      value={nomeConvite}
+                      onChange={(e) => setNomeConvite(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email-convite">Email *</Label>
+                    <Input
+                      id="email-convite"
+                      type="email"
+                      placeholder="email@example.com"
+                      value={emailConvite}
+                      onChange={(e) => setEmailConvite(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="associado-convite">Associado (opcional)</Label>
+                    <Select value={associadoIdConvite} onValueChange={setAssociadoIdConvite}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um associado" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">Nenhum associado</SelectItem>
+                        {associados.map((associado) => (
+                          <SelectItem key={associado.id} value={associado.id}>
+                            {associado.razao_social}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex gap-2 justify-end pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setOpenDialog(false)}
+                      disabled={sendingInvite}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button type="submit" disabled={sendingInvite}>
+                      {sendingInvite ? "Enviando..." : "Enviar Convite"}
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
 
-          {/* Users Table */}
+          {/* Recrutadores Table */}
           <Card className="card-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-primary" />
-                Usuários e Permissões
+                Recrutadores Cadastrados
               </CardTitle>
               <CardDescription>
-                Gerencie os papéis dos usuários e aprove solicitações de associação
+                Gerencie o status dos recrutadores vinculados aos associados
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -185,112 +277,74 @@ const AdminUsers = () => {
                     <TableRow>
                       <TableHead>Nome</TableHead>
                       <TableHead>Email</TableHead>
-                      <TableHead>Empresa</TableHead>
-                      <TableHead>Papel Atual</TableHead>
-                      <TableHead>Data de Cadastro</TableHead>
+                      <TableHead>Associado</TableHead>
+                      <TableHead>Perfil</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Convite Aceito</TableHead>
                       <TableHead>Ações</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.map((userProfile) => (
-                      <TableRow key={userProfile.user_id}>
-                        <TableCell className="font-medium">
-                          {userProfile.full_name}
-                        </TableCell>
-                        <TableCell>{userProfile.email}</TableCell>
-                        <TableCell>{userProfile.company || '-'}</TableCell>
-                        <TableCell>
-                          <div className="flex flex-wrap gap-1">
-                            {userProfile.user_roles.map((role) => (
-                              <Badge
-                                key={role.id}
-                                className={getRoleColor(role.role)}
-                                variant="outline"
-                              >
-                                {getRoleName(role.role)}
-                              </Badge>
-                            ))}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {new Date(userProfile.created_at).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>
-                          {userProfile.user_id !== user?.id && (
-                            <Select
-                              onValueChange={(value) => updateUserRole(userProfile.user_id, value)}
-                            >
-                              <SelectTrigger className="w-40">
-                                <SelectValue placeholder="Alterar papel" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="candidato">Candidato</SelectItem>
-                                <SelectItem value="associado_pendente">Associado Pendente</SelectItem>
-                                <SelectItem value="associado_aprovado">Associado Aprovado</SelectItem>
-                                <SelectItem value="recrutador">Recrutador</SelectItem>
-                                <SelectItem value="admin">Administrador</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          )}
+                    {recrutadores.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                          Nenhum recrutador cadastrado
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ) : (
+                      recrutadores.map((recrutador) => (
+                        <TableRow key={recrutador.id}>
+                          <TableCell className="font-medium">
+                            {recrutador.nome}
+                          </TableCell>
+                          <TableCell>{recrutador.email}</TableCell>
+                          <TableCell>
+                            {recrutador.associado?.razao_social || '-'}
+                          </TableCell>
+                          <TableCell>
+                            {getPerfilBadge(recrutador.perfil)}
+                          </TableCell>
+                          <TableCell>
+                            {getStatusBadge(recrutador.status)}
+                          </TableCell>
+                          <TableCell>
+                            {recrutador.convite_aceito ? (
+                              <Badge variant="outline" className="bg-green-50">Sim</Badge>
+                            ) : (
+                              <Badge variant="outline" className="bg-yellow-50">Pendente</Badge>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              {recrutador.status === "ativo" ? (
+                                <Button
+                                  size="sm"
+                                  variant="destructive"
+                                  onClick={() => toggleRecrutadorStatus(recrutador.id, recrutador.status)}
+                                >
+                                  <UserX className="h-4 w-4 mr-1" />
+                                  Desativar
+                                </Button>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="default"
+                                  onClick={() => toggleRecrutadorStatus(recrutador.id, recrutador.status)}
+                                >
+                                  <UserCheck className="h-4 w-4 mr-1" />
+                                  Ativar
+                                </Button>
+                              )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
               </div>
-
-              {users.length === 0 && (
-                <div className="text-center py-8">
-                  <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold text-muted-foreground">
-                    Nenhum usuário encontrado
-                  </h3>
-                </div>
-              )}
             </CardContent>
           </Card>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <Card className="card-shadow">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total de Usuários
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-primary">
-                  {users.length}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-shadow">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Associados Aprovados
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">
-                  {users.filter(u => u.user_roles.some(r => r.role === 'associado_aprovado')).length}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-shadow">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Pendentes de Aprovação
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-yellow-600">
-                  {users.filter(u => u.user_roles.some(r => r.role === 'associado_pendente')).length}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </motion.div>
       </div>
     </PageLayout>

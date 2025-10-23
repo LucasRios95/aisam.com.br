@@ -8,6 +8,7 @@ import { EnviarConviteRecrutadorController } from "modules/Recrutador/useCases/E
 import { AceitarConviteRecrutadorController } from "modules/Recrutador/useCases/AceitarConviteRecrutador/AceitarConviteRecrutadorController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ensureAdminOrRecrutadorOwner } from "../middlewares/ensureAdminOrRecrutadorOwner";
 
 const recrutadoresRoutes = Router();
 
@@ -24,7 +25,7 @@ recrutadoresRoutes.post("/convite", ensureAuthenticated, ensureAdmin, enviarConv
 recrutadoresRoutes.post("/aceitar-convite", aceitarConviteRecrutadorController.handle); // Público
 recrutadoresRoutes.get("/", ensureAuthenticated, ensureAdmin, listRecrutadoresController.handle);
 recrutadoresRoutes.get("/:id", ensureAuthenticated, ensureAdmin, findRecrutadorByIdController.handle);
-recrutadoresRoutes.put("/:id", ensureAuthenticated, ensureAdmin, updateRecrutadorController.handle);
+recrutadoresRoutes.put("/:id", ensureAuthenticated, ensureAdminOrRecrutadorOwner, updateRecrutadorController.handle);
 recrutadoresRoutes.delete("/:id", ensureAuthenticated, ensureAdmin, deleteRecrutadorController.handle);
 
 export { recrutadoresRoutes };

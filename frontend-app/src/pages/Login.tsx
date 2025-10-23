@@ -118,7 +118,7 @@ export default function Login() {
               É candidato?
             </p>
             <a
-              href="/"
+              href={`${import.meta.env.VITE_PUBLIC_FRONTEND_URL || 'http://localhost:5173'}/vagas`}
               className="w-full btn-secondary flex items-center justify-center gap-2"
             >
               <Mail size={20} />

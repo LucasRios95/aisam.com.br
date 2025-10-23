@@ -7,7 +7,7 @@ export enum StatusAssociado {
     INATIVO = "inativo"
 }
 
-@Entity("associados")
+@Entity("associado")
 export class Associado {
 
     @PrimaryColumn()
@@ -16,10 +16,31 @@ export class Associado {
     @Column()
     razao_social: string;
 
+    @Column({ nullable: true })
+    nome_fantasia: string;
+
     @Column()
     cnpj: string;
 
-    @Column({ type: 'enum', enum: StatusAssociado })
+    @Column()
+    email: string;
+
+    @Column({ nullable: true })
+    telefone: string;
+
+    @Column({ nullable: true })
+    endereco: string;
+
+    @Column({ nullable: true })
+    cidade: string;
+
+    @Column({ nullable: true })
+    estado: string;
+
+    @Column({ nullable: true })
+    cep: string;
+
+    @Column({ type: 'enum', enum: StatusAssociado, default: StatusAssociado.ATIVO })
     status: StatusAssociado;
 
     @CreateDateColumn()

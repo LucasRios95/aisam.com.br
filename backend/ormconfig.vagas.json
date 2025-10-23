@@ -1,0 +1,23 @@
+{
+    "name": "default",
+    "type": "postgres",
+    "port": 5432,
+    "host": "localhost",
+    "username": "docker",
+    "password": "Lc_150595",
+    "database": "database_aisam",
+    "schema": "vagas",
+    "entities": [
+        "./src/modules/Vaga/infra/typeorm/entities/*.ts",
+        "./src/modules/Candidato/infra/typeorm/entities/*.ts",
+        "./src/modules/Candidatura/infra/typeorm/entities/*.ts",
+        "./src/modules/Recrutador/infra/typeorm/entities/*.ts",
+        "./src/modules/Associado/infra/typeorm/entities/*.ts",
+        "./src/modules/AdminAisam/infra/typeorm/entities/*.ts",
+        "./src/modules/AreaAtuacao/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": ["./src/shared/infra/typeorm/migrations/vagas/*.ts"],
+    "cli": {
+        "migrationsDir": "./src/shared/infra/typeorm/migrations/vagas"
+    }
+}

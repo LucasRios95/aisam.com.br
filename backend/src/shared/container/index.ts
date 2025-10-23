@@ -21,6 +21,10 @@ import { INotificacaoRepository } from "modules/Notificacao/repositories/INotifi
 import { NotificacaoRepository } from "modules/Notificacao/infra/typeorm/repositories/NotificacaoRepository";
 import { IAuditLogRepository } from "modules/Auditoria/repositories/IAuditLogRepository";
 import { AuditLogRepository } from "modules/Auditoria/infra/typeorm/repositories/AuditLogRepository";
+import { IAreaAtuacaoRepository } from "modules/AreaAtuacao/repositories/IAreaAtuacaoRepository";
+import { AreaAtuacaoRepository } from "modules/AreaAtuacao/infra/typeorm/repositories/AreaAtuacaoRepository";
+import { INoticiasRepository } from "modules/Noticia/repositories/INoticiasRepository";
+import { NoticiasRepository } from "modules/Noticia/infra/typeorm/repositories/NoticiasRepository";
 
 container.registerSingleton<IPedidoAssociacaoRepository>(
     "PedidoAssociacaoRepository",
@@ -65,5 +69,15 @@ container.registerSingleton<INotificacaoRepository>(
 container.registerSingleton<IAuditLogRepository>(
     "AuditLogRepository",
     AuditLogRepository
+);
+
+container.registerSingleton<IAreaAtuacaoRepository>(
+    "AreaAtuacaoRepository",
+    AreaAtuacaoRepository
+);
+
+container.registerSingleton<INoticiasRepository>(
+    "NoticiasRepository",
+    NoticiasRepository
 );
 

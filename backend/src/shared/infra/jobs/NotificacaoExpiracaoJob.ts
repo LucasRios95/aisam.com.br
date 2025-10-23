@@ -2,6 +2,7 @@ import cron from "node-cron";
 import { container } from "tsyringe";
 import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
 import { INotificacaoRepository } from "modules/Notificacao/repositories/INotificacaoRepository";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 import { TipoNotificacao } from "modules/Notificacao/infra/typeorm/entities/Notificacao";
 
 class NotificacaoExpiracaoJob {
@@ -11,10 +12,13 @@ class NotificacaoExpiracaoJob {
         try {
             const candidatoRepository = container.resolve<ICandidatoRepository>("CandidatoRepository");
             const notificacaoRepository = container.resolve<INotificacaoRepository>("NotificacaoRepository");
+            const mailProvider = container.resolve<IMailProvider>("MailProvider");
 
             const candidatos = await candidatoRepository.findAll();
             const now = new Date();
             let notificacoesEnviadas = 0;
+
+            const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
 
             for (const candidato of candidatos) {
                 const expirationDate = candidato.acesso_expirado || new Date(
@@ -39,6 +43,20 @@ class NotificacaoExpiracaoJob {
                         }
                     });
 
+                    // Envia email com template
+                    await mailProvider.sendMail({
+                        to: candidato.email,
+                        subject: "⚠️ Seu acesso expira em 7 dias - Sistema AISAM",
+                        template: "expiracao-aviso",
+                        variables: {
+                            nome: candidato.nome,
+                            dias_restantes: 7,
+                            data_expiracao: expirationDate.toLocaleDateString("pt-BR"),
+                            area_candidato_link: `${baseUrl}/candidato`,
+                            ano: new Date().getFullYear()
+                        }
+                    });
+
                     notificacoesEnviadas++;
                     console.log(`[NOTIFICAÇÃO] D-7 enviada para: ${candidato.email}`);
                 }
@@ -54,6 +72,20 @@ class NotificacaoExpiracaoJob {
                             tipo: "expiracao_d1",
                             dias_restantes: 1,
                             expiration_date: expirationDate
+                        }
+                    });
+
+                    // Envia email com template
+                    await mailProvider.sendMail({
+                        to: candidato.email,
+                        subject: "🚨 URGENTE: Seu acesso expira amanhã - Sistema AISAM",
+                        template: "expiracao-aviso",
+                        variables: {
+                            nome: candidato.nome,
+                            dias_restantes: 1,
+                            data_expiracao: expirationDate.toLocaleDateString("pt-BR"),
+                            area_candidato_link: `${baseUrl}/candidato`,
+                            ano: new Date().getFullYear()
                         }
                     });
 

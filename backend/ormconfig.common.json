@@ -1,0 +1,18 @@
+{
+    "name": "default",
+    "type": "postgres",
+    "port": 5432,
+    "host": "localhost",
+    "username": "docker",
+    "password": "Lc_150595",
+    "database": "database_aisam",
+    "schema": "public",
+    "entities": [
+        "./src/modules/Notificacao/infra/typeorm/entities/*.ts",
+        "./src/modules/Auditoria/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": ["./src/shared/infra/typeorm/migrations/common/*.ts"],
+    "cli": {
+        "migrationsDir": "./src/shared/infra/typeorm/migrations/common"
+    }
+}

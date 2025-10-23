@@ -9,7 +9,13 @@ class ListAssociadosController {
 
         const associados = await listAssociadosUseCase.execute();
 
-        return response.status(200).json(associados);
+        // Transformar para o formato esperado pelo frontend
+        const associadosFormatados = associados.map(associado => ({
+            ...associado,
+            ativo: associado.status === "ativo"
+        }));
+
+        return response.status(200).json(associadosFormatados);
     }
 }
 

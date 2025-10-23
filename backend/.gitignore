@@ -1,2 +1,11 @@
 node_modules
 .env
+
+# Logs
+logs/*.log
+
+# Cobertura de testes
+coverage/
+
+# Build
+dist/

@@ -8,7 +8,13 @@ class ListRecrutadoresController {
 
         const recrutadores = await listRecrutadoresUseCase.execute();
 
-        return response.json(recrutadores);
+        // Converter status para ativo (compatibilidade com frontend)
+        const recrutadoresFormatados = recrutadores.map(recrutador => ({
+            ...recrutador,
+            ativo: recrutador.status === "ativo"
+        }));
+
+        return response.json(recrutadoresFormatados);
     }
 }
 

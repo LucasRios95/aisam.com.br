@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import crypto from "crypto";
 import { IRecrutadorRepository } from "../../repositories/IRecrutadorRepository";
 import { IAssociadoRepository } from "modules/Associado/repositories/IAssociadoRepository";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 import { AppError } from "shared/errors/AppError";
 import { Recrutador, PerfilRecrutador, StatusRecrutador } from "../../infra/typeorm/entities/Recrutador";
 
@@ -24,7 +25,10 @@ class EnviarConviteRecrutadorUseCase {
         private recrutadorRepository: IRecrutadorRepository,
 
         @inject("AssociadoRepository")
-        private associadoRepository: IAssociadoRepository
+        private associadoRepository: IAssociadoRepository,
+
+        @inject("MailProvider")
+        private mailProvider: IMailProvider
     ) { }
 
     async execute({ nome, email, associado_id, perfil }: IRequest): Promise<IResponse> {
@@ -34,8 +38,9 @@ class EnviarConviteRecrutadorUseCase {
             throw new AppError("Já existe um recrutador com este e-mail", 400);
         }
 
+        let associado;
         if (associado_id) {
-            const associado = await this.associadoRepository.findById(associado_id);
+            associado = await this.associadoRepository.findById(associado_id);
             if (!associado) {
                 throw new AppError("Associado não encontrado", 404);
             }
@@ -69,7 +74,21 @@ class EnviarConviteRecrutadorUseCase {
         const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
         const convite_link = `${baseUrl}/aceitar-convite/${conviteToken}`;
 
-        // TODO: Enviar e-mail com o link do convite
+        // Enviar e-mail com o link do convite
+        await this.mailProvider.sendMail({
+            to: email,
+            subject: "Convite - Sistema AISAM de Recrutamento",
+            template: "convite-recrutador",
+            variables: {
+                nome,
+                email,
+                perfil: perfil || PerfilRecrutador.RECRUTADOR,
+                associado_nome: associado?.razao_social || "",
+                convite_link,
+                expira_em: conviteExpiresAt.toLocaleDateString("pt-BR"),
+                ano: new Date().getFullYear()
+            }
+        });
 
         return {
             recrutador,

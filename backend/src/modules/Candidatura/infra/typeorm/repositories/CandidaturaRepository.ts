@@ -1,5 +1,4 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "shared/infra/typeorm";
+import { Repository, getRepository } from "typeorm";
 import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
 import { ICreateCandidaturaDTO } from "modules/Candidatura/dtos/ICreateCandidaturaDTO";
 import { IFilterCandidaturasDTO } from "modules/Candidatura/dtos/IFilterCandidaturasDTO";
@@ -10,7 +9,7 @@ class CandidaturaRepository implements ICandidaturaRepository {
     private repository: Repository<Candidatura>;
 
     constructor() {
-        this.repository = AppDataSource.getRepository(Candidatura);
+        this.repository = getRepository(Candidatura, "vagas");
     }
 
     async create(data: ICreateCandidaturaDTO): Promise<Candidatura> {

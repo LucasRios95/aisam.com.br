@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(npm run typeorm:*)",
+      "Bash(mkdir:*)",
+      "Bash(dir:*)",
+      "Bash(mv:*)",
+      "Bash(npm run setup:db:*)",
+      "Bash(npm run typeorm:vagas:*)",
+      "Bash(npm run typeorm:noticias:*)",
+      "Bash(npm run migration:show:common:*)",
+      "Bash(npm run migration:show:vagas:*)",
+      "Bash(npm run migration:show:noticias:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(npm run migration:run:all:*)",
+      "Bash(npm run typeorm:common:*)",
+      "Bash(test:*)",
+      "Bash(npm run seed:admin:*)",
+      "Bash(npm run seed:areas:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9)",
+      "Bash(curl:*)",
+      "Bash(psql:*)",
+      "Bash(cmd //c taskkill //F //PID 13308)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

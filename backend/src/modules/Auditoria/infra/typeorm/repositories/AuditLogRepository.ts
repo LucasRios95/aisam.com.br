@@ -1,5 +1,4 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "shared/infra/typeorm";
+import { Repository, getRepository } from "typeorm";
 import { AuditLog } from "../entities/AuditLog";
 import { IAuditLogRepository } from "modules/Auditoria/repositories/IAuditLogRepository";
 import { ICreateAuditLogDTO } from "modules/Auditoria/dtos/ICreateAuditLogDTO";
@@ -8,7 +7,7 @@ class AuditLogRepository implements IAuditLogRepository {
     private repository: Repository<AuditLog>;
 
     constructor() {
-        this.repository = AppDataSource.getRepository(AuditLog);
+        this.repository = getRepository(AuditLog, "common");
     }
 
     async create(data: ICreateAuditLogDTO): Promise<AuditLog> {

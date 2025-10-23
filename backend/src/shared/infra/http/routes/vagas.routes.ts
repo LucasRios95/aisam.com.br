@@ -5,6 +5,9 @@ import { FindVagaByIdController } from "modules/Vaga/useCases/FindVagaById/FindV
 import { UpdateVagaController } from "modules/Vaga/useCases/UpdateVaga/UpdateVagaController";
 import { ArquivarVagaController } from "modules/Vaga/useCases/ArquivarVaga/ArquivarVagaController";
 import { EncerrarVagaController } from "modules/Vaga/useCases/EncerrarVaga/EncerrarVagaController";
+import { DeleteVagaController } from "modules/Vaga/useCases/DeleteVaga/DeleteVagaController";
+import { PausarVagaController } from "modules/Vaga/useCases/PausarVaga/PausarVagaController";
+import { ReabrirVagaController } from "modules/Vaga/useCases/ReabrirVaga/ReabrirVagaController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 
@@ -16,12 +19,18 @@ const findVagaByIdController = new FindVagaByIdController();
 const updateVagaController = new UpdateVagaController();
 const arquivarVagaController = new ArquivarVagaController();
 const encerrarVagaController = new EncerrarVagaController();
+const deleteVagaController = new DeleteVagaController();
+const pausarVagaController = new PausarVagaController();
+const reabrirVagaController = new ReabrirVagaController();
 
 vagasRoutes.post("/", ensureAuthenticated, ensureRecrutador, createVagaController.handle);
 vagasRoutes.get("/", listVagasController.handle); // Público para candidatos
 vagasRoutes.get("/:id", findVagaByIdController.handle); // Público para candidatos
 vagasRoutes.put("/:id", ensureAuthenticated, ensureRecrutador, updateVagaController.handle);
+vagasRoutes.delete("/:id", ensureAuthenticated, ensureRecrutador, deleteVagaController.handle);
 vagasRoutes.patch("/:id/arquivar", ensureAuthenticated, ensureRecrutador, arquivarVagaController.handle);
 vagasRoutes.patch("/:id/encerrar", ensureAuthenticated, ensureRecrutador, encerrarVagaController.handle);
+vagasRoutes.patch("/:id/pausar", ensureAuthenticated, ensureRecrutador, pausarVagaController.handle);
+vagasRoutes.patch("/:id/reabrir", ensureAuthenticated, ensureRecrutador, reabrirVagaController.handle);
 
 export { vagasRoutes };
