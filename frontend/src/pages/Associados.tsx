@@ -21,7 +21,7 @@ import logoEngeformas from "@/assets/Logo Engeformas correto - 2025.jpg";
 import logoEtruria from "@/assets/Etruria.jpg";
 import logoEverest from "@/assets/LOGO-EVEREST-SEM-FUNDO (002).png";
 import logoLatex from "@/assets/Latex.jpg";
-import logoIBB from "@/assets/logo-ibb.jpg";
+import logoIBB from "@/assets/logo-ibb.svg";
 import logoInaltex from "@/assets/Logo Inaltex (002).jpg";
 import logoGreenwood from "@/assets/Greenwood.jpg";
 import logoLevisa from "@/assets/LEVISA.jpg";
@@ -55,7 +55,7 @@ const Associados = () => {
     {
       name: "ALTA PERFORMANCE MATERIALS",
       sector: "Indústria de Materiais Avançados",
-      description: "Desenvolvimento e fabricação de materiais de alta performance.",
+      description: "Desenvolvimento e Fabricação de Resinas – Poliester – Éster e Gel Coats",
       logo: logoAlta
     },
     {
@@ -73,7 +73,7 @@ const Associados = () => {
     {
       name: "BOM SONO LTDA",
       sector: "Indústria Mobiliária",
-      description: "Fabricação de colchões e produtos para o sono.",
+      description: "Fabricação de Produtos Texteis – Cama – Mesa – Banho ",
       logo: logoBomSono
     },
     {
@@ -91,7 +91,7 @@ const Associados = () => {
     {
       name: "CONTAINERS FLADAFI - EPP",
       sector: "Fundição de Ferro e Aço",
-      description: "Soldagem especializada e fabricação de containers industriais.",
+      description: "Fabricação Especializada de Containers – Venda e Aluguel",
       logo: logoSoldatopo
     },
     {
@@ -109,7 +109,7 @@ const Associados = () => {
     {
       name: "ETRÚRIA INDÚSTRIA E COMÉRCIO LTDA",
       sector: "Indústria Cerâmica",
-      description: "Produtos cerâmicos e materiais para construção.",
+      description: "Fabricação Especializada de Containers – Venda e Aluguel",
       logo: logoEtruria
     },
     {
@@ -121,7 +121,7 @@ const Associados = () => {
     {
       name: "FÁBRICA DE ARTEFATOS DE LÁTEX ESTRELA",
       sector: "Indústria de Látex",
-      description: "Fabricação de artefatos de látex e produtos especializados.",
+      description: "Fabricação de Revestimentos Industriais Eletrostáticos em Pó",
       logo: logoLatex
     },
     {
@@ -139,13 +139,13 @@ const Associados = () => {
     {
       name: "GREENWOOD INDÚSTRIA E COMÉRCIO LTDA",
       sector: "Indústria Mobiliária",
-      description: "Fabricação de móveis e produtos de madeira.",
+      description: "Fabricação: Fragâncias – Cosméticos – Linhas Diversas",
       logo: logoGreenwood
     },
     {
       name: "INALTEX INDÚSTRIA BRASILEIRA LTDA",
       sector: "Indústria Têxtil",
-      description: "Tecidos e não tecidos para as mais diversas aplicações.",
+      description: "Fabricação de Artefatos de Látex/Borracha – Higiene Pessoal",
       logo: logoInaltex
     },
     {
@@ -163,19 +163,19 @@ const Associados = () => {
     {
       name: "LAMACE COMÉRCIO DE IMPORTAÇÃO E EXPORTAÇÃO",
       sector: "Comércio Internacional",
-      description: "Importação e exportação de produtos diversos.",
+      description: "Soluções em Coffee Machines – (Equipamentos- Material de Consumo)",
       logo: logoLamace
     },
     {
       name: "LEVISA",
       sector: "Indústria Química",
-      description: "Produtos químicos especializados.",
+      description: "Linha Descartáveis – Profissional – Setor Beleza – Estética-Higiene Pessoal-Industrial",
       logo: logoLevisa
     },
     {
       name: "MASTERFEW INDÚSTRIA E COMÉRCIO LTDA",
       sector: "Equipamentos Industriais",
-      description: "Fabricação de equipamentos e componentes industriais.",
+      description: "Fabricação de Redes Esportivas – Pesca – Proteção – Kits Quadras Portáteis",
       logo: logoMasterfew
     },
     {
@@ -211,7 +211,7 @@ const Associados = () => {
     {
       name: "NOVOS PS",
       sector: "Serviços Diversos",
-      description: "Prestação de serviços diversos para indústria.",
+      description: "Agência de Comunicação e Marketing – Especialização Digital",
       logo: logoNovosPs
     },
     {
@@ -229,7 +229,7 @@ const Associados = () => {
     {
       name: "VALEMAM",
       sector: "Comércio",
-      description: "Comércio de produtos diversos.",
+      description: "Fabricação Perfis Metálicos – Canaletas Articuladas – EletroCalhas Modulares – Dutos de Pisos - Caixas de tomadas",
       logo: logoValeman
     },
     {
@@ -247,7 +247,7 @@ const Associados = () => {
     {
       name: "VITIVINÍCOLA GÓES LTDA",
       sector: "Indústrias de Alimentação e Bebidas",
-      description: "Produção de vinhos e bebidas alcoólicas.",
+      description: "Produção de Vinhos – Bebidas Alcoólicas e Não Alcoólicas.",
       logo: logoGoes
     }
   ];
@@ -296,7 +296,7 @@ const Associados = () => {
               >
                 <Card className="card-shadow hover:scale-105 transition-all duration-300 h-full">
                   <CardContent className="p-6">
-                    <div className="w-24 h-24 bg-white rounded-lg flex items-center justify-center mb-4 overflow-hidden shadow-sm">
+                    <div className={`w-24 h-24 ${associado.name === "GRUPO DIAS - TERCEIRIZAÇÃO E RH" ? "bg-gray-800" : "bg-white"} rounded-lg flex items-center justify-center mb-4 overflow-hidden shadow-sm`}>
                       {associado.logo ? (
                         <img
                           src={associado.logo}

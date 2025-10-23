@@ -13,70 +13,78 @@ import {
   Phone,
   Mail,
   ExternalLink,
-  MessageCircle
+  MessageCircle,
+  Briefcase,
+  Scale,
+  Home,
+  Gift,
+  Trophy
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Servicos = () => {
   const servicos = [
     {
-      icon: Users,
-      title: "Networking Empresarial",
-      description: "Facilitamos conexões estratégicas entre empresários do setor industrial para desenvolvimento de parcerias.",
+      icon: Briefcase,
+      title: "Recursos de Suporte a RHs",
+      description: "Sistema completo de gestão de vagas e currículos para facilitar o recrutamento nas empresas associadas.",
       features: [
-        "Eventos de networking",
-        "Rodadas de negócios",
-        "Encontros setoriais",
-        "Parcerias estratégicas"
+        "Plataforma de vagas e currículos",
+        "Sistema em desenvolvimento com Lucas",
+        "Gestão de candidaturas",
+        "Suporte ao recrutamento"
       ],
-      link: "/associados"
+      link: "/vagas"
     },
     {
-      icon: TrendingUp,
-      title: "Desenvolvimento de Negócios",
-      description: "Apoio ao crescimento e modernização das empresas através de capacitação e consultoria estratégica.",
+      icon: Scale,
+      title: "Suporte Diversos Departamentos da FIESP",
+      description: "Acesso a diversos departamentos especializados da FIESP para suporte às empresas associadas.",
       features: [
-        "Consultoria em gestão empresarial",
-        "Orientação para expansão",
-        "Modernização de processos"
+        "Jurídico",
+        "Inovação",
+        "Tecnologias",
+        "Infraestrutura",
+        "Trabalhista"
+      ],
+      link: "/links-uteis"
+    },
+    {
+      icon: Home,
+      title: "Infraestrutura AISAM",
+      description: "Espaços físicos disponíveis para realização de reuniões, treinamentos e eventos das empresas associadas.",
+      features: [
+        "Sala de Reunião",
+        "Sala de Aulas",
+        "Equipamentos disponíveis",
+        "Agendamento facilitado"
+      ],
+      link: "/contato"
+    },
+    {
+      icon: Gift,
+      title: "Convênios e Parcerias",
+      description: "Rede de convênios com diversas instituições oferecendo benefícios exclusivos aos associados.",
+      features: [
+        "Grupo RAS (TI e Cursos de Gestão)",
+        "Centro Universitário",
+        "SPC e CDL",
+        "Clubes Esportivos"
       ],
       link: "/associe-se"
     },
     {
-      icon: MessageSquare,
-      title: "Representação Institucional",
-      description: "Representamos os interesses das empresas associadas junto aos órgãos públicos e entidades setoriais.",
+      icon: Trophy,
+      title: "Qualidade de Vida",
+      description: "Programas e eventos voltados para o bem-estar e integração dos colaboradores das empresas associadas.",
       features: [
-        "Representação política",
-        "Defesa de interesses comuns",
-        "Participação em câmaras setoriais",
-        "Relacionamento institucional"
+        "JOGOS DA AISAM",
+        "GUS (Grêmio dos Usuários)",
+        "CASM",
+        "SRC",
+        "Eventos esportivos"
       ],
-      link: "/aisam"
-    },
-    {
-      icon: Calendar,
-      title: "Eventos e Capacitação",
-      description: "Organizamos eventos, palestras e cursos para capacitação e atualização dos empresários associados.",
-      features: [
-        "Palestras especializadas",
-        "Cursos de capacitação",
-        "Seminários técnicos",
-        "Workshops de gestão"
-      ],
-      link: "/noticias"
-    },
-    {
-      icon: FileText,
-      title: "Informações Setoriais",
-      description: "Fornecemos informações atualizadas sobre legislação, mercado e oportunidades do setor industrial.",
-      features: [
-        "Boletins informativos",
-        "Análises de mercado",
-        "Atualizações legislativas",
-        "Estudos setoriais"
-      ],
-      link: "/links-uteis"
+      link: "/jaisam"
     }
   ];
 

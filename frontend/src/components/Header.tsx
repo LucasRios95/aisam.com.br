@@ -50,13 +50,13 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                    "px-2 py-2 rounded-md text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                     isActivePage(item.href)
                       ? "text-primary bg-secondary"
                       : "text-muted-foreground hover:bg-muted"
@@ -72,7 +72,7 @@ const Header = () => {
           {/* Login Button */}
           <div className="hidden lg:block">
             <Button variant="outline" asChild>
-              <a href="http://localhost:5175" target="_blank" rel="noopener noreferrer">
+              <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer">
                 Acessar Sistema
               </a>
             </Button>
