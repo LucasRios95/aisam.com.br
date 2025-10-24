@@ -18,6 +18,8 @@ export default function AdminRecrutadores() {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
+    senha: '',
+    confirmarSenha: '',
     perfil: 'recrutador' as 'admin' | 'recrutador',
     associado_id: '',
   });
@@ -55,6 +57,8 @@ export default function AdminRecrutadores() {
     setFormData({
       nome: '',
       email: '',
+      senha: '',
+      confirmarSenha: '',
       perfil: 'recrutador',
       associado_id: '',
     });
@@ -63,14 +67,26 @@ export default function AdminRecrutadores() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    // Validar senhas
+    if (formData.senha.length < 6) {
+      alert('A senha deve ter no mínimo 6 caracteres');
+      return;
+    }
+
+    if (formData.senha !== formData.confirmarSenha) {
+      alert('As senhas não coincidem');
+      return;
+    }
+
     try {
-      await recrutadoresService.enviarConvite(formData);
-      alert('Convite enviado com sucesso! O recrutador receberá um e-mail para definir a senha.');
+      const { confirmarSenha, ...dadosRecrutador } = formData;
+      await recrutadoresService.criar(dadosRecrutador);
+      alert('Recrutador criado com sucesso!');
       await carregarDados();
       handleCancel();
     } catch (error: any) {
-      console.error('Erro ao enviar convite:', error);
-      alert(error.response?.data?.error || 'Erro ao enviar convite');
+      console.error('Erro ao criar recrutador:', error);
+      alert(error.response?.data?.error || 'Erro ao criar recrutador');
     }
   }
 
@@ -130,7 +146,7 @@ export default function AdminRecrutadores() {
               className="btn-primary flex items-center gap-2"
             >
               <Plus size={20} />
-              Convidar Recrutador
+              Novo Recrutador
             </button>
           )}
         </div>
@@ -159,10 +175,10 @@ export default function AdminRecrutadores() {
         {showForm && (
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Convidar Novo Recrutador
+              Criar Novo Recrutador
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              O recrutador receberá um e-mail com link para definir sua senha
+              Preencha os dados do recrutador e defina uma senha de acesso
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -189,6 +205,37 @@ export default function AdminRecrutadores() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="input-field"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Senha *
+                  </label>
+                  <input
+                    type="password"
+                    value={formData.senha}
+                    onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+                    className="input-field"
+                    minLength={6}
+                    required
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Mínimo de 6 caracteres
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Confirmar Senha *
+                  </label>
+                  <input
+                    type="password"
+                    value={formData.confirmarSenha}
+                    onChange={(e) => setFormData({ ...formData, confirmarSenha: e.target.value })}
+                    className="input-field"
+                    minLength={6}
                     required
                   />
                 </div>
@@ -239,8 +286,8 @@ export default function AdminRecrutadores() {
 
               <div className="flex gap-3">
                 <button type="submit" className="btn-primary flex items-center gap-2">
-                  <Mail size={20} />
-                  Enviar Convite
+                  <Plus size={20} />
+                  Criar Recrutador
                 </button>
                 <button type="button" onClick={handleCancel} className="btn-secondary">
                   Cancelar

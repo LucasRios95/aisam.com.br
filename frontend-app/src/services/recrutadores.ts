@@ -14,9 +14,10 @@ export interface Recrutador {
   updated_at: string;
 }
 
-export interface EnviarConviteDTO {
+export interface CriarRecrutadorDTO {
   nome: string;
   email: string;
+  senha: string;
   perfil: 'admin' | 'recrutador';
   associado_id: string;
 }
@@ -32,8 +33,8 @@ class RecrutadoresService {
     return response.data;
   }
 
-  async enviarConvite(convite: EnviarConviteDTO): Promise<{ message: string }> {
-    const response = await api.post('/recrutadores/convite', convite);
+  async criar(dados: CriarRecrutadorDTO): Promise<Recrutador> {
+    const response = await api.post('/recrutadores', dados);
     return response.data;
   }
 

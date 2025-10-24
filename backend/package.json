@@ -27,6 +27,7 @@
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts",
     "seed:areas": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/areasAtuacao.ts",
+    "seed:associados-recrutadores": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/associados-recrutadores.ts",
     "reset:admin-password": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/reset-admin-password.ts"
   },
   "author": "Ras Technology",
@@ -62,7 +63,8 @@
     "tsyringe": "^4.7.0",
     "typeorm": "^0.2.43",
     "uuid": "^8.3.2",
-    "winston": "^3.18.3"
+    "winston": "^3.18.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

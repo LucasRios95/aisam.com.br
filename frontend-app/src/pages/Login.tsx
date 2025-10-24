@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LogIn, Mail } from 'lucide-react';
@@ -41,21 +42,19 @@ export default function Login() {
           <div className="flex gap-2 mb-6">
             <button
               onClick={() => setActiveTab('admin')}
-              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
-                activeTab === 'admin'
+              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${activeTab === 'admin'
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+                }`}
             >
               Administrador
             </button>
             <button
               onClick={() => setActiveTab('recrutador')}
-              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
-                activeTab === 'recrutador'
+              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${activeTab === 'recrutador'
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+                }`}
             >
               Recrutador
             </button>
