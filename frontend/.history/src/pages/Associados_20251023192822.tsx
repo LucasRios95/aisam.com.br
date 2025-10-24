@@ -123,13 +123,13 @@ const Associados = () => {
       name: "FÁBRICA DE ARTEFATOS DE LÁTEX ESTRELA",
       sector: "Indústria de Látex",
       description: "Fabricação de Revestimentos Industriais Eletrostáticos em Pó",
-      logo: logoLatexEstrela
+      logo: logoLatex
     },
     {
       name: "FÁBRICA DE ARTEFATOS DE LÁTEX SÃO ROQUE",
       sector: "Indústria de Látex",
       description: "Fabricação de artefatos de látex e produtos especializados.",
-      logo: logoLatex
+      logo: logoLatexEstrela
     },
     {
       name: "FIORE CAIXAS LTDA",

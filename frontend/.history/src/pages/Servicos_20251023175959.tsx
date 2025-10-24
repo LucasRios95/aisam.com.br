@@ -30,6 +30,7 @@ const Servicos = () => {
       description: "Sistema completo de gestão de vagas e currículos para facilitar o recrutamento nas empresas associadas.",
       features: [
         "Plataforma de vagas e currículos",
+        "Sistema em desenvolvimento com Lucas",
         "Gestão de candidaturas",
         "Suporte ao recrutamento"
       ],
@@ -65,8 +66,8 @@ const Servicos = () => {
       title: "Convênios e Parcerias",
       description: "Rede de convênios com diversas instituições oferecendo benefícios exclusivos aos associados.",
       features: [
-        "MindAdapt(TI e Cursos de Gestão)",
-        "Centro Universitário UniSãoRoque",
+        "Grupo RAS (TI e Cursos de Gestão)",
+        "Centro Universitário",
         "SPC e CDL",
         "Clubes Esportivos"
       ],
@@ -78,7 +79,7 @@ const Servicos = () => {
       description: "Programas e eventos voltados para o bem-estar e integração dos colaboradores das empresas associadas.",
       features: [
         "JOGOS DA AISAM",
-        "GUS (Grêmio União San Roquense)",
+        "GUS (Grêmio dos Usuários)",
         "CASM",
         "SRC",
         "Eventos esportivos"

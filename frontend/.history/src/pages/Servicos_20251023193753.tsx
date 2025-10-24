@@ -66,7 +66,7 @@ const Servicos = () => {
       description: "Rede de convênios com diversas instituições oferecendo benefícios exclusivos aos associados.",
       features: [
         "MindAdapt(TI e Cursos de Gestão)",
-        "Centro Universitário UniSãoRoque",
+        "Centro Universitário",
         "SPC e CDL",
         "Clubes Esportivos"
       ],
@@ -78,7 +78,7 @@ const Servicos = () => {
       description: "Programas e eventos voltados para o bem-estar e integração dos colaboradores das empresas associadas.",
       features: [
         "JOGOS DA AISAM",
-        "GUS (Grêmio União San Roquense)",
+        "GUS (Grêmio União SanRoquense)",
         "CASM",
         "SRC",
         "Eventos esportivos"

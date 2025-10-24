@@ -21,7 +21,6 @@ import logoEngeformas from "@/assets/Logo Engeformas correto - 2025.jpg";
 import logoEtruria from "@/assets/Etruria.jpg";
 import logoEverest from "@/assets/LOGO-EVEREST-SEM-FUNDO (002).png";
 import logoLatex from "@/assets/Latex.jpg";
-import logoLatexEstrela from "@/assets/epris_JPG.jpg";
 import logoIBB from "@/assets/logo-ibb.svg";
 import logoInaltex from "@/assets/Logo Inaltex (002).jpg";
 import logoGreenwood from "@/assets/Greenwood.jpg";
@@ -123,7 +122,7 @@ const Associados = () => {
       name: "FÁBRICA DE ARTEFATOS DE LÁTEX ESTRELA",
       sector: "Indústria de Látex",
       description: "Fabricação de Revestimentos Industriais Eletrostáticos em Pó",
-      logo: logoLatexEstrela
+      logo: logoLatex
     },
     {
       name: "FÁBRICA DE ARTEFATOS DE LÁTEX SÃO ROQUE",

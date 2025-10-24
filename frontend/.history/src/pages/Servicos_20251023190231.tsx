@@ -66,7 +66,7 @@ const Servicos = () => {
       description: "Rede de convênios com diversas instituições oferecendo benefícios exclusivos aos associados.",
       features: [
         "MindAdapt(TI e Cursos de Gestão)",
-        "Centro Universitário UniSãoRoque",
+        "Centro Universitário",
         "SPC e CDL",
         "Clubes Esportivos"
       ],
