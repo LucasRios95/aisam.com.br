@@ -22,6 +22,7 @@ export default function NovaVaga() {
     senioridade: 'pleno' as 'estagio' | 'junior' | 'pleno' | 'senior' | 'especialista',
     empresa_anonima: false,
     areas_atuacao: [] as string[],
+    email_contato: '',
   });
 
   useEffect(() => {
@@ -180,6 +181,25 @@ export default function NovaVaga() {
                   className="input-field"
                   placeholder="Ex: São Paulo - SP"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  E-mail do Responsável *
+                </label>
+                <input
+                  type="email"
+                  value={formData.email_contato}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email_contato: e.target.value })
+                  }
+                  className="input-field"
+                  placeholder="Ex: recrutamento@empresa.com"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Este e-mail será usado para receber candidaturas
+                </p>
               </div>
             </div>
           </div>

@@ -15,7 +15,26 @@ COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
 
 # ==================================
-# STAGE 2: Build
+# STAGE 2: Development
+# ==================================
+FROM node:20-alpine AS development
+
+WORKDIR /usr/app
+
+# Copiar package.json
+COPY package*.json ./
+
+# Instalar todas as dependências (incluindo dev)
+RUN npm ci
+
+# Expor porta para aplicação e debug
+EXPOSE 3333 9229
+
+# Comando será sobrescrito pelo docker-compose
+CMD ["npm", "run", "dev"]
+
+# ==================================
+# STAGE 3: Build
 # ==================================
 FROM node:20-alpine AS build
 
@@ -34,7 +53,7 @@ COPY . .
 RUN npm run build
 
 # ==================================
-# STAGE 3: Production
+# STAGE 4: Production
 # ==================================
 FROM node:20-alpine AS production
 

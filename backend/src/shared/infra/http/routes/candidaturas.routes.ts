@@ -15,7 +15,7 @@ const findCandidaturaByIdController = new FindCandidaturaByIdController();
 const updateStatusCandidaturaController = new UpdateStatusCandidaturaController();
 const deleteCandidaturaController = new DeleteCandidaturaController();
 
-candidaturasRoutes.post("/", createCandidaturaController.handle); // Público/Candidato
+candidaturasRoutes.post("/", ensureAuthenticated, createCandidaturaController.handle); // Candidato autenticado
 candidaturasRoutes.get("/", ensureAuthenticated, listCandidaturasController.handle);
 candidaturasRoutes.get("/:id", ensureAuthenticated, findCandidaturaByIdController.handle);
 candidaturasRoutes.patch("/:id/status", ensureAuthenticated, ensureRecrutador, updateStatusCandidaturaController.handle);

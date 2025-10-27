@@ -6,8 +6,9 @@ import candidaturasService, { type Candidatura } from '../../services/candidatur
 const statusLabels: Record<string, { label: string; color: string; icon: any }> = {
   pendente: { label: 'Pendente', color: 'bg-yellow-100 text-yellow-700', icon: Clock },
   em_analise: { label: 'Em Análise', color: 'bg-blue-100 text-blue-700', icon: Eye },
-  aprovada: { label: 'Aprovada', color: 'bg-green-100 text-green-700', icon: Check },
-  reprovada: { label: 'Reprovada', color: 'bg-red-100 text-red-700', icon: X },
+  aceita: { label: 'Aceita', color: 'bg-green-100 text-green-700', icon: Check },
+  recusada: { label: 'Recusada', color: 'bg-red-100 text-red-700', icon: X },
+  cancelada: { label: 'Cancelada', color: 'bg-gray-100 text-gray-700', icon: X },
 };
 
 export default function RecrutadorCandidaturas() {
@@ -92,15 +93,15 @@ export default function RecrutadorCandidaturas() {
             </p>
           </div>
           <div className="card bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-            <p className="text-sm text-green-700 font-medium">Aprovadas</p>
+            <p className="text-sm text-green-700 font-medium">Aceitas</p>
             <p className="text-3xl font-bold text-green-900 mt-2">
-              {candidaturas.filter((c) => c.status === 'aprovada').length}
+              {candidaturas.filter((c) => c.status === 'aceita').length}
             </p>
           </div>
           <div className="card bg-gradient-to-br from-red-50 to-red-100 border-red-200">
-            <p className="text-sm text-red-700 font-medium">Reprovadas</p>
+            <p className="text-sm text-red-700 font-medium">Recusadas</p>
             <p className="text-3xl font-bold text-red-900 mt-2">
-              {candidaturas.filter((c) => c.status === 'reprovada').length}
+              {candidaturas.filter((c) => c.status === 'recusada').length}
             </p>
           </div>
         </div>
@@ -129,8 +130,8 @@ export default function RecrutadorCandidaturas() {
                 <option value="">Todos os status</option>
                 <option value="pendente">Pendentes</option>
                 <option value="em_analise">Em Análise</option>
-                <option value="aprovada">Aprovadas</option>
-                <option value="reprovada">Reprovadas</option>
+                <option value="aceita">Aceitas</option>
+                <option value="recusada">Recusadas</option>
               </select>
             </div>
           </div>

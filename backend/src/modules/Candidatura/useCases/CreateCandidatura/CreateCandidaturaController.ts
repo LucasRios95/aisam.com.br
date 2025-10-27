@@ -4,7 +4,8 @@ import { CreateCandidaturaUseCase } from "./CreateCandidaturaUseCase";
 
 class CreateCandidaturaController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { candidato_id, vaga_id, mensagem } = request.body;
+        const { vaga_id, mensagem } = request.body;
+        const candidato_id = request.user.id; // Pega do token de autenticação
 
         const createCandidaturaUseCase = container.resolve(CreateCandidaturaUseCase);
 

@@ -26,6 +26,8 @@ export interface CriarNoticiaDTO {
   conteudo: string;
   imagem_url?: string;
   autor?: string;
+  fonte?: string;
+  fonte_url?: string;
   tags?: string[];
   publicada?: boolean;
   destaque?: boolean;
@@ -39,6 +41,8 @@ export interface AtualizarNoticiaDTO {
   conteudo?: string;
   imagem_url?: string;
   autor?: string;
+  fonte?: string;
+  fonte_url?: string;
   tags?: string[];
   publicada?: boolean;
   destaque?: boolean;

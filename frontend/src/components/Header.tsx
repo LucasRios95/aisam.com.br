@@ -12,7 +12,7 @@ const Header = () => {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "AISAM", href: "/aisam" },
-    { name: "Vagas", href: "/vagas" },
+    { name: "Vagas/Currículos", href: "/vagas" },
     { name: "Associados", href: "/associados" },
     { name: "Diretoria", href: "/diretoria" },
     { name: "Consultoria Jurídica", href: "/consultoria-juridica" },

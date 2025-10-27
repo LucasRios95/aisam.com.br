@@ -10,6 +10,11 @@ import AdminVagas from './pages/Admin/Vagas';
 import AdminAreas from './pages/Admin/Areas';
 import AdminAssociados from './pages/Admin/Associados';
 import AdminRecrutadores from './pages/Admin/Recrutadores';
+import AdminCandidatos from './pages/Admin/Candidatos';
+import AdminRelatorios from './pages/Admin/Relatorios';
+import AdminNoticias from './pages/Admin/Noticias';
+import NovaNoticia from './pages/Admin/NovaNoticia';
+import EditarNoticia from './pages/Admin/EditarNoticia';
 
 // Recrutador Pages
 import RecrutadorDashboard from './pages/Recrutador/Dashboard';
@@ -63,6 +68,46 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
                 <AdminRecrutadores />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/candidatos"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <AdminCandidatos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/relatorios"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <AdminRelatorios />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/noticias"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <AdminNoticias />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/noticias/nova"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <NovaNoticia />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/noticias/:id/editar"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <EditarNoticia />
               </ProtectedRoute>
             }
           />

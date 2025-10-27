@@ -12,10 +12,11 @@ class CreateVagaController {
             regime,
             localidade,
             email_contato,
-            empresa_anonima,
-            recrutador_id,
-            associado_id
+            empresa_anonima
         } = request.body;
+
+        // Pega o recrutador_id do usuário autenticado
+        const recrutador_id = request.user.id;
 
         const createVagaUseCase = container.resolve(CreateVagaUseCase);
 
@@ -28,8 +29,7 @@ class CreateVagaController {
             localidade,
             email_contato,
             empresa_anonima,
-            recrutador_id,
-            associado_id
+            recrutador_id
         });
 
         return response.status(201).json(vaga);

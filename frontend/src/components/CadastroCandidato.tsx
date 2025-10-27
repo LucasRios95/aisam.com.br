@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { UserPlus, CheckCircle2, X } from "lucide-react";
+import { UserPlus, CheckCircle2, X, Upload, FileText } from "lucide-react";
 import { toast } from "sonner";
 import candidatosService, { type CriarCandidatoDTO } from "@/services/candidatos";
 import areasService, { type AreaAtuacao } from "@/services/areas";
@@ -20,6 +20,8 @@ const CadastroCandidato = () => {
   const [areasSelecionadas, setAreasSelecionadas] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [sucesso, setSucesso] = useState(false);
+  const [curriculoFile, setCurriculoFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -49,6 +51,25 @@ const CadastroCandidato = () => {
     );
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validar tipo de arquivo
+      if (file.type !== 'application/pdf') {
+        toast.error('Apenas arquivos PDF são permitidos');
+        e.target.value = '';
+        return;
+      }
+      // Validar tamanho (máx 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('O arquivo deve ter no máximo 5MB');
+        e.target.value = '';
+        return;
+      }
+      setCurriculoFile(file);
+    }
+  };
+
   const onSubmit = async (data: CadastroCandidatoFormData) => {
     if (areasSelecionadas.length === 0) {
       toast.error('Selecione pelo menos uma área de atuação');
@@ -62,16 +83,34 @@ const CadastroCandidato = () => {
 
     try {
       setLoading(true);
-      await candidatosService.criar({
+
+      // Criar o cadastro do candidato
+      const candidato = await candidatosService.criar({
         ...data,
         areas_atuacao: areasSelecionadas,
         consentimento_dados: true,
       });
 
+      // Se houver currículo, fazer upload
+      if (curriculoFile) {
+        try {
+          await candidatosService.uploadCurriculo(candidato.id, curriculoFile);
+          toast.success('Cadastro e currículo enviados com sucesso!');
+        } catch (uploadError) {
+          console.error('Erro ao fazer upload do currículo:', uploadError);
+          toast.warning('Cadastro realizado, mas houve erro no upload do currículo');
+        }
+      } else {
+        toast.success('Cadastro realizado com sucesso!');
+      }
+
       setSucesso(true);
       reset();
       setAreasSelecionadas([]);
-      toast.success('Cadastro realizado com sucesso!');
+      setCurriculoFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
 
       setTimeout(() => {
         setSucesso(false);
@@ -97,8 +136,12 @@ const CadastroCandidato = () => {
         </h3>
         <p className="text-muted-foreground mb-6">
           Enviamos um link de acesso para seu e-mail. Verifique sua caixa de entrada.
+          {curriculoFile && <><br />Seu currículo foi anexado ao cadastro.</>}
         </p>
-        <Button onClick={() => setSucesso(false)}>
+        <Button onClick={() => {
+          setSucesso(false);
+          setCurriculoFile(null);
+        }}>
           Fazer novo cadastro
         </Button>
       </motion.div>
@@ -184,9 +227,19 @@ const CadastroCandidato = () => {
                 <Label htmlFor="estado">Estado *</Label>
                 <Input
                   id="estado"
-                  {...register("estado", { required: "Estado é obrigatório" })}
+                  {...register("estado", {
+                    required: "Estado é obrigatório",
+                    pattern: {
+                      value: /^[A-Za-z]{2}$/,
+                      message: "Estado deve ter 2 letras (ex: SP)"
+                    }
+                  })}
                   placeholder="UF"
                   maxLength={2}
+                  style={{ textTransform: 'uppercase' }}
+                  onChange={(e) => {
+                    e.target.value = e.target.value.toUpperCase();
+                  }}
                 />
                 {errors.estado && (
                   <p className="text-sm text-destructive">{errors.estado.message}</p>
@@ -243,6 +296,52 @@ const CadastroCandidato = () => {
                 {errors.resumo_curriculo.message}
               </p>
             )}
+          </div>
+
+          {/* Upload de Currículo em PDF */}
+          <div className="space-y-2">
+            <Label htmlFor="curriculo">Currículo em PDF (Opcional)</Label>
+            <div className="flex flex-col gap-2">
+              <div className="relative">
+                <Input
+                  ref={fileInputRef}
+                  id="curriculo"
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  onChange={handleFileChange}
+                  className="cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                />
+              </div>
+              {curriculoFile && (
+                <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+                  <FileText className="h-5 w-5 text-green-600 dark:text-green-400" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                      {curriculoFile.name}
+                    </p>
+                    <p className="text-xs text-green-700 dark:text-green-300">
+                      {(curriculoFile.size / 1024).toFixed(2)} KB
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurriculoFile(null);
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = '';
+                      }
+                    }}
+                    className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-200"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+              )}
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                <Upload className="h-3 w-3" />
+                Formato: PDF | Tamanho máximo: 5MB
+              </p>
+            </div>
           </div>
 
           {/* Consentimento LGPD */}

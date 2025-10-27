@@ -38,10 +38,31 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false, // Necessário para servir arquivos
 }));
 
-// Configurar CORS de forma mais restritiva
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5175";
+// Configurar CORS
+const allowedOrigins = [
+    process.env.FRONTEND_URL || "http://localhost:5173",
+    "http://localhost:8080", // Frontend institucional
+    "http://localhost:5174", // Frontend app (admin/recrutador)
+    "http://localhost:5175",
+];
+
 app.use(cors({
-    origin: frontendUrl,
+    origin: (origin, callback) => {
+        // Permitir requisições sem origin (como Postman, curl, etc.)
+        if (!origin) return callback(null, true);
+
+        // Em desenvolvimento, permitir qualquer localhost
+        if (process.env.NODE_ENV === 'development' && origin?.includes('localhost')) {
+            return callback(null, true);
+        }
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            logger.warn('CORS: Origin rejected', { origin });
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     optionsSuccessStatus: 200
 }));
@@ -70,9 +91,16 @@ app.use(
                 method: request.method,
             });
 
-            return response.status(err.statusCode).json({
-                error: err.message
-            });
+            // Incluir detalhes de validação se existirem
+            const responseData: any = {
+                message: err.message
+            };
+
+            if ((err as any).validationErrors) {
+                responseData.errors = (err as any).validationErrors;
+            }
+
+            return response.status(err.statusCode).json(responseData);
         }
 
         // Logar erros não esperados

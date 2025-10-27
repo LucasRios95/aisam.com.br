@@ -38,6 +38,7 @@ export interface AtualizarCandidatoDTO {
 }
 
 class CandidatosService {
+  // Métodos públicos
   async criar(candidato: CriarCandidatoDTO): Promise<Candidato> {
     const response = await api.post<Candidato>('/candidatos', candidato);
     return response.data;
@@ -72,6 +73,26 @@ class CandidatosService {
   async gerarLinkMagico(email: string): Promise<{ token: string; expires_at: string }> {
     const response = await api.post('/candidatos/magic-link', { email });
     return response.data;
+  }
+
+  // Métodos Admin
+  async listar(): Promise<Candidato[]> {
+    const response = await api.get<Candidato[]>('/candidatos');
+    return response.data;
+  }
+
+  async criarAdmin(candidato: CriarCandidatoDTO): Promise<Candidato> {
+    const response = await api.post<Candidato>('/candidatos/admin', candidato);
+    return response.data;
+  }
+
+  async atualizarAdmin(id: string, candidato: AtualizarCandidatoDTO): Promise<Candidato> {
+    const response = await api.put<Candidato>(`/candidatos/${id}`, candidato);
+    return response.data;
+  }
+
+  async deletar(id: string): Promise<void> {
+    await api.delete(`/candidatos/${id}`);
   }
 }
 

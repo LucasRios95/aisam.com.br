@@ -15,7 +15,6 @@ interface IRequest {
     email_contato: string;
     empresa_anonima?: boolean;
     recrutador_id: string;
-    associado_id: string;
 }
 
 @injectable()
@@ -38,12 +37,18 @@ class CreateVagaUseCase {
         localidade,
         email_contato,
         empresa_anonima,
-        recrutador_id,
-        associado_id
+        recrutador_id
     }: IRequest): Promise<Vaga> {
         const recrutador = await this.recrutadorRepository.findById(recrutador_id);
         if (!recrutador) {
             throw new AppError("Recrutador não encontrado!", 404);
+        }
+
+        // Pega o associado_id do recrutador
+        const associado_id = recrutador.associado_id;
+
+        if (!associado_id) {
+            throw new AppError("Recrutador não está vinculado a nenhum associado!", 400);
         }
 
         const associado = await this.associadoRepository.findById(associado_id);

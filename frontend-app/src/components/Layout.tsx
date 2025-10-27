@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { LogOut, Home, Briefcase, Users, FileText, BarChart } from 'lucide-react';
+import { LogOut, Home, Briefcase, Users, FileText, BarChart, UserCheck, Newspaper } from 'lucide-react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -87,6 +87,20 @@ export default function Layout({ children, title }: LayoutProps) {
                 >
                   <Users size={20} />
                   Recrutadores
+                </Link>
+                <Link
+                  to="/admin/candidatos"
+                  className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <UserCheck size={20} />
+                  Candidatos
+                </Link>
+                <Link
+                  to="/admin/noticias"
+                  className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <Newspaper size={20} />
+                  Notícias
                 </Link>
                 <Link
                   to="/admin/relatorios"

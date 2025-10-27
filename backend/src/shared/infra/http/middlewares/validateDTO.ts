@@ -21,10 +21,13 @@ export function validateDTO(dtoClass: any) {
 
             // Criar uma mensagem de erro mais amigável
             const errorMessages = formattedErrors
-                .map(error => error.messages.join(', '))
-                .join('; ');
+                .map(error => `${error.field}: ${error.messages.join(', ')}`)
+                .join('\n');
 
-            throw new AppError(`Erro de validação: ${errorMessages}`, 422);
+            // Criar um AppError customizado com os erros detalhados
+            const error = new AppError(`Erro de validação:\n${errorMessages}`, 422);
+            (error as any).validationErrors = formattedErrors;
+            throw error;
         }
 
         // Se passou na validação, substituir o body pelo DTO validado
