@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import IndustryGrid from "@/components/IndustryGrid";
-import CadastroCandidato from "@/components/CadastroCandidato";
 import PageLayout from "@/components/PageLayout";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
