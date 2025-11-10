@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CreateVagaController } from "modules/Vaga/useCases/CreateVaga/CreateVagaController";
 import { ListVagasController } from "modules/Vaga/useCases/ListVagas/ListVagasController";
+import { ListMinhasVagasController } from "modules/Vaga/useCases/ListMinhasVagas/ListMinhasVagasController";
 import { FindVagaByIdController } from "modules/Vaga/useCases/FindVagaById/FindVagaByIdController";
 import { UpdateVagaController } from "modules/Vaga/useCases/UpdateVaga/UpdateVagaController";
 import { ArquivarVagaController } from "modules/Vaga/useCases/ArquivarVaga/ArquivarVagaController";
@@ -15,6 +16,7 @@ const vagasRoutes = Router();
 
 const createVagaController = new CreateVagaController();
 const listVagasController = new ListVagasController();
+const listMinhasVagasController = new ListMinhasVagasController();
 const findVagaByIdController = new FindVagaByIdController();
 const updateVagaController = new UpdateVagaController();
 const arquivarVagaController = new ArquivarVagaController();
@@ -23,6 +25,7 @@ const deleteVagaController = new DeleteVagaController();
 const pausarVagaController = new PausarVagaController();
 const reabrirVagaController = new ReabrirVagaController();
 
+vagasRoutes.get("/minhas", ensureAuthenticated, ensureRecrutador, listMinhasVagasController.handle); // Vagas do recrutador logado
 vagasRoutes.post("/", ensureAuthenticated, ensureRecrutador, createVagaController.handle);
 vagasRoutes.get("/", listVagasController.handle); // Público para candidatos
 vagasRoutes.get("/:id", findVagaByIdController.handle); // Público para candidatos

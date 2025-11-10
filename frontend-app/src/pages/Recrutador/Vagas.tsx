@@ -37,8 +37,8 @@ export default function RecrutadorVagas() {
   async function carregarVagas() {
     try {
       setLoading(true);
-      // Busca vagas do recrutador logado
-      const data = await vagasService.listar({});
+      // Busca apenas as vagas do recrutador logado
+      const data = await vagasService.listarMinhasVagas();
       setVagas(data);
     } catch (error) {
       console.error('Erro ao carregar vagas:', error);

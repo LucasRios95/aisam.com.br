@@ -37,41 +37,41 @@ export default function NovaNoticia() {
         tags: tagsArray.length > 0 ? tagsArray : undefined,
       });
 
-      alert('Notícia criada com sucesso!');
+      alert('NotÃ­cia criada com sucesso!');
       navigate('/admin/noticias');
     } catch (error: any) {
-      console.error('Erro ao criar notícia:', error);
-      alert(error.response?.data?.message || 'Erro ao criar notícia');
+      console.error('Erro ao criar notÃ­cia:', error);
+      alert(error.response?.data?.message || 'Erro ao criar notÃ­cia');
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <Layout title="Nova Notícia">
+    <Layout title="Nova NotÃ­cia">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Publicar Nova Notícia</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Publicar Nova NotÃ­cia</h2>
             <p className="text-gray-600 mt-1">
-              Preencha as informações da notícia que deseja publicar
+              Preencha as informaÃ§Ãµes da notÃ­cia que deseja publicar
             </p>
           </div>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Informações Básicas */}
+          {/* InformaÃ§Ãµes BÃ¡sicas */}
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Informações Básicas
+              InformaÃ§Ãµes BÃ¡sicas
             </h3>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Título da Notícia *
+                  TÃ­tulo da NotÃ­cia *
                 </label>
                 <input
                   type="text"
@@ -96,13 +96,13 @@ export default function NovaNoticia() {
                   }
                   className="input-field"
                   rows={3}
-                  placeholder="Breve resumo da notícia (será exibido na listagem)"
+                  placeholder="Breve resumo da notÃ­cia (serÃ¡ exibido na listagem)"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Conteúdo da Notícia *
+                  ConteÃºdo da NotÃ­cia *
                 </label>
                 <textarea
                   value={formData.conteudo}
@@ -111,7 +111,7 @@ export default function NovaNoticia() {
                   }
                   className="input-field"
                   rows={10}
-                  placeholder="Escreva o conteúdo completo da notícia..."
+                  placeholder="Escreva o conteÃºdo completo da notÃ­cia..."
                   required
                 />
               </div>
@@ -161,7 +161,7 @@ export default function NovaNoticia() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Data de Publicação *
+                    Data de PublicaÃ§Ã£o *
                   </label>
                   <input
                     type="date"
@@ -195,7 +195,7 @@ export default function NovaNoticia() {
                     setFormData({ ...formData, fonte: e.target.value })
                   }
                   className="input-field"
-                  placeholder="Ex: Portal de Notícias XYZ"
+                  placeholder="Ex: Portal de NotÃ­cias XYZ"
                 />
               </div>
 
@@ -224,25 +224,25 @@ export default function NovaNoticia() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Tags (separadas por vírgula)
+                Tags (separadas por vÃ­rgula)
               </label>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 className="input-field"
-                placeholder="Ex: tecnologia, inovação, parceria"
+                placeholder="Ex: tecnologia, inovaÃ§Ã£o, parceria"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Separe múltiplas tags com vírgula
+                Separe mÃºltiplas tags com vÃ­rgula
               </p>
             </div>
           </div>
 
-          {/* Configurações */}
+          {/* ConfiguraÃ§Ãµes */}
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Configurações de Publicação
+              ConfiguraÃ§Ãµes de PublicaÃ§Ã£o
             </h3>
 
             <div className="space-y-3">
@@ -260,7 +260,7 @@ export default function NovaNoticia() {
                     Publicar imediatamente
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    A notícia ficará visível no site institucional
+                    A notÃ­cia ficarÃ¡ visÃ­vel no site institucional
                   </p>
                 </div>
               </label>
@@ -279,7 +279,7 @@ export default function NovaNoticia() {
                     Marcar como destaque
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Notícias em destaque aparecem em posição de maior visibilidade
+                    NotÃ­cias em destaque aparecem em posiÃ§Ã£o de maior visibilidade
                   </p>
                 </div>
               </label>
@@ -294,7 +294,7 @@ export default function NovaNoticia() {
               className="btn-primary flex items-center gap-2"
             >
               <Save size={20} />
-              {loading ? 'Publicando...' : 'Publicar Notícia'}
+              {loading ? 'Publicando...' : 'Publicar NotÃ­cia'}
             </button>
             <button
               type="button"

@@ -27,7 +27,9 @@
       "Bash(curl:*)",
       "Bash(psql:*)",
       "Bash(cmd //c taskkill //F //PID 13308)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

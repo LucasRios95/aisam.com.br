@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LogIn, Mail } from 'lucide-react';
+import aisamLogo from '../assets/aisam-logo.webp';
 
 export default function Login() {
   const [activeTab, setActiveTab] = useState<'admin' | 'recrutador'>('admin');
@@ -30,11 +30,11 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 to-primary-700 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-[#1e40af] px-4">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">AISAM</h1>
+            <img src={aisamLogo} alt="AISAM" className="h-16 mx-auto mb-4" />
             <p className="text-gray-600 mt-2">Sistema de Recrutamento & Seleção</p>
           </div>
 
@@ -117,7 +117,7 @@ export default function Login() {
               É candidato?
             </p>
             <a
-              href={`${import.meta.env.VITE_PUBLIC_FRONTEND_URL || 'http://localhost:5173'}/vagas`}
+              href={`${import.meta.env.VITE_INSTITUTIONAL_FRONTEND_URL || 'http://localhost:8080'}/vagas`}
               className="w-full btn-secondary flex items-center justify-center gap-2"
             >
               <Mail size={20} />

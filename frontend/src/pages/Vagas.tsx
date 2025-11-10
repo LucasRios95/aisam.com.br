@@ -87,10 +87,7 @@ const Vagas = () => {
   }
 
   return (
-    <PageLayout
-      title="Vagas Disponíveis"
-      description="Encontre oportunidades de emprego exclusivas na região"
-    >
+    <PageLayout>
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}

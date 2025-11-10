@@ -53,6 +53,18 @@ class CandidaturaRepository implements ICandidaturaRepository {
                 });
             }
 
+            if (filters.recrutador_id) {
+                query.andWhere("vaga.recrutador_id = :recrutador_id", {
+                    recrutador_id: filters.recrutador_id
+                });
+            }
+
+            if (filters.associado_id) {
+                query.andWhere("vaga.associado_id = :associado_id", {
+                    associado_id: filters.associado_id
+                });
+            }
+
             if (filters.status) {
                 query.andWhere("candidatura.status = :status", {
                     status: filters.status

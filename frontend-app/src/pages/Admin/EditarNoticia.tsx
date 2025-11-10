@@ -51,8 +51,8 @@ export default function EditarNoticia() {
         setTags(noticia.tags.join(', '));
       }
     } catch (error) {
-      console.error('Erro ao carregar notícia:', error);
-      alert('Erro ao carregar notícia');
+      console.error('Erro ao carregar notÃ­cia:', error);
+      alert('Erro ao carregar notÃ­cia');
       navigate('/admin/noticias');
     } finally {
       setLoadingData(false);
@@ -77,11 +77,11 @@ export default function EditarNoticia() {
         tags: tagsArray.length > 0 ? tagsArray : undefined,
       });
 
-      alert('Notícia atualizada com sucesso!');
+      alert('NotÃ­cia atualizada com sucesso!');
       navigate('/admin/noticias');
     } catch (error: any) {
-      console.error('Erro ao atualizar notícia:', error);
-      alert(error.response?.data?.message || 'Erro ao atualizar notícia');
+      console.error('Erro ao atualizar notÃ­cia:', error);
+      alert(error.response?.data?.message || 'Erro ao atualizar notÃ­cia');
     } finally {
       setLoading(false);
     }
@@ -89,7 +89,7 @@ export default function EditarNoticia() {
 
   if (loadingData) {
     return (
-      <Layout title="Editar Notícia">
+      <Layout title="Editar NotÃ­cia">
         <div className="flex justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
@@ -98,30 +98,30 @@ export default function EditarNoticia() {
   }
 
   return (
-    <Layout title="Editar Notícia">
+    <Layout title="Editar NotÃ­cia">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Editar Notícia</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Editar NotÃ­cia</h2>
             <p className="text-gray-600 mt-1">
-              Atualize as informações da notícia
+              Atualize as informaÃ§Ãµes da notÃ­cia
             </p>
           </div>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Informações Básicas */}
+          {/* InformaÃ§Ãµes BÃ¡sicas */}
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Informações Básicas
+              InformaÃ§Ãµes BÃ¡sicas
             </h3>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Título da Notícia *
+                  TÃ­tulo da NotÃ­cia *
                 </label>
                 <input
                   type="text"
@@ -146,13 +146,13 @@ export default function EditarNoticia() {
                   }
                   className="input-field"
                   rows={3}
-                  placeholder="Breve resumo da notícia (será exibido na listagem)"
+                  placeholder="Breve resumo da notÃ­cia (serÃ¡ exibido na listagem)"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Conteúdo da Notícia *
+                  ConteÃºdo da NotÃ­cia *
                 </label>
                 <textarea
                   value={formData.conteudo}
@@ -161,7 +161,7 @@ export default function EditarNoticia() {
                   }
                   className="input-field"
                   rows={10}
-                  placeholder="Escreva o conteúdo completo da notícia..."
+                  placeholder="Escreva o conteÃºdo completo da notÃ­cia..."
                   required
                 />
               </div>
@@ -211,7 +211,7 @@ export default function EditarNoticia() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Data de Publicação *
+                    Data de PublicaÃ§Ã£o *
                   </label>
                   <input
                     type="date"
@@ -245,7 +245,7 @@ export default function EditarNoticia() {
                     setFormData({ ...formData, fonte: e.target.value })
                   }
                   className="input-field"
-                  placeholder="Ex: Portal de Notícias XYZ"
+                  placeholder="Ex: Portal de NotÃ­cias XYZ"
                 />
               </div>
 
@@ -274,25 +274,25 @@ export default function EditarNoticia() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Tags (separadas por vírgula)
+                Tags (separadas por vÃ­rgula)
               </label>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 className="input-field"
-                placeholder="Ex: tecnologia, inovação, parceria"
+                placeholder="Ex: tecnologia, inovaÃ§Ã£o, parceria"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Separe múltiplas tags com vírgula
+                Separe mÃºltiplas tags com vÃ­rgula
               </p>
             </div>
           </div>
 
-          {/* Configurações */}
+          {/* ConfiguraÃ§Ãµes */}
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Configurações de Publicação
+              ConfiguraÃ§Ãµes de PublicaÃ§Ã£o
             </h3>
 
             <div className="space-y-3">
@@ -310,7 +310,7 @@ export default function EditarNoticia() {
                     Publicar imediatamente
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    A notícia ficará visível no site institucional
+                    A notÃ­cia ficarÃ¡ visÃ­vel no site institucional
                   </p>
                 </div>
               </label>
@@ -329,7 +329,7 @@ export default function EditarNoticia() {
                     Marcar como destaque
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Notícias em destaque aparecem em posição de maior visibilidade
+                    NotÃ­cias em destaque aparecem em posiÃ§Ã£o de maior visibilidade
                   </p>
                 </div>
               </label>
@@ -344,7 +344,7 @@ export default function EditarNoticia() {
               className="btn-primary flex items-center gap-2"
             >
               <Save size={20} />
-              {loading ? 'Salvando...' : 'Salvar Alterações'}
+              {loading ? 'Salvando...' : 'Salvar AlteraÃ§Ãµes'}
             </button>
             <button
               type="button"

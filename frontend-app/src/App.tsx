@@ -21,6 +21,7 @@ import RecrutadorDashboard from './pages/Recrutador/Dashboard';
 import RecrutadorVagas from './pages/Recrutador/Vagas';
 import NovaVaga from './pages/Recrutador/NovaVaga';
 import RecrutadorCandidaturas from './pages/Recrutador/Candidaturas';
+import RecrutadorRelatorios from './pages/Recrutador/Relatorios';
 
 function App() {
   return (
@@ -145,9 +146,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/recrutador/relatorios"
+            element={
+              <ProtectedRoute allowedRoles={['RECRUTADOR']}>
+                <RecrutadorRelatorios />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Rotas futuras */}
-          {/* <Route path="/admin/relatorios" element={...} /> */}
           {/* <Route path="/recrutador/vagas/:id" element={...} /> */}
           {/* <Route path="/recrutador/vagas/:id/editar" element={...} /> */}
           {/* <Route path="/candidato/*" element={<CandidatoLayout />} /> */}

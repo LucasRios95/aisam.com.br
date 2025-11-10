@@ -66,6 +66,11 @@ class VagasService {
     return response.data;
   }
 
+  async listarMinhasVagas(): Promise<Vaga[]> {
+    const response = await api.get<Vaga[]>('/vagas/minhas');
+    return response.data;
+  }
+
   async buscarPorId(id: string): Promise<Vaga> {
     const response = await api.get<Vaga>(`/vagas/${id}`);
     return response.data;

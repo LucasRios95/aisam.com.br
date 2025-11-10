@@ -29,11 +29,13 @@ export default function RecrutadorDashboard() {
     try {
       setLoading(true);
 
-      const [todasVagas, vagasAbertas, candidaturas] = await Promise.all([
-        vagasService.listar({}),
-        vagasService.listar({ status: 'aberta' }),
+      // CRÍTICO: Usa listarMinhasVagas para garantir que só vê suas próprias vagas e candidaturas
+      const [todasVagas, candidaturas] = await Promise.all([
+        vagasService.listarMinhasVagas(),
         candidaturasService.listar({}),
       ]);
+
+      const vagasAbertas = todasVagas.filter((v) => v.status === 'aberta');
 
       const candidaturasNaoAvaliadas = candidaturas.filter(
         (c) => c.status === 'pendente'

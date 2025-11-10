@@ -14,7 +14,8 @@ import {
   UserCheck,
   PlusCircle,
   Eye,
-  LogOut
+  LogOut,
+  BarChart3
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -204,25 +205,47 @@ const Dashboard = () => {
 
             {/* Publicar Vaga - Para recrutadores e admins */}
             {(user.role === 'RECRUTADOR' || isAdmin()) && (
-              <Card className="card-shadow hover:scale-105 transition-transform">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <PlusCircle className="h-5 w-5 text-primary" />
-                    Publicar Vaga
-                  </CardTitle>
-                  <CardDescription>
-                    Publique novas oportunidades
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button asChild className="w-full">
-                    <Link to="/publicar-vaga">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Publicar
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+              <>
+                <Card className="card-shadow hover:scale-105 transition-transform">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <PlusCircle className="h-5 w-5 text-primary" />
+                      Publicar Vaga
+                    </CardTitle>
+                    <CardDescription>
+                      Publique novas oportunidades
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <Link to="/publicar-vaga">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Publicar
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="card-shadow hover:scale-105 transition-transform">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5 text-primary" />
+                      Relatórios
+                    </CardTitle>
+                    <CardDescription>
+                      Visualize estatísticas e relatórios
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <Link to="/relatorios">
+                        <BarChart3 className="mr-2 h-4 w-4" />
+                        Ver Relatórios
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </>
             )}
 
             {/* Minhas Candidaturas - Apenas para candidatos */}

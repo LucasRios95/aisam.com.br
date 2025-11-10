@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Building2, Users, HandshakeIcon } from "lucide-react";
-import backgroundImage from "@/assets/fabril-background.jpg";
+import backgroundImage from "@/assets/heroimg.jpg";
 
 
 const Hero = () => {
@@ -10,7 +10,12 @@ const Hero = () => {
     <section className="hero-section text-primary-foreground relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ background: `url(${backgroundImage})` }}
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       ></div>
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-accent/30"></div>

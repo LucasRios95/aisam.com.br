@@ -5,6 +5,8 @@ import { Candidatura, StatusCandidatura } from "modules/Candidatura/infra/typeor
 interface IRequest {
     candidato_id?: string;
     vaga_id?: string;
+    recrutador_id?: string;
+    associado_id?: string;
     status?: StatusCandidatura;
     limit?: number;
     offset?: number;

@@ -17,6 +17,21 @@ class NodemailerMailProvider implements IMailProvider {
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS
+            },
+            tls: {
+                // Não verificar certificado em desenvolvimento
+                rejectUnauthorized: process.env.NODE_ENV === 'production'
+            },
+            debug: process.env.NODE_ENV === 'development', // Habilita debug em dev
+            logger: process.env.NODE_ENV === 'development' // Habilita logs em dev
+        });
+
+        // Verifica a conexão SMTP no startup
+        this.transporter.verify((error, success) => {
+            if (error) {
+                console.error('❌ Erro na configuração SMTP:', error);
+            } else {
+                console.log('✅ Servidor SMTP pronto para enviar e-mails');
             }
         });
 

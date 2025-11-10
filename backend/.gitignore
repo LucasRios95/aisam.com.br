@@ -1,5 +1,7 @@
 node_modules
 .env
+.env.production
+.env.local
 
 # Logs
 logs/*.log
@@ -9,3 +11,6 @@ coverage/
 
 # Build
 dist/
+
+# Heroku
+.env.heroku

@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LogOut, Home, Briefcase, Users, FileText, BarChart, UserCheck, Newspaper } from 'lucide-react';
+import aisamLogo from '../assets/aisam-logo.webp';
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,10 +27,10 @@ export default function Layout({ children, title }: LayoutProps) {
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-primary-600">AISAM</h1>
+            <div className="flex items-center gap-4">
+              <img src={aisamLogo} alt="AISAM" className="h-10" />
               {title && (
-                <span className="ml-4 text-gray-600">| {title}</span>
+                <span className="text-gray-600">| {title}</span>
               )}
             </div>
 
@@ -134,6 +135,13 @@ export default function Layout({ children, title }: LayoutProps) {
                 >
                   <FileText size={20} />
                   Candidaturas
+                </Link>
+                <Link
+                  to="/recrutador/relatorios"
+                  className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <BarChart size={20} />
+                  Relatórios
                 </Link>
               </>
             )}

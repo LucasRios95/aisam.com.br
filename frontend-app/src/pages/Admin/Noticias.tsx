@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import { Search, Plus, Eye, Edit2, Trash2, Calendar, Tag, Globe } from 'lucide-react';
+import { Search, Plus, Eye, Edit2, Trash2, Calendar, Globe } from 'lucide-react';
 import noticiasService, { type Noticia } from '../../services/noticias';
 
 export default function AdminNoticias() {
@@ -22,8 +22,8 @@ export default function AdminNoticias() {
       const data = await noticiasService.listar();
       setNoticias(data);
     } catch (error) {
-      console.error('Erro ao carregar notícias:', error);
-      alert('Erro ao carregar notícias');
+      console.error('Erro ao carregar notÃ­cias:', error);
+      alert('Erro ao carregar notÃ­cias');
     } finally {
       setLoading(false);
     }
@@ -44,15 +44,15 @@ export default function AdminNoticias() {
   });
 
   async function handleDelete(noticiaId: string) {
-    if (!confirm('Tem certeza que deseja excluir esta notícia? Esta ação não pode ser desfeita.')) return;
+    if (!confirm('Tem certeza que deseja excluir esta notÃ­cia? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) return;
 
     try {
       await noticiasService.deletar(noticiaId);
-      alert('Notícia excluída com sucesso!');
+      alert('NotÃ­cia excluÃ­da com sucesso!');
       carregarNoticias();
     } catch (error: any) {
-      console.error('Erro ao excluir notícia:', error);
-      alert(error.response?.data?.message || 'Erro ao excluir notícia');
+      console.error('Erro ao excluir notÃ­cia:', error);
+      alert(error.response?.data?.message || 'Erro ao excluir notÃ­cia');
     }
   }
 
@@ -76,7 +76,7 @@ export default function AdminNoticias() {
 
   if (loading) {
     return (
-      <Layout title="Gerenciar Notícias">
+      <Layout title="Gerenciar NotÃ­cias">
         <div className="flex justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
@@ -85,27 +85,27 @@ export default function AdminNoticias() {
   }
 
   return (
-    <Layout title="Gerenciar Notícias">
+    <Layout title="Gerenciar NotÃ­cias">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Gerenciar Notícias</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Gerenciar NotÃ­cias</h2>
             <p className="text-gray-600 mt-1">
-              Gerencie as notícias exibidas no site institucional
+              Gerencie as notÃ­cias exibidas no site institucional
             </p>
           </div>
 
           <Link to="/admin/noticias/nova" className="btn-primary flex items-center gap-2">
             <Plus size={20} />
-            Nova Notícia
+            Nova NotÃ­cia
           </Link>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="card bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-            <p className="text-sm text-blue-700 font-medium">Total de Notícias</p>
+            <p className="text-sm text-blue-700 font-medium">Total de NotÃ­cias</p>
             <p className="text-3xl font-bold text-blue-900 mt-2">{noticias.length}</p>
           </div>
           <div className="card bg-gradient-to-br from-green-50 to-green-100 border-green-200">
@@ -129,7 +129,7 @@ export default function AdminNoticias() {
               <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Buscar por título, resumo ou autor..."
+                placeholder="Buscar por tÃ­tulo, resumo ou autor..."
                 className="input-field pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -142,7 +142,7 @@ export default function AdminNoticias() {
                 value={filterPublicada}
                 onChange={(e) => setFilterPublicada(e.target.value)}
               >
-                <option value="">Todas as notícias</option>
+                <option value="">Todas as notÃ­cias</option>
                 <option value="true">Publicadas</option>
                 <option value="false">Rascunhos</option>
               </select>
@@ -150,7 +150,7 @@ export default function AdminNoticias() {
           </div>
 
           <div className="mt-4 text-sm text-gray-600">
-            Exibindo {noticiasFiltradas.length} de {noticias.length} notícias
+            Exibindo {noticiasFiltradas.length} de {noticias.length} notÃ­cias
           </div>
         </div>
 
@@ -159,13 +159,13 @@ export default function AdminNoticias() {
           <div className="card text-center py-12">
             <p className="text-gray-500 mb-4">
               {searchTerm || filterPublicada
-                ? 'Nenhuma notícia encontrada com os filtros aplicados'
-                : 'Nenhuma notícia cadastrada'}
+                ? 'Nenhuma notÃ­cia encontrada com os filtros aplicados'
+                : 'Nenhuma notÃ­cia cadastrada'}
             </p>
             {!searchTerm && !filterPublicada && (
               <Link to="/admin/noticias/nova" className="btn-primary inline-flex items-center gap-2">
                 <Plus size={20} />
-                Criar Primeira Notícia
+                Criar Primeira NotÃ­cia
               </Link>
             )}
           </div>
@@ -206,7 +206,7 @@ export default function AdminNoticias() {
                           {noticia.visualizacoes > 0 && (
                             <div className="flex items-center gap-1">
                               <Eye size={14} />
-                              {noticia.visualizacoes} visualizações
+                              {noticia.visualizacoes} visualizaÃ§Ãµes
                             </div>
                           )}
                         </div>
@@ -278,7 +278,7 @@ export default function AdminNoticias() {
         )}
       </div>
 
-      {/* Modal de Visualização */}
+      {/* Modal de VisualizaÃ§Ã£o */}
       {showModal && selectedNoticia && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
@@ -289,7 +289,7 @@ export default function AdminNoticias() {
                   onClick={closeModal}
                   className="p-2 hover:bg-gray-100 rounded-full text-2xl font-bold text-gray-600"
                 >
-                  ×
+                  Ã—
                 </button>
               </div>
 
@@ -308,17 +308,17 @@ export default function AdminNoticias() {
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Conteúdo</p>
+                  <p className="text-sm text-gray-500">ConteÃºdo</p>
                   <div className="text-gray-900 whitespace-pre-wrap">{selectedNoticia.conteudo}</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-gray-500">Autor</p>
-                    <p className="text-gray-900">{selectedNoticia.autor || 'Não informado'}</p>
+                    <p className="text-gray-900">{selectedNoticia.autor || 'NÃ£o informado'}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Data de Publicação</p>
+                    <p className="text-gray-500">Data de PublicaÃ§Ã£o</p>
                     <p className="text-gray-900">{formatDate(selectedNoticia.data_publicacao)}</p>
                   </div>
                   {selectedNoticia.fonte && (
@@ -349,7 +349,7 @@ export default function AdminNoticias() {
                   to={`/admin/noticias/${selectedNoticia.id}/editar`}
                   className="btn-primary"
                 >
-                  Editar Notícia
+                  Editar NotÃ­cia
                 </Link>
                 <button onClick={closeModal} className="btn-secondary">
                   Fechar

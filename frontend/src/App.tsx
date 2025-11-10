@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "./pages/Index";
 import Aisam from "./pages/Aisam";
 import Associados from "./pages/Associados";
@@ -26,6 +27,7 @@ import VagaDetalhes from "./pages/VagaDetalhes";
 import MinhasCandidaturas from "./pages/MinhasCandidaturas";
 import CandidatoAcesso from "./pages/CandidatoAcesso";
 import AceitarConviteRecrutador from "./pages/AceitarConviteRecrutador";
+import Relatorios from "./pages/Relatorios";
 
 
 const queryClient = new QueryClient();
@@ -36,6 +38,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <WhatsAppButton />
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -59,6 +62,7 @@ const App = () => (
           <Route path="/minhas-candidaturas" element={<MinhasCandidaturas />} />
           <Route path="/candidato/acesso" element={<CandidatoAcesso />} />
           <Route path="/aceitar-convite/:token" element={<AceitarConviteRecrutador />} />
+          <Route path="/relatorios" element={<Relatorios />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

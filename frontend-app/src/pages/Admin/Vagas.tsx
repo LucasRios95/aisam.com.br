@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import { Search, Filter, Eye, Edit2, Trash2, Building, MapPin, X, Mail, Briefcase } from 'lucide-react';
 import vagasService, { type Vaga } from '../../services/vagas';

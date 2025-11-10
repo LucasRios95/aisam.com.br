@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Scale, FileText, Shield, Clock, Phone, Mail, User, Award } from "lucide-react";
+import { Scale, FileText, Shield, Clock, Phone, Mail, Award } from "lucide-react";
 import martinhoLogo from "@/assets/martinho-advocacia.jfif";
 import logoEGS from "@/assets/EGS2.png";
 
@@ -178,36 +178,11 @@ const ConsultoriaJuridica = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                      <User className="h-10 w-10 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">Dr. Waldemar</h3>
-                    <p className="text-primary font-medium mb-4">Advogado Sênior</p>
-                    <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-4">
-                      <Award className="w-4 h-4" />
-                      <span className="text-sm">Especialista em Direito Empresarial</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Ampla experiência em consultoria jurídica para empresas industriais,
-                      especialização em direito trabalhista e tributário.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
@@ -245,7 +220,7 @@ const ConsultoriaJuridica = () => {
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 <Card className="card-shadow h-full border-0 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm">
