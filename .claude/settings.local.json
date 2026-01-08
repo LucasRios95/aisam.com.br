@@ -41,7 +41,10 @@
       "Bash(powershell:*)",
       "Bash(docker-compose restart:*)",
       "Bash(docker exec:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix: Substitui npm ci por npm install no Dockerfile\n\nO npm ci estava falhando porque requer package-lock.json \nperfeitamente sincronizado. O npm install é mais tolerante \ne funciona melhor em ambientes de build como Railway.\n\nMudanças:\n- Substitui npm ci por npm install em todos os stages\n- Adiciona python3, make, g++ no stage build \\(necessário para bcrypt\\)\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
