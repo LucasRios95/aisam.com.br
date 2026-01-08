@@ -1,58 +1,18 @@
 # ==================================
-# STAGE 1: Dependencies
+# STAGE 1: Build
 # ==================================
-FROM node:20-alpine AS dependencies
+FROM node:20-alpine AS build
 
 # Instalar dependências necessárias para compilação
 RUN apk add --no-cache python3 make g++ postgresql-client
 
 WORKDIR /usr/app
 
-# Copiar apenas package.json e package-lock.json
+# Copiar package files
 COPY package*.json ./
 
-# Instalar todas as dependências primeiro (necessário para o build)
-RUN npm install && npm cache clean --force
-
-# Criar pasta para dependências de produção
-RUN npm install --only=production --prefix ./prod_modules && \
-    cp -R ./prod_modules/node_modules ./node_modules_prod && \
-    rm -rf ./prod_modules
-
-# ==================================
-# STAGE 2: Development
-# ==================================
-FROM node:20-alpine AS development
-
-WORKDIR /usr/app
-
-# Copiar package.json
-COPY package*.json ./
-
-# Instalar todas as dependências (incluindo dev)
-RUN npm install
-
-# Expor porta para aplicação e debug
-EXPOSE 3333 9229
-
-# Comando será sobrescrito pelo docker-compose
-CMD ["npm", "run", "dev"]
-
-# ==================================
-# STAGE 3: Build
-# ==================================
-FROM node:20-alpine AS build
-
-# Instalar dependências necessárias para compilação
-RUN apk add --no-cache python3 make g++
-
-WORKDIR /usr/app
-
-# Copiar package.json
-COPY package*.json ./
-
-# Instalar todas as dependências (incluindo dev)
-RUN npm install
+# Instalar todas as dependências
+RUN npm install --legacy-peer-deps
 
 # Copiar código fonte
 COPY . .
@@ -61,7 +21,24 @@ COPY . .
 RUN npm run build
 
 # ==================================
-# STAGE 4: Production
+# STAGE 2: Production Dependencies
+# ==================================
+FROM node:20-alpine AS prod-deps
+
+# Instalar dependências necessárias
+RUN apk add --no-cache python3 make g++
+
+WORKDIR /usr/app
+
+# Copiar package files
+COPY package*.json ./
+
+# Instalar apenas dependências de produção
+RUN npm install --only=production --legacy-peer-deps && \
+    npm cache clean --force
+
+# ==================================
+# STAGE 3: Production
 # ==================================
 FROM node:20-alpine AS production
 
@@ -75,8 +52,8 @@ ENV TZ=America/Sao_Paulo
 
 WORKDIR /usr/app
 
-# Copiar dependências de produção do stage 1
-COPY --from=dependencies --chown=nodejs:nodejs /usr/app/node_modules_prod ./node_modules
+# Copiar dependências de produção
+COPY --from=prod-deps --chown=nodejs:nodejs /usr/app/node_modules ./node_modules
 
 # Copiar código compilado do stage build
 COPY --from=build --chown=nodejs:nodejs /usr/app/dist ./dist
