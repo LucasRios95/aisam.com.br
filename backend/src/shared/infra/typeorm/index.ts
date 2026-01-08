@@ -41,7 +41,7 @@ export default async (): Promise<Connection[]> => {
     }
 
     const dbConfig = getDatabaseConfig();
-    console.log(`🔗 Conectando ao banco: ${dbConfig.database} em ${dbConfig.host}`);
+    console.log(`🔗 [v2] Conectando ao banco: ${dbConfig.database} em ${dbConfig.host}`);
 
     connections = await createConnections([
         {
