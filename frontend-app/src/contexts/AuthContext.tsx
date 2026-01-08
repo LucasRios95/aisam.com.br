@@ -38,10 +38,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signIn(email: string, senha: string, userType: 'admin' | 'recrutador') {
     try {
+      console.log('Tentando fazer login como:', userType);
       const response = await api.post(`/auth/${userType}`, { email, senha });
+      console.log('Resposta do login:', response.data);
 
       const { token: newToken } = response.data;
       const userData = response.data[userType === 'admin' ? 'admin' : 'recrutador'];
+
+      if (!newToken || !userData) {
+        throw new Error('Resposta inválida do servidor');
+      }
 
       const user: User = {
         id: userData.id,
@@ -55,8 +61,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setToken(newToken);
       setUser(user);
+
+      console.log('Login bem-sucedido! Usuário:', user);
     } catch (error: any) {
-      throw new Error(error.response?.data?.error || 'Erro ao fazer login');
+      console.error('Erro no login:', error);
+      console.error('Detalhes do erro:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'Erro ao fazer login');
     }
   }
 
@@ -80,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setToken(newToken);
       setUser(user);
     } catch (error: any) {
-      throw new Error(error.response?.data?.error || 'Erro ao gerar link mágico');
+      throw new Error(error.response?.data?.message || 'Erro ao gerar link mágico');
     }
   }
 
