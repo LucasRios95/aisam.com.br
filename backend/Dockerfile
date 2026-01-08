@@ -4,15 +4,20 @@
 FROM node:20-alpine AS dependencies
 
 # Instalar dependências necessárias para compilação
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++ postgresql-client
 
 WORKDIR /usr/app
 
 # Copiar apenas package.json e package-lock.json
 COPY package*.json ./
 
-# Instalar apenas dependências de produção
-RUN npm ci --only=production && npm cache clean --force
+# Instalar todas as dependências primeiro (necessário para o build)
+RUN npm ci && npm cache clean --force
+
+# Criar pasta para dependências de produção
+RUN npm ci --only=production --prefix ./prod_modules && \
+    cp -R ./prod_modules/node_modules ./node_modules_prod && \
+    rm -rf ./prod_modules
 
 # ==================================
 # STAGE 2: Development
@@ -61,17 +66,20 @@ FROM node:20-alpine AS production
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 
-# Definir timezone
-RUN apk add --no-cache tzdata
+# Definir timezone e instalar postgresql-client para migrations
+RUN apk add --no-cache tzdata postgresql-client
 ENV TZ=America/Sao_Paulo
 
 WORKDIR /usr/app
 
 # Copiar dependências de produção do stage 1
-COPY --from=dependencies --chown=nodejs:nodejs /usr/app/node_modules ./node_modules
+COPY --from=dependencies --chown=nodejs:nodejs /usr/app/node_modules_prod ./node_modules
 
-# Copiar código compilado do stage 2
+# Copiar código compilado do stage build
 COPY --from=build --chown=nodejs:nodejs /usr/app/dist ./dist
+
+# Copiar scripts necessários (railway-migrate.js)
+COPY --chown=nodejs:nodejs scripts ./scripts
 
 # Copiar package.json para ter acesso ao version
 COPY --chown=nodejs:nodejs package.json ./
@@ -90,5 +98,5 @@ EXPOSE 3333
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3333/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Comando para iniciar aplicação
-CMD ["node", "dist/shared/infra/http/server.js"]
+# Comando para iniciar aplicação (com setup de schemas)
+CMD ["sh", "-c", "node scripts/railway-migrate.js && node dist/shared/infra/http/server.js"]
