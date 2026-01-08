@@ -1,6 +1,6 @@
 import { Associado } from "@modules/Associado/infra/typeorm/entities/Associado";
 import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 

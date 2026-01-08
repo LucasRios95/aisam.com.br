@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 // Esta é uma funcionalidade simplificada que apenas retorna sucesso
 // A mudança de role em produção requer lógica mais complexa (deletar de uma tabela e criar em outra)

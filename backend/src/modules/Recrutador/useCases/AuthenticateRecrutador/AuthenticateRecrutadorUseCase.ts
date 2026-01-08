@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 import { sign } from "jsonwebtoken";
 import { IRecrutadorRepository } from "../../repositories/IRecrutadorRepository";
-import { IHashProvider } from "shared/container/providers/HashProvider/IHashProvider";
-import { AppError } from "shared/errors/AppError";
-import authConfig from "config/auth";
+import { IHashProvider } from "@shared/container/providers/HashProvider/IHashProvider";
+import { AppError } from "@shared/errors/AppError";
+import authConfig from "@config/auth";
 import { StatusRecrutador } from "../../infra/typeorm/entities/Recrutador";
 
 interface IRequest {

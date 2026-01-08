@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
 import { Vaga, StatusVaga } from "@modules/Vaga/infra/typeorm/entities/Vaga";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 class EncerrarVagaUseCase {

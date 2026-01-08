@@ -4,7 +4,7 @@ import { StatusAssociado } from "@modules/Associado/infra/typeorm/entities/Assoc
 import { Pedido_Associacao } from "@modules/Associado/infra/typeorm/entities/Pedido_Associado";
 import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
 import { IPedidoAssociacaoRepository } from "@modules/Associado/repositories/IPedidoAssociacaoRepository";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

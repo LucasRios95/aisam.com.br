@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
 import { Candidato } from "../../infra/typeorm/entities/Candidato";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     candidato_id: string;

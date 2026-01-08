@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { IRecrutadorRepository } from "../../repositories/IRecrutadorRepository";
 import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
 import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { Recrutador, PerfilRecrutador, StatusRecrutador } from "../../infra/typeorm/entities/Recrutador";
 
 interface IRequest {

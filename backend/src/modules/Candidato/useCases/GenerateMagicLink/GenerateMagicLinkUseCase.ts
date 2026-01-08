@@ -2,8 +2,8 @@ import { inject, injectable } from "tsyringe";
 import { sign } from "jsonwebtoken";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
 import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
-import { AppError } from "shared/errors/AppError";
-import authConfig from "config/auth";
+import { AppError } from "@shared/errors/AppError";
+import authConfig from "@config/auth";
 
 interface IRequest {
     email: string;

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IMailProvider } from "shared/container/providers/MailProvider/IMailProvider";
-import { AppError } from "shared/errors/AppError";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     to: string;

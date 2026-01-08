@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IRecrutadorRepository } from "../../repositories/IRecrutadorRepository";
-import { IHashProvider } from "shared/container/providers/HashProvider/IHashProvider";
-import { AppError } from "shared/errors/AppError";
+import { IHashProvider } from "@shared/container/providers/HashProvider/IHashProvider";
+import { AppError } from "@shared/errors/AppError";
 import { StatusRecrutador } from "../../infra/typeorm/entities/Recrutador";
 
 interface IRequest {

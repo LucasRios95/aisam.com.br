@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
 import { Associado, StatusAssociado } from "@modules/Associado/infra/typeorm/entities/Associado";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     razao_social: string;

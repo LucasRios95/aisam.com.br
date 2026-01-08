@@ -9,7 +9,7 @@ import { UploadCurriculoController } from "@modules/Candidato/useCases/UploadCur
 import { GetCandidatoProfileController } from "@modules/Candidato/useCases/GetCandidatoProfile/GetCandidatoProfileController";
 import { GetCandidatoResumeController } from "@modules/Candidato/useCases/GetCandidatoResume/GetCandidatoResumeController";
 import { UpdateCandidatoResumeController } from "@modules/Candidato/useCases/UpdateCandidatoResume/UpdateCandidatoResumeController";
-import uploadConfig from "shared/infra/http/middlewares/uploadCurriculo";
+import uploadConfig from "@shared/infra/http/middlewares/uploadCurriculo";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 import { ensureAdmin } from "../middlewares/ensureAdmin";

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
-import { IStorageProvider } from "shared/container/providers/StorageProvider/IStorageProvider";
-import { AppError } from "shared/errors/AppError";
+import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     candidato_id: string;

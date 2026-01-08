@@ -3,7 +3,7 @@ import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandi
 import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
 import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
 import { Candidatura } from "@modules/Candidatura/infra/typeorm/entities/Candidatura";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     candidato_id: string;

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 class DeleteCandidaturaUseCase {

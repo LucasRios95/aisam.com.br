@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import { container } from "tsyringe";
 import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
-import { IStorageProvider } from "shared/container/providers/StorageProvider/IStorageProvider";
+import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
 import { IAuditLogRepository } from "@modules/Auditoria/repositories/IAuditLogRepository";
 import { AuditAction } from "@modules/Auditoria/infra/typeorm/entities/AuditLog";
 

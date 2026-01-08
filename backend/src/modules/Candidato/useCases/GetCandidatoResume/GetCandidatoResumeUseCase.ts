@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
-import { AppError } from "shared/errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 interface IResponse {
     id: string;

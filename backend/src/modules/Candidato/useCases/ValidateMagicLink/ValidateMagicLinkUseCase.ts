@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 import { verify } from "jsonwebtoken";
 import { ICandidatoRepository } from "../../repositories/ICandidatoRepository";
-import { AppError } from "shared/errors/AppError";
-import authConfig from "config/auth";
+import { AppError } from "@shared/errors/AppError";
+import authConfig from "@config/auth";
 
 interface IRequest {
     token: string;
