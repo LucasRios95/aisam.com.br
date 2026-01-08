@@ -44,6 +44,9 @@ const allowedOrigins = [
     "http://localhost:8080", // Frontend institucional
     "http://localhost:5174", // Frontend app (admin/recrutador)
     "http://localhost:5175",
+    "https://vagas.aisam.com.br", // Frontend de vagas em produção
+    "https://aisam.com.br", // Frontend institucional em produção
+    "https://www.aisam.com.br", // Frontend institucional com www
 ];
 
 app.use(cors({

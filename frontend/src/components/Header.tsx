@@ -1,23 +1,14 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LayoutDashboard, BarChart3, Briefcase, PlusCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/useAuth";
 import logo from '@/assets/aisam-logo.webp'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { user, isAdmin } = useAuth();
+  const vagasUrl = import.meta.env.VITE_VAGAS_URL || 'http://localhost:5173';
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -82,7 +73,7 @@ const Header = () => {
           {/* Login Button */}
           <div className="hidden lg:block">
             <Button variant="outline" asChild>
-              <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer">
+              <a href={vagasUrl} target="_blank" rel="noopener noreferrer">
                 Acessar Sistema
               </a>
             </Button>
@@ -126,7 +117,7 @@ const Header = () => {
               <div className="pt-4">
                 <Button variant="outline" className="w-full" asChild>
                   <a
-                    href="http://localhost:5175"
+                    href={vagasUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsMenuOpen(false)}

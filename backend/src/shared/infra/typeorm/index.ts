@@ -56,6 +56,11 @@ export default async (): Promise<Connection[]> => {
         console.log('🔄 Modo produção: Migrations serão executadas automaticamente');
     }
 
+    // Usar caminhos corretos baseados no ambiente (src/*.ts em dev, dist/*.js em prod)
+    const isProduction = process.env.NODE_ENV === 'production';
+    const ext = isProduction ? 'js' : 'ts';
+    const baseDir = isProduction ? './dist' : './src';
+
     connections = await createConnections([
         {
             name: "vagas",
@@ -64,15 +69,15 @@ export default async (): Promise<Connection[]> => {
             schema: "vagas",
             migrationsRun,
             entities: [
-                "./src/modules/Vaga/infra/typeorm/entities/*.ts",
-                "./src/modules/Candidato/infra/typeorm/entities/*.ts",
-                "./src/modules/Candidatura/infra/typeorm/entities/*.ts",
-                "./src/modules/Recrutador/infra/typeorm/entities/*.ts",
-                "./src/modules/Associado/infra/typeorm/entities/*.ts",
-                "./src/modules/AdminAisam/infra/typeorm/entities/*.ts",
-                "./src/modules/AreaAtuacao/infra/typeorm/entities/*.ts"
+                `${baseDir}/modules/Vaga/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/Candidato/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/Candidatura/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/Recrutador/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/Associado/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/AdminAisam/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/AreaAtuacao/infra/typeorm/entities/*.${ext}`
             ],
-            migrations: ["./src/shared/infra/typeorm/migrations/vagas/*.ts"]
+            migrations: [`${baseDir}/shared/infra/typeorm/migrations/vagas/*.${ext}`]
         },
         {
             name: "noticias",
@@ -81,9 +86,9 @@ export default async (): Promise<Connection[]> => {
             schema: "noticias",
             migrationsRun,
             entities: [
-                "./src/modules/Noticia/infra/typeorm/entities/*.ts"
+                `${baseDir}/modules/Noticia/infra/typeorm/entities/*.${ext}`
             ],
-            migrations: ["./src/shared/infra/typeorm/migrations/noticias/*.ts"]
+            migrations: [`${baseDir}/shared/infra/typeorm/migrations/noticias/*.${ext}`]
         },
         {
             name: "common",
@@ -92,10 +97,10 @@ export default async (): Promise<Connection[]> => {
             schema: "public",
             migrationsRun,
             entities: [
-                "./src/modules/Notificacao/infra/typeorm/entities/*.ts",
-                "./src/modules/Auditoria/infra/typeorm/entities/*.ts"
+                `${baseDir}/modules/Notificacao/infra/typeorm/entities/*.${ext}`,
+                `${baseDir}/modules/Auditoria/infra/typeorm/entities/*.${ext}`
             ],
-            migrations: ["./src/shared/infra/typeorm/migrations/common/*.ts"]
+            migrations: [`${baseDir}/shared/infra/typeorm/migrations/common/*.${ext}`]
         }
     ]);
 
