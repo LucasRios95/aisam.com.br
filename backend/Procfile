@@ -1,1 +1,1 @@
-web: npm run start
+web: node scripts/railway-migrate.js && npm run start

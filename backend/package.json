@@ -25,6 +25,7 @@
     "migration:show:noticias": "npm run typeorm:noticias migration:show",
     "migration:show:common": "npm run typeorm:common migration:show",
     "setup:db": "ts-node-dev -r tsconfig-paths/register scripts/setup-database.ts",
+    "railway:migrate": "node scripts/railway-migrate.js",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts",
     "seed:areas": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/areasAtuacao.ts",
