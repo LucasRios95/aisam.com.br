@@ -2,7 +2,7 @@
 
 /**
  * Script para executar migrations na Railway
- * Este script cria os schemas necessários e executa as migrations
+ * Este script extrai variáveis da DATABASE_URL e cria os schemas necessários
  */
 
 const { Client } = require('pg');
@@ -20,6 +20,20 @@ async function runMigrations() {
 
   // Parse da DATABASE_URL
   const parsedUrl = new url.URL(databaseUrl);
+
+  // Extrair e setar variáveis de ambiente para o TypeORM usar
+  process.env.DB_HOST = parsedUrl.hostname;
+  process.env.DB_PORT = parsedUrl.port || '5432';
+  process.env.DB_USER = parsedUrl.username;
+  process.env.DB_PASS = parsedUrl.password;
+  process.env.DB_NAME = parsedUrl.pathname.slice(1); // Remove a barra inicial
+
+  console.log('✅ Variáveis de ambiente configuradas:');
+  console.log(`   DB_HOST: ${process.env.DB_HOST}`);
+  console.log(`   DB_PORT: ${process.env.DB_PORT}`);
+  console.log(`   DB_USER: ${process.env.DB_USER}`);
+  console.log(`   DB_NAME: ${process.env.DB_NAME}`);
+  console.log(`   DB_PASS: ${'*'.repeat(process.env.DB_PASS.length)}\n`);
 
   const client = new Client({
     host: parsedUrl.hostname,
@@ -49,7 +63,7 @@ async function runMigrations() {
     console.log('  ✅ Schema "public" criado/verificado');
 
     console.log('\n✅ Schemas criados com sucesso!');
-    console.log('\n📝 Próximo passo: as migrations do TypeORM serão executadas automaticamente');
+    console.log('✅ Variáveis de ambiente prontas para o TypeORM\n');
 
   } catch (error) {
     console.error('❌ Erro durante setup:', error.message);
