@@ -51,8 +51,13 @@ async function setup() {
     await client.connect();
     console.log('✅ Conectado ao banco de dados');
 
+    // Instalar extensão uuid-ossp
+    console.log('\n🔄 Instalando extensão uuid-ossp...');
+    await client.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+    console.log('  ✅ Extensão uuid-ossp instalada\n');
+
     // Criar schemas necessários
-    console.log('\n🔄 Criando schemas...');
+    console.log('🔄 Criando schemas...');
 
     await client.query('CREATE SCHEMA IF NOT EXISTS vagas');
     console.log('  ✅ Schema "vagas" criado/verificado');
