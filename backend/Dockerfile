@@ -12,10 +12,10 @@ WORKDIR /usr/app
 COPY package*.json ./
 
 # Instalar todas as dependências primeiro (necessário para o build)
-RUN npm ci && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 # Criar pasta para dependências de produção
-RUN npm ci --only=production --prefix ./prod_modules && \
+RUN npm install --only=production --prefix ./prod_modules && \
     cp -R ./prod_modules/node_modules ./node_modules_prod && \
     rm -rf ./prod_modules
 
@@ -30,7 +30,7 @@ WORKDIR /usr/app
 COPY package*.json ./
 
 # Instalar todas as dependências (incluindo dev)
-RUN npm ci
+RUN npm install
 
 # Expor porta para aplicação e debug
 EXPOSE 3333 9229
@@ -43,13 +43,16 @@ CMD ["npm", "run", "dev"]
 # ==================================
 FROM node:20-alpine AS build
 
+# Instalar dependências necessárias para compilação
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /usr/app
 
 # Copiar package.json
 COPY package*.json ./
 
 # Instalar todas as dependências (incluindo dev)
-RUN npm ci
+RUN npm install
 
 # Copiar código fonte
 COPY . .
