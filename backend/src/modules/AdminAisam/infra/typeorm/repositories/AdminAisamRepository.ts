@@ -1,7 +1,7 @@
 import { Repository, getRepository } from "typeorm";
 import { AdminAisam } from "../entities/AdminAisam";
-import { IAdminAisamRepository } from "modules/AdminAisam/repositories/IAdminAisamRepository";
-import { ICreateAdminAisamDTO } from "modules/AdminAisam/dtos/ICreateAdminAisam";
+import { IAdminAisamRepository } from "@modules/AdminAisam/repositories/IAdminAisamRepository";
+import { ICreateAdminAisamDTO } from "@modules/AdminAisam/dtos/ICreateAdminAisam";
 
 
 class AdminAisamRepository implements IAdminAisamRepository {

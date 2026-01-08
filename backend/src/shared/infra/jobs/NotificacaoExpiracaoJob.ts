@@ -1,9 +1,9 @@
 import cron from "node-cron";
 import { container } from "tsyringe";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
-import { INotificacaoRepository } from "modules/Notificacao/repositories/INotificacaoRepository";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
+import { INotificacaoRepository } from "@modules/Notificacao/repositories/INotificacaoRepository";
 import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
-import { TipoNotificacao } from "modules/Notificacao/infra/typeorm/entities/Notificacao";
+import { TipoNotificacao } from "@modules/Notificacao/infra/typeorm/entities/Notificacao";
 
 class NotificacaoExpiracaoJob {
     async execute(): Promise<void> {

@@ -1,9 +1,9 @@
-import { IAdminAisamRepository } from "modules/AdminAisam/repositories/IAdminAisamRepository";
-import { IUpdateStatusDTO } from "modules/Associado/dtos/IUpdateStatusDTO";
-import { StatusAssociado } from "modules/Associado/infra/typeorm/entities/Associado";
-import { Pedido_Associacao } from "modules/Associado/infra/typeorm/entities/Pedido_Associado";
-import { IAssociadoRepository } from "modules/Associado/repositories/IAssociadoRepository";
-import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPedidoAssociacaoRepository";
+import { IAdminAisamRepository } from "@modules/AdminAisam/repositories/IAdminAisamRepository";
+import { IUpdateStatusDTO } from "@modules/Associado/dtos/IUpdateStatusDTO";
+import { StatusAssociado } from "@modules/Associado/infra/typeorm/entities/Associado";
+import { Pedido_Associacao } from "@modules/Associado/infra/typeorm/entities/Pedido_Associado";
+import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
+import { IPedidoAssociacaoRepository } from "@modules/Associado/repositories/IPedidoAssociacaoRepository";
 import { AppError } from "shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 

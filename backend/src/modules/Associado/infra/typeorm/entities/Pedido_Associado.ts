@@ -1,5 +1,5 @@
 import { uuid } from "aws-sdk/clients/customerprofiles";
-import { AdminAisam } from "modules/AdminAisam/infra/typeorm/entities/AdminAisam";
+import { AdminAisam } from "@modules/AdminAisam/infra/typeorm/entities/AdminAisam";
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinTable, JoinColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid"
 

@@ -1,8 +1,8 @@
 import { getRepository, Repository } from "typeorm";
 import { Associado } from "../entities/Associado";
-import { IAssociadoRepository } from "modules/Associado/repositories/IAssociadoRepository";
-import { ICreateAssociadoDTO } from "modules/Associado/dtos/ICreateAssociadoDTO";
-import { IUpdateAssociadoDTO } from "modules/Associado/dtos/IUpdateAssociadoDTO";
+import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
+import { ICreateAssociadoDTO } from "@modules/Associado/dtos/ICreateAssociadoDTO";
+import { IUpdateAssociadoDTO } from "@modules/Associado/dtos/IUpdateAssociadoDTO";
 
 
 class AssociadoRepository implements IAssociadoRepository {

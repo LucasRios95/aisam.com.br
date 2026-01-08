@@ -1,7 +1,7 @@
 import { Repository, getRepository } from "typeorm";
-import { INotificacaoRepository } from "modules/Notificacao/repositories/INotificacaoRepository";
-import { ICreateNotificacaoDTO } from "modules/Notificacao/dtos/ICreateNotificacaoDTO";
-import { IFilterNotificacoesDTO } from "modules/Notificacao/dtos/IFilterNotificacoesDTO";
+import { INotificacaoRepository } from "@modules/Notificacao/repositories/INotificacaoRepository";
+import { ICreateNotificacaoDTO } from "@modules/Notificacao/dtos/ICreateNotificacaoDTO";
+import { IFilterNotificacoesDTO } from "@modules/Notificacao/dtos/IFilterNotificacoesDTO";
 import { Notificacao } from "../entities/Notificacao";
 
 class NotificacaoRepository implements INotificacaoRepository {

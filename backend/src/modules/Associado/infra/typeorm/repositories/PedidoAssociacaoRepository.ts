@@ -1,8 +1,8 @@
-import { ICreatePedidoAssociacao } from "modules/Associado/dtos/ICreatePedidoAssociacaoDTO";
-import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPedidoAssociacaoRepository";
+import { ICreatePedidoAssociacao } from "@modules/Associado/dtos/ICreatePedidoAssociacaoDTO";
+import { IPedidoAssociacaoRepository } from "@modules/Associado/repositories/IPedidoAssociacaoRepository";
 import { Repository, getRepository } from "typeorm";
 import { Pedido_Associacao, Status } from "../entities/Pedido_Associado";
-import { IUpdateStatusDTO } from "modules/Associado/dtos/IUpdateStatusDTO";
+import { IUpdateStatusDTO } from "@modules/Associado/dtos/IUpdateStatusDTO";
 
 class PedidoAssociacaoRepository implements IPedidoAssociacaoRepository {
     private repository: Repository<Pedido_Associacao>;

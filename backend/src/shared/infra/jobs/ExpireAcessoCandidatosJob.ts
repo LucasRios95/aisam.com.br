@@ -1,8 +1,8 @@
 import cron from "node-cron";
 import { container } from "tsyringe";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
-import { IAuditLogRepository } from "modules/Auditoria/repositories/IAuditLogRepository";
-import { AuditAction } from "modules/Auditoria/infra/typeorm/entities/AuditLog";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
+import { IAuditLogRepository } from "@modules/Auditoria/repositories/IAuditLogRepository";
+import { AuditAction } from "@modules/Auditoria/infra/typeorm/entities/AuditLog";
 
 class ExpireAcessoCandidatosJob {
     async execute(): Promise<void> {

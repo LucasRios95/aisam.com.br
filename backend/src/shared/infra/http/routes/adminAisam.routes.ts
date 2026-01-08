@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CreateAdminAisamController } from "modules/AdminAisam/useCases/CreateUserAisam/CreateAdminAisamController";
+import { CreateAdminAisamController } from "@modules/AdminAisam/useCases/CreateUserAisam/CreateAdminAisamController";
 
 const adminAisamRoutes = Router();
 

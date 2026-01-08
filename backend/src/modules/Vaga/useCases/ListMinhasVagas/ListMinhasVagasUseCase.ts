@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
-import { Vaga } from "modules/Vaga/infra/typeorm/entities/Vaga";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
+import { Vaga } from "@modules/Vaga/infra/typeorm/entities/Vaga";
 
 @injectable()
 class ListMinhasVagasUseCase {

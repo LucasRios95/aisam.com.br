@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
-import { Vaga, RegimeTrabalho, Senioridade, StatusVaga } from "modules/Vaga/infra/typeorm/entities/Vaga";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
+import { Vaga, RegimeTrabalho, Senioridade, StatusVaga } from "@modules/Vaga/infra/typeorm/entities/Vaga";
 import { AppError } from "shared/errors/AppError";
-import { IRecrutadorRepository } from "modules/Recrutador/repositories/IRecrutadorRepository";
-import { IAssociadoRepository } from "modules/Associado/repositories/IAssociadoRepository";
+import { IRecrutadorRepository } from "@modules/Recrutador/repositories/IRecrutadorRepository";
+import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
 
 interface IRequest {
     titulo: string;

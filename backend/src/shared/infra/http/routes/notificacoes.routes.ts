@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { CreateNotificacaoController } from "modules/Notificacao/useCases/CreateNotificacao/CreateNotificacaoController";
-import { ListNotificacoesController } from "modules/Notificacao/useCases/ListNotificacoes/ListNotificacoesController";
-import { MarcarComoLidaController } from "modules/Notificacao/useCases/MarcarComoLida/MarcarComoLidaController";
-import { SendEmailController } from "modules/Notificacao/useCases/SendEmail/SendEmailController";
+import { CreateNotificacaoController } from "@modules/Notificacao/useCases/CreateNotificacao/CreateNotificacaoController";
+import { ListNotificacoesController } from "@modules/Notificacao/useCases/ListNotificacoes/ListNotificacoesController";
+import { MarcarComoLidaController } from "@modules/Notificacao/useCases/MarcarComoLida/MarcarComoLidaController";
+import { SendEmailController } from "@modules/Notificacao/useCases/SendEmail/SendEmailController";
 
 const notificacoesRoutes = Router();
 

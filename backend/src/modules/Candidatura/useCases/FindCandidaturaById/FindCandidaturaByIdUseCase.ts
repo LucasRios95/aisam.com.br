@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
-import { Candidatura } from "modules/Candidatura/infra/typeorm/entities/Candidatura";
+import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
+import { Candidatura } from "@modules/Candidatura/infra/typeorm/entities/Candidatura";
 import { AppError } from "shared/errors/AppError";
 
 @injectable()

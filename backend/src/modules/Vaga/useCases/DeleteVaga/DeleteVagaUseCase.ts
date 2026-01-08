@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
 import { AppError } from "shared/errors/AppError";
 
 @injectable()

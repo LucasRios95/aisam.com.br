@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { CreateCandidaturaController } from "modules/Candidatura/useCases/CreateCandidatura/CreateCandidaturaController";
-import { ListCandidaturasController } from "modules/Candidatura/useCases/ListCandidaturas/ListCandidaturasController";
-import { FindCandidaturaByIdController } from "modules/Candidatura/useCases/FindCandidaturaById/FindCandidaturaByIdController";
-import { UpdateStatusCandidaturaController } from "modules/Candidatura/useCases/UpdateStatusCandidatura/UpdateStatusCandidaturaController";
-import { DeleteCandidaturaController } from "modules/Candidatura/useCases/DeleteCandidatura/DeleteCandidaturaController";
+import { CreateCandidaturaController } from "@modules/Candidatura/useCases/CreateCandidatura/CreateCandidaturaController";
+import { ListCandidaturasController } from "@modules/Candidatura/useCases/ListCandidaturas/ListCandidaturasController";
+import { FindCandidaturaByIdController } from "@modules/Candidatura/useCases/FindCandidaturaById/FindCandidaturaByIdController";
+import { UpdateStatusCandidaturaController } from "@modules/Candidatura/useCases/UpdateStatusCandidatura/UpdateStatusCandidaturaController";
+import { DeleteCandidaturaController } from "@modules/Candidatura/useCases/DeleteCandidatura/DeleteCandidaturaController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 

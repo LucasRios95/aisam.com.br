@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { AuthenticateAdminController } from "modules/AdminAisam/useCases/AuthenticateAdmin/AuthenticateAdminController";
-import { AuthenticateRecrutadorController } from "modules/Recrutador/useCases/AuthenticateRecrutador/AuthenticateRecrutadorController";
-import { GenerateMagicLinkController } from "modules/Candidato/useCases/GenerateMagicLink/GenerateMagicLinkController";
-import { ValidateMagicLinkController } from "modules/Candidato/useCases/ValidateMagicLink/ValidateMagicLinkController";
+import { AuthenticateAdminController } from "@modules/AdminAisam/useCases/AuthenticateAdmin/AuthenticateAdminController";
+import { AuthenticateRecrutadorController } from "@modules/Recrutador/useCases/AuthenticateRecrutador/AuthenticateRecrutadorController";
+import { GenerateMagicLinkController } from "@modules/Candidato/useCases/GenerateMagicLink/GenerateMagicLinkController";
+import { ValidateMagicLinkController } from "@modules/Candidato/useCases/ValidateMagicLink/ValidateMagicLinkController";
 import { rateLimiterMiddleware } from "../middlewares/rateLimiter";
 import { validateDTO } from "../middlewares/validateDTO";
-import { AuthenticateRecrutadorDTO } from "modules/Recrutador/dtos/AuthenticateRecrutadorDTO";
+import { AuthenticateRecrutadorDTO } from "@modules/Recrutador/dtos/AuthenticateRecrutadorDTO";
 
 const authRoutes = Router();
 

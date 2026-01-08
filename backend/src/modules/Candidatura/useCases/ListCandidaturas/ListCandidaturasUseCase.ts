@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
-import { Candidatura, StatusCandidatura } from "modules/Candidatura/infra/typeorm/entities/Candidatura";
+import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
+import { Candidatura, StatusCandidatura } from "@modules/Candidatura/infra/typeorm/entities/Candidatura";
 
 interface IRequest {
     candidato_id?: string;

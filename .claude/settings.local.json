@@ -29,7 +29,19 @@
       "Bash(cmd //c taskkill //F //PID 13308)",
       "Bash(cat:*)",
       "Bash(findstr:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(docker-compose logs:*)",
+      "Bash(netstat:*)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd /c taskkill //F //PID 11984)",
+      "Bash(powershell -Command \"Stop-Process -Id 11984 -Force\")",
+      "Bash(powershell:*)",
+      "Bash(docker-compose restart:*)",
+      "Bash(docker exec:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

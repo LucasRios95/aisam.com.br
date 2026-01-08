@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { AppError } from "shared/errors/AppError";
 import { UpdateStatusCandidaturaUseCase } from "./UpdateStatusCandidaturaUseCase";
-import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
+import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
 
 class UpdateStatusCandidaturaController {
     async handle(request: Request, response: Response): Promise<Response> {

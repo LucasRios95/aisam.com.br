@@ -1,9 +1,9 @@
 import cron from "node-cron";
 import { container } from "tsyringe";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
 import { IStorageProvider } from "shared/container/providers/StorageProvider/IStorageProvider";
-import { IAuditLogRepository } from "modules/Auditoria/repositories/IAuditLogRepository";
-import { AuditAction } from "modules/Auditoria/infra/typeorm/entities/AuditLog";
+import { IAuditLogRepository } from "@modules/Auditoria/repositories/IAuditLogRepository";
+import { AuditAction } from "@modules/Auditoria/infra/typeorm/entities/AuditLog";
 
 class PurgeCurriculosJob {
     async execute(): Promise<void> {

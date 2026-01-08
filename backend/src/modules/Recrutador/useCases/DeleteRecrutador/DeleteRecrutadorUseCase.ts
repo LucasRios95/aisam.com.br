@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { IRecrutadorRepository } from "modules/Recrutador/repositories/IRecrutadorRepository";
+import { IRecrutadorRepository } from "@modules/Recrutador/repositories/IRecrutadorRepository";
 import { AppError } from "shared/errors/AppError";
 
 @injectable()

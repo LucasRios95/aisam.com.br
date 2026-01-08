@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { IMailProvider } from "../IMailProvider";
-import { ISendMailDTO } from "modules/Notificacao/dtos/ISendMailDTO";
+import { ISendMailDTO } from "@modules/Notificacao/dtos/ISendMailDTO";
 import { MailTemplateProvider } from "./MailTemplateProvider";
 
 class NodemailerMailProvider implements IMailProvider {

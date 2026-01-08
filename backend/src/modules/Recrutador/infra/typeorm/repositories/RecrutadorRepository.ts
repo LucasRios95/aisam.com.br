@@ -1,7 +1,7 @@
 import { getRepository, Repository } from "typeorm";
-import { ICreateRecrutadorDTO } from "modules/Recrutador/dtos/ICreateRecrutadorDTO";
-import { IUpdateRecrutadorDTO } from "modules/Recrutador/dtos/IUpdateRecrutadorDTO";
-import { IRecrutadorRepository } from "modules/Recrutador/repositories/IRecrutadorRepository";
+import { ICreateRecrutadorDTO } from "@modules/Recrutador/dtos/ICreateRecrutadorDTO";
+import { IUpdateRecrutadorDTO } from "@modules/Recrutador/dtos/IUpdateRecrutadorDTO";
+import { IRecrutadorRepository } from "@modules/Recrutador/repositories/IRecrutadorRepository";
 import { Recrutador } from "../entities/Recrutador";
 
 class RecrutadorRepository implements IRecrutadorRepository {

@@ -1,20 +1,20 @@
 import { Router } from "express";
 import multer from "multer";
-import { CreateCandidatoController } from "modules/Candidato/useCases/CreateCandidato/CreateCandidatoController";
-import { ListCandidatosController } from "modules/Candidato/useCases/ListCandidatos/ListCandidatosController";
-import { FindCandidatoByIdController } from "modules/Candidato/useCases/FindCandidatoById/FindCandidatoByIdController";
-import { UpdateCandidatoController } from "modules/Candidato/useCases/UpdateCandidato/UpdateCandidatoController";
-import { DeleteCandidatoController } from "modules/Candidato/useCases/DeleteCandidato/DeleteCandidatoController";
-import { UploadCurriculoController } from "modules/Candidato/useCases/UploadCurriculo/UploadCurriculoController";
-import { GetCandidatoProfileController } from "modules/Candidato/useCases/GetCandidatoProfile/GetCandidatoProfileController";
-import { GetCandidatoResumeController } from "modules/Candidato/useCases/GetCandidatoResume/GetCandidatoResumeController";
-import { UpdateCandidatoResumeController } from "modules/Candidato/useCases/UpdateCandidatoResume/UpdateCandidatoResumeController";
+import { CreateCandidatoController } from "@modules/Candidato/useCases/CreateCandidato/CreateCandidatoController";
+import { ListCandidatosController } from "@modules/Candidato/useCases/ListCandidatos/ListCandidatosController";
+import { FindCandidatoByIdController } from "@modules/Candidato/useCases/FindCandidatoById/FindCandidatoByIdController";
+import { UpdateCandidatoController } from "@modules/Candidato/useCases/UpdateCandidato/UpdateCandidatoController";
+import { DeleteCandidatoController } from "@modules/Candidato/useCases/DeleteCandidato/DeleteCandidatoController";
+import { UploadCurriculoController } from "@modules/Candidato/useCases/UploadCurriculo/UploadCurriculoController";
+import { GetCandidatoProfileController } from "@modules/Candidato/useCases/GetCandidatoProfile/GetCandidatoProfileController";
+import { GetCandidatoResumeController } from "@modules/Candidato/useCases/GetCandidatoResume/GetCandidatoResumeController";
+import { UpdateCandidatoResumeController } from "@modules/Candidato/useCases/UpdateCandidatoResume/UpdateCandidatoResumeController";
 import uploadConfig from "shared/infra/http/middlewares/uploadCurriculo";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { validateDTO } from "../middlewares/validateDTO";
-import { CreateCandidatoDTO } from "modules/Candidato/dtos/CreateCandidatoDTO";
+import { CreateCandidatoDTO } from "@modules/Candidato/dtos/CreateCandidatoDTO";
 
 const candidatosRoutes = Router();
 

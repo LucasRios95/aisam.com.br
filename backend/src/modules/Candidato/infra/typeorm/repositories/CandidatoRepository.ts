@@ -1,7 +1,7 @@
 import { getRepository, Repository, In } from "typeorm";
-import { ICreateCandidatoDTO } from "modules/Candidato/dtos/ICreateCandidatoDTO";
-import { IUpdateCandidatoDTO } from "modules/Candidato/dtos/IUpdateCandidatoDTO";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
+import { ICreateCandidatoDTO } from "@modules/Candidato/dtos/ICreateCandidatoDTO";
+import { IUpdateCandidatoDTO } from "@modules/Candidato/dtos/IUpdateCandidatoDTO";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
 import { Candidato } from "../entities/Candidato";
 
 class CandidatoRepository implements ICandidatoRepository {

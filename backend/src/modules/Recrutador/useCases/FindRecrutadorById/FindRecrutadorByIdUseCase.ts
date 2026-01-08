@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IRecrutadorRepository } from "modules/Recrutador/repositories/IRecrutadorRepository";
-import { Recrutador } from "modules/Recrutador/infra/typeorm/entities/Recrutador";
+import { IRecrutadorRepository } from "@modules/Recrutador/repositories/IRecrutadorRepository";
+import { Recrutador } from "@modules/Recrutador/infra/typeorm/entities/Recrutador";
 import { AppError } from "shared/errors/AppError";
 
 @injectable()

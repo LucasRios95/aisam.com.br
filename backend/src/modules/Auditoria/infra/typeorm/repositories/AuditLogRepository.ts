@@ -1,7 +1,7 @@
 import { Repository, getRepository } from "typeorm";
 import { AuditLog } from "../entities/AuditLog";
-import { IAuditLogRepository } from "modules/Auditoria/repositories/IAuditLogRepository";
-import { ICreateAuditLogDTO } from "modules/Auditoria/dtos/ICreateAuditLogDTO";
+import { IAuditLogRepository } from "@modules/Auditoria/repositories/IAuditLogRepository";
+import { ICreateAuditLogDTO } from "@modules/Auditoria/dtos/ICreateAuditLogDTO";
 
 class AuditLogRepository implements IAuditLogRepository {
     private repository: Repository<AuditLog>;

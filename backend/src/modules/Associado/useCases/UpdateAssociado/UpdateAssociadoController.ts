@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { UpdateAssociadoUseCase } from "./UpdateAssociadoUseCase";
-import { StatusAssociado } from "modules/Associado/infra/typeorm/entities/Associado";
+import { StatusAssociado } from "@modules/Associado/infra/typeorm/entities/Associado";
 
 class UpdateAssociadoController {
     async handle(request: Request, response: Response): Promise<Response> {

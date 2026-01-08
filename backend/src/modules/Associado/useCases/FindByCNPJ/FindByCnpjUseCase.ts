@@ -1,5 +1,5 @@
-import { Pedido_Associacao } from "modules/Associado/infra/typeorm/entities/Pedido_Associado";
-import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPedidoAssociacaoRepository";
+import { Pedido_Associacao } from "@modules/Associado/infra/typeorm/entities/Pedido_Associado";
+import { IPedidoAssociacaoRepository } from "@modules/Associado/repositories/IPedidoAssociacaoRepository";
 import { injectable, inject } from "tsyringe";
 
 

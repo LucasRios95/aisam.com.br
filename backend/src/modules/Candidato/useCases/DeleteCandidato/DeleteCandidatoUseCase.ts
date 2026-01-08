@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
 import { AppError } from "shared/errors/AppError";
 
 @injectable()

@@ -103,10 +103,12 @@ API_URL=${{RAILWAY_PUBLIC_DOMAIN}}
 
 1. No Railway, vá em **"Settings"**
 2. Configure:
-   - **Root Directory**: `/backend`
+   - **Root Directory**: `backend` (SEM barra inicial)
    - **Build Command**: `npm install && npm run build`
    - **Start Command**: `npm run start`
-   - **Watch Paths**: `/backend/**`
+   - **Watch Paths**: `backend/**`
+
+**IMPORTANTE**: O Railway define automaticamente a variável `PORT`. O servidor foi configurado para usar `process.env.PORT || 3333`.
 
 ### 1.5. Deploy do Backend
 
@@ -465,6 +467,63 @@ railway logs --follow
 ---
 
 ## 6. Troubleshooting
+
+### Problema: "Cannot find module 'modules/...'" no Deploy
+
+**Sintoma**: Erro `Cannot find module 'modules/Associado/infra/typeorm/repositories/...'`
+
+**Causa**: Imports não estão usando os aliases do Babel corretamente.
+
+**Solução**: Use `@modules` em vez de `modules` nos imports:
+```typescript
+// ❌ Errado
+import { Repository } from "modules/Modulo/...";
+
+// ✅ Correto
+import { Repository } from "@modules/Modulo/...";
+```
+
+O babel-plugin-module-resolver converte `@modules` para caminhos relativos durante o build.
+
+### Problema: Erro "Node.js v20.x.x" no Deploy
+
+**Sintoma**: O deploy falha logo após mostrar a versão do Node.js, sem mensagem de erro clara.
+
+**Possíveis Causas e Soluções**:
+
+1. **Root Directory incorreto**:
+   - Verifique se está configurado como `backend` (sem `/` no início)
+   - Certifique-se de que o Railway está procurando o `package.json` na pasta correta
+
+2. **Variável PORT não configurada**:
+   - O Railway passa a porta dinamicamente via `process.env.PORT`
+   - O servidor já foi corrigido para usar `process.env.PORT || 3333`
+
+3. **Babel não instalado**:
+   - As dependências do Babel foram movidas para `dependencies` para estarem disponíveis em produção
+   - Execute `npm install` localmente para atualizar o `package-lock.json`
+
+4. **Build falhando**:
+   - Verifique os logs completos no Railway: vá em **"Deployments"** → clique no deployment → veja os logs
+   - Procure por erros de compilação do TypeScript/Babel
+   - Execute `npm run build` localmente para testar
+
+5. **Variáveis de ambiente faltando**:
+   - Confirme que todas as variáveis do PostgreSQL estão configuradas
+   - Especialmente: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME_*`
+
+**Como debugar**:
+```bash
+# Testar build localmente
+cd backend
+npm run build
+
+# Ver logs em tempo real no Railway
+railway logs --follow
+
+# Ou no painel Railway
+Deployments → [seu deployment] → View Logs
+```
 
 ### Problema: CORS Error
 

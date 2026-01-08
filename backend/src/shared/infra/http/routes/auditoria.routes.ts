@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ListAuditLogsController } from "modules/Auditoria/useCases/ListAuditLogs/ListAuditLogsController";
+import { ListAuditLogsController } from "@modules/Auditoria/useCases/ListAuditLogs/ListAuditLogsController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 

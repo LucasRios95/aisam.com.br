@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
-import { ICandidatoRepository } from "modules/Candidato/repositories/ICandidatoRepository";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
-import { Candidatura } from "modules/Candidatura/infra/typeorm/entities/Candidatura";
+import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
+import { ICandidatoRepository } from "@modules/Candidato/repositories/ICandidatoRepository";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
+import { Candidatura } from "@modules/Candidatura/infra/typeorm/entities/Candidatura";
 import { AppError } from "shared/errors/AppError";
 
 interface IRequest {

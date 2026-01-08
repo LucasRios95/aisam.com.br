@@ -8,8 +8,8 @@ import {
     JoinColumn
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
-import { Candidato } from "modules/Candidato/infra/typeorm/entities/Candidato";
-import { Vaga } from "modules/Vaga/infra/typeorm/entities/Vaga";
+import { Candidato } from "@modules/Candidato/infra/typeorm/entities/Candidato";
+import { Vaga } from "@modules/Vaga/infra/typeorm/entities/Vaga";
 
 export enum StatusCandidatura {
     PENDENTE = "pendente",

@@ -1,8 +1,8 @@
 import { getConnection, Repository } from "typeorm";
-import { ICreateVagaDTO } from "modules/Vaga/dtos/ICreateVagaDTO";
-import { IUpdateVagaDTO } from "modules/Vaga/dtos/IUpdateVagaDTO";
-import { IFilterVagasDTO } from "modules/Vaga/dtos/IFilterVagasDTO";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
+import { ICreateVagaDTO } from "@modules/Vaga/dtos/ICreateVagaDTO";
+import { IUpdateVagaDTO } from "@modules/Vaga/dtos/IUpdateVagaDTO";
+import { IFilterVagasDTO } from "@modules/Vaga/dtos/IFilterVagasDTO";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
 import { Vaga } from "../entities/Vaga";
 
 class VagaRepository implements IVagaRepository {

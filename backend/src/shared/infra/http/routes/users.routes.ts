@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { ListAllUsersController } from "modules/Users/useCases/ListAllUsers/ListAllUsersController";
-import { UpdateUserRoleController } from "modules/Users/useCases/UpdateUserRole/UpdateUserRoleController";
+import { ListAllUsersController } from "@modules/Users/useCases/ListAllUsers/ListAllUsersController";
+import { UpdateUserRoleController } from "@modules/Users/useCases/UpdateUserRole/UpdateUserRoleController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { IVagaRepository } from "modules/Vaga/repositories/IVagaRepository";
-import { Vaga } from "modules/Vaga/infra/typeorm/entities/Vaga";
-import { IFilterVagasDTO } from "modules/Vaga/dtos/IFilterVagasDTO";
+import { IVagaRepository } from "@modules/Vaga/repositories/IVagaRepository";
+import { Vaga } from "@modules/Vaga/infra/typeorm/entities/Vaga";
+import { IFilterVagasDTO } from "@modules/Vaga/dtos/IFilterVagasDTO";
 
 @injectable()
 class ListVagasUseCase {

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { INotificacaoRepository } from "modules/Notificacao/repositories/INotificacaoRepository";
-import { Notificacao, TipoNotificacao } from "modules/Notificacao/infra/typeorm/entities/Notificacao";
+import { INotificacaoRepository } from "@modules/Notificacao/repositories/INotificacaoRepository";
+import { Notificacao, TipoNotificacao } from "@modules/Notificacao/infra/typeorm/entities/Notificacao";
 
 interface IRequest {
     destinatario_id?: string;

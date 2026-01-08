@@ -1,14 +1,14 @@
 import { Router } from "express";
-import { CreateVagaController } from "modules/Vaga/useCases/CreateVaga/CreateVagaController";
-import { ListVagasController } from "modules/Vaga/useCases/ListVagas/ListVagasController";
-import { ListMinhasVagasController } from "modules/Vaga/useCases/ListMinhasVagas/ListMinhasVagasController";
-import { FindVagaByIdController } from "modules/Vaga/useCases/FindVagaById/FindVagaByIdController";
-import { UpdateVagaController } from "modules/Vaga/useCases/UpdateVaga/UpdateVagaController";
-import { ArquivarVagaController } from "modules/Vaga/useCases/ArquivarVaga/ArquivarVagaController";
-import { EncerrarVagaController } from "modules/Vaga/useCases/EncerrarVaga/EncerrarVagaController";
-import { DeleteVagaController } from "modules/Vaga/useCases/DeleteVaga/DeleteVagaController";
-import { PausarVagaController } from "modules/Vaga/useCases/PausarVaga/PausarVagaController";
-import { ReabrirVagaController } from "modules/Vaga/useCases/ReabrirVaga/ReabrirVagaController";
+import { CreateVagaController } from "@modules/Vaga/useCases/CreateVaga/CreateVagaController";
+import { ListVagasController } from "@modules/Vaga/useCases/ListVagas/ListVagasController";
+import { ListMinhasVagasController } from "@modules/Vaga/useCases/ListMinhasVagas/ListMinhasVagasController";
+import { FindVagaByIdController } from "@modules/Vaga/useCases/FindVagaById/FindVagaByIdController";
+import { UpdateVagaController } from "@modules/Vaga/useCases/UpdateVaga/UpdateVagaController";
+import { ArquivarVagaController } from "@modules/Vaga/useCases/ArquivarVaga/ArquivarVagaController";
+import { EncerrarVagaController } from "@modules/Vaga/useCases/EncerrarVaga/EncerrarVagaController";
+import { DeleteVagaController } from "@modules/Vaga/useCases/DeleteVaga/DeleteVagaController";
+import { PausarVagaController } from "@modules/Vaga/useCases/PausarVaga/PausarVagaController";
+import { ReabrirVagaController } from "@modules/Vaga/useCases/ReabrirVaga/ReabrirVagaController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 

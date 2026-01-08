@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import { IRecrutadorRepository } from "modules/Recrutador/repositories/IRecrutadorRepository";
-import { Recrutador, PerfilRecrutador, StatusRecrutador } from "modules/Recrutador/infra/typeorm/entities/Recrutador";
+import { IRecrutadorRepository } from "@modules/Recrutador/repositories/IRecrutadorRepository";
+import { Recrutador, PerfilRecrutador, StatusRecrutador } from "@modules/Recrutador/infra/typeorm/entities/Recrutador";
 import { AppError } from "shared/errors/AppError";
-import { IAssociadoRepository } from "modules/Associado/repositories/IAssociadoRepository";
+import { IAssociadoRepository } from "@modules/Associado/repositories/IAssociadoRepository";
 import { IHashProvider } from "shared/container/providers/HashProvider/IHashProvider";
 
 interface IRequest {

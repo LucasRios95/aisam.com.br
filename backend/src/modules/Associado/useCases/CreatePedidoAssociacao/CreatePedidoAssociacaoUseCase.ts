@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IPedidoAssociacaoRepository } from "modules/Associado/repositories/IPedidoAssociacaoRepository";
-import { Pedido_Associacao, Status } from "modules/Associado/infra/typeorm/entities/Pedido_Associado";
+import { IPedidoAssociacaoRepository } from "@modules/Associado/repositories/IPedidoAssociacaoRepository";
+import { Pedido_Associacao, Status } from "@modules/Associado/infra/typeorm/entities/Pedido_Associado";
 import { AppError } from "shared/errors/AppError";
 
 interface IRequest {

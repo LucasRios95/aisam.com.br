@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IAdminAisamRepository } from "modules/AdminAisam/repositories/IAdminAisamRepository";
-import { AdminAisam } from "modules/AdminAisam/infra/typeorm/entities/AdminAisam";
+import { IAdminAisamRepository } from "@modules/AdminAisam/repositories/IAdminAisamRepository";
+import { AdminAisam } from "@modules/AdminAisam/infra/typeorm/entities/AdminAisam";
 import { AppError } from "shared/errors/AppError";
 
 interface IRequest {

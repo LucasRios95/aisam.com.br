@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
-import { Recrutador } from "modules/Recrutador/infra/typeorm/entities/Recrutador";
-import { Associado } from "modules/Associado/infra/typeorm/entities/Associado";
+import { Recrutador } from "@modules/Recrutador/infra/typeorm/entities/Recrutador";
+import { Associado } from "@modules/Associado/infra/typeorm/entities/Associado";
 
 export enum StatusVaga {
     ABERTA = "aberta",

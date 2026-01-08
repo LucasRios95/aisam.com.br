@@ -1,8 +1,8 @@
 import { Repository, getRepository } from "typeorm";
-import { ICandidaturaRepository } from "modules/Candidatura/repositories/ICandidaturaRepository";
-import { ICreateCandidaturaDTO } from "modules/Candidatura/dtos/ICreateCandidaturaDTO";
-import { IFilterCandidaturasDTO } from "modules/Candidatura/dtos/IFilterCandidaturasDTO";
-import { IUpdateStatusCandidaturaDTO } from "modules/Candidatura/dtos/IUpdateStatusCandidaturaDTO";
+import { ICandidaturaRepository } from "@modules/Candidatura/repositories/ICandidaturaRepository";
+import { ICreateCandidaturaDTO } from "@modules/Candidatura/dtos/ICreateCandidaturaDTO";
+import { IFilterCandidaturasDTO } from "@modules/Candidatura/dtos/IFilterCandidaturasDTO";
+import { IUpdateStatusCandidaturaDTO } from "@modules/Candidatura/dtos/IUpdateStatusCandidaturaDTO";
 import { Candidatura } from "../entities/Candidatura";
 
 class CandidaturaRepository implements ICandidaturaRepository {

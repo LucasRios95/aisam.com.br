@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "shared/errors/AppError";
 import { getRepository } from "typeorm";
-import { Recrutador } from "modules/Recrutador/infra/typeorm/entities/Recrutador";
+import { Recrutador } from "@modules/Recrutador/infra/typeorm/entities/Recrutador";
 
 /**
  * Middleware que permite acesso a admins ou ao próprio recrutador/associado dono do registro
