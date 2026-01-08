@@ -65,6 +65,31 @@ async function setup() {
 
     console.log('\n✅ Schemas criados com sucesso!\n');
 
+    // Executar migrations usando queries SQL diretas
+    console.log('🔄 Executando migrations...\n');
+
+    // Verificar se migrations já foram executadas (tabela de controle do TypeORM)
+    const migrationTableCheck = await client.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
+        AND table_name = 'migrations'
+      );
+    `);
+
+    if (!migrationTableCheck.rows[0].exists) {
+      console.log('📦 Primeira execução - criando tabela de controle de migrations...');
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS public.migrations (
+          id SERIAL PRIMARY KEY,
+          timestamp BIGINT NOT NULL,
+          name VARCHAR NOT NULL
+        );
+      `);
+    }
+
+    console.log('✅ Migrations verificadas (TypeORM vai executar pendentes na inicialização)\n');
+
   } catch (error) {
     console.error('❌ Erro durante setup:', error.message);
     process.exit(1);

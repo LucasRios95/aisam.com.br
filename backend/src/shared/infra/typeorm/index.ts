@@ -50,12 +50,19 @@ export default async (): Promise<Connection[]> => {
     const dbConfig = getDatabaseConfig();
     console.log(`🔗 [v2] Conectando ao banco: ${dbConfig.database} em ${dbConfig.host}`);
 
+    // Em produção, executar migrations automaticamente
+    const migrationsRun = process.env.NODE_ENV === 'production';
+    if (migrationsRun) {
+        console.log('🔄 Modo produção: Migrations serão executadas automaticamente');
+    }
+
     connections = await createConnections([
         {
             name: "vagas",
             type: "postgres",
             ...dbConfig,
             schema: "vagas",
+            migrationsRun,
             entities: [
                 "./src/modules/Vaga/infra/typeorm/entities/*.ts",
                 "./src/modules/Candidato/infra/typeorm/entities/*.ts",
@@ -72,6 +79,7 @@ export default async (): Promise<Connection[]> => {
             type: "postgres",
             ...dbConfig,
             schema: "noticias",
+            migrationsRun,
             entities: [
                 "./src/modules/Noticia/infra/typeorm/entities/*.ts"
             ],
@@ -82,6 +90,7 @@ export default async (): Promise<Connection[]> => {
             type: "postgres",
             ...dbConfig,
             schema: "public",
+            migrationsRun,
             entities: [
                 "./src/modules/Notificacao/infra/typeorm/entities/*.ts",
                 "./src/modules/Auditoria/infra/typeorm/entities/*.ts"
