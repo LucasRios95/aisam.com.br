@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "start": "node dist/shared/infra/http/server.js",
+    "start": "node scripts/start-railway.js",
+    "start:direct": "node dist/shared/infra/http/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register --poll ./node_modules/typeorm/cli",
     "typeorm:vagas": "ts-node-dev -r tsconfig-paths/register --poll ./node_modules/typeorm/cli -f ormconfig.vagas.json",
