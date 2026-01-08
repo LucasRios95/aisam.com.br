@@ -7,10 +7,14 @@ let connections: Connection[] = [];
  * Extrai configurações do banco a partir da DATABASE_URL ou variáveis individuais
  */
 function getDatabaseConfig() {
+    console.log('🔍 DEBUG: DATABASE_URL existe?', !!process.env.DATABASE_URL);
+    console.log('🔍 DEBUG: NODE_ENV =', process.env.NODE_ENV);
+
     // Se DATABASE_URL está presente (Railway, Heroku, etc), usar ela
     if (process.env.DATABASE_URL) {
+        console.log('✅ Usando DATABASE_URL da Railway/Heroku');
         const parsedUrl = new URL(process.env.DATABASE_URL);
-        return {
+        const config = {
             host: parsedUrl.hostname,
             port: Number(parsedUrl.port) || 5432,
             username: parsedUrl.username,
@@ -20,9 +24,12 @@ function getDatabaseConfig() {
                 rejectUnauthorized: false
             } : false
         };
+        console.log('📊 Config extraída:', { ...config, password: '***' });
+        return config;
     }
 
     // Caso contrário, usar variáveis individuais (desenvolvimento local)
+    console.log('⚠️  DATABASE_URL não encontrada, usando variáveis individuais');
     return {
         host: process.env.DB_HOST || "localhost",
         port: Number(process.env.DB_PORT) || 5432,
