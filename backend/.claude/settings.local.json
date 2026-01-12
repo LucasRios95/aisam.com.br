@@ -1,13 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/lucas/OneDrive/Documentos/Ras_Setor_TI/aisam.com.br/frontend/**)",
-      "Bash(npm install jsonwebtoken bcrypt)",
-      "Bash(npm install:*)",
-      "Read(//c/Users/lucas/OneDrive/Documentos/Ras_Setor_TI/aisam.com.br/**)",
-      "Bash(test:*)"
-    ],
-    "deny": [],
-    "ask": []
+      "Bash(dir /s /b *.hbs)",
+      "Bash(findstr:*)"
+    ]
   }
 }

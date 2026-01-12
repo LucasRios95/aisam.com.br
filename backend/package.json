@@ -47,6 +47,7 @@
     "@babel/plugin-transform-typescript": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
     "@babel/preset-typescript": "^7.22.15",
+    "@sendgrid/mail": "^8.1.6",
     "@sentry/node": "^7.80.1",
     "@types/swagger-jsdoc": "^6.0.4",
     "aws-sdk": "^2.1418.0",
