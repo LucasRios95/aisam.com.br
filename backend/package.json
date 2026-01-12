@@ -48,7 +48,6 @@
     "@babel/preset-env": "^7.22.15",
     "@babel/preset-typescript": "^7.22.15",
     "@sentry/node": "^7.80.1",
-    "@sentry/profiling-node": "^1.2.6",
     "@types/swagger-jsdoc": "^6.0.4",
     "aws-sdk": "^2.1418.0",
     "babel-plugin-module-resolver": "^5.0.0",

@@ -22,9 +22,6 @@ export function initializeSentry() {
         // Performance Monitoring
         tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
-        // Profiling
-        profilesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
-
         integrations: [
             // Enable HTTP calls tracing
             new Sentry.Integrations.Http({ tracing: true }),
