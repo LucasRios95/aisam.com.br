@@ -16,10 +16,10 @@ O erro `Connection timeout` ao conectar ao servidor SMTP geralmente ocorre por:
 SMTP_HOST=smtp.kinghost.net
 SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_USER=noreply@aisam.com.br
-SMTP_PASS=Ind@2026
-SMTP_FROM_EMAIL=noreply@aisam.com.br
-SMTP_FROM_NAME=noreply@aisam.com.br
+SMTP_USER=seu-email@seudominio.com.br
+SMTP_PASS=sua-senha-aqui
+SMTP_FROM_EMAIL=seu-email@seudominio.com.br
+SMTP_FROM_NAME=Seu Nome ou Empresa
 ```
 
 ### Opção 2: SMTP com TLS (Porta 587)
@@ -28,22 +28,22 @@ SMTP_FROM_NAME=noreply@aisam.com.br
 SMTP_HOST=smtp.kinghost.net
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=noreply@aisam.com.br
-SMTP_PASS=Ind@2026
-SMTP_FROM_EMAIL=noreply@aisam.com.br
-SMTP_FROM_NAME=noreply@aisam.com.br
+SMTP_USER=seu-email@seudominio.com.br
+SMTP_PASS=sua-senha-aqui
+SMTP_FROM_EMAIL=seu-email@seudominio.com.br
+SMTP_FROM_NAME=Seu Nome ou Empresa
 ```
 
 ### Opção 3: Usando domínio próprio
 
 ```bash
-SMTP_HOST=smtp.aisam.com.br
+SMTP_HOST=smtp.seudominio.com.br
 SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_USER=noreply@aisam.com.br
-SMTP_PASS=Ind@2026
-SMTP_FROM_EMAIL=noreply@aisam.com.br
-SMTP_FROM_NAME=noreply@aisam.com.br
+SMTP_USER=seu-email@seudominio.com.br
+SMTP_PASS=sua-senha-aqui
+SMTP_FROM_EMAIL=seu-email@seudominio.com.br
+SMTP_FROM_NAME=Seu Nome ou Empresa
 ```
 
 ## 🔍 Como Identificar o Host Correto

@@ -3,6 +3,10 @@ node_modules
 .env.production
 .env.local
 
+# Arquivos de teste com credenciais
+test-smtp.js
+*-test.js
+
 # Logs
 logs/*.log
 
