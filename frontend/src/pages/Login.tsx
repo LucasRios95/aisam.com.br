@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Mail, User } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -105,9 +105,9 @@ const Login = () => {
                       Ainda não tem cadastro?
                     </p>
                     <Button variant="outline" asChild className="w-full">
-                      <a href="/vagas">
+                      <Link to="/vagas">
                         Cadastre-se na Página de Vagas
-                      </a>
+                      </Link>
                     </Button>
 
                     <Separator className="my-4" />
@@ -116,9 +116,9 @@ const Login = () => {
                       Ainda não é associado?
                     </p>
                     <Button variant="outline" asChild className="w-full">
-                      <a href="/associe-se">
+                      <Link to="/associe-se">
                         Conheça os Benefícios de Ser Associado
-                      </a>
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>
