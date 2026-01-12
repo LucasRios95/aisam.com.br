@@ -63,7 +63,11 @@ class GenerateMagicLinkUseCase {
         const diasRestantes = Math.ceil((expiresAt.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
 
         // Gera o link mágico
-        const baseUrl = process.env.INSTITUTIONAL_FRONTEND_URL || "http://localhost:3000";
+        // Tenta diferentes variáveis de ambiente para compatibilidade
+        const baseUrl = process.env.FRONTEND_INSTITUCIONAL_URL
+            || process.env.INSTITUTIONAL_FRONTEND_URL
+            || process.env.FRONTEND_URL
+            || "http://localhost:3000";
         const magicLink = `${baseUrl}/candidato/acesso?token=${token}`;
 
         // Envia email com o link mágico

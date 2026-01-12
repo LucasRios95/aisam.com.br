@@ -18,7 +18,11 @@ class NotificacaoExpiracaoJob {
             const now = new Date();
             let notificacoesEnviadas = 0;
 
-            const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+            // Tenta diferentes variáveis de ambiente para compatibilidade
+            const baseUrl = process.env.FRONTEND_INSTITUCIONAL_URL
+                || process.env.INSTITUTIONAL_FRONTEND_URL
+                || process.env.FRONTEND_URL
+                || "http://localhost:3000";
 
             for (const candidato of candidatos) {
                 const expirationDate = candidato.acesso_expirado || new Date(

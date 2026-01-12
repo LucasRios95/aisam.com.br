@@ -71,7 +71,11 @@ class EnviarConviteRecrutadorUseCase {
         await this.recrutadorRepository.update(recrutador);
 
         // URL do convite
-        const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+        // Tenta diferentes variáveis de ambiente para compatibilidade
+        const baseUrl = process.env.FRONTEND_URL
+            || process.env.FRONTEND_INSTITUCIONAL_URL
+            || process.env.INSTITUTIONAL_FRONTEND_URL
+            || "http://localhost:3000";
         const convite_link = `${baseUrl}/aceitar-convite/${conviteToken}`;
 
         // Enviar e-mail com o link do convite
