@@ -24,6 +24,7 @@ export interface Candidatura {
     resumo_curriculo: string;
     areas_atuacao: string[];
     curriculo_url?: string;
+    curriculo_upload_date?: string;
   };
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { Search, Filter, Eye, Check, X, Clock, Mail, Phone, MapPin, FileText } from 'lucide-react';
+import { Search, Filter, Eye, Check, X, Clock, Mail, Phone, MapPin, Download } from 'lucide-react';
 import candidaturasService, { type Candidatura } from '../../services/candidaturas';
 
 const statusLabels: Record<string, { label: string; color: string; icon: any }> = {
@@ -332,16 +332,23 @@ export default function RecrutadorCandidaturas() {
                       )}
 
                       {selectedCandidatura.candidato.curriculo_url && (
-                        <div className="flex items-center gap-2 pt-2">
-                          <FileText className="text-gray-400" size={16} />
+                        <div className="pt-3 border-t">
+                          <p className="text-sm text-gray-500 mb-2">Currículo</p>
                           <a
                             href={selectedCandidatura.candidato.curriculo_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-primary-600 hover:underline font-medium"
+                            download
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
                           >
+                            <Download size={16} />
                             Baixar Currículo (PDF)
                           </a>
+                          {selectedCandidatura.candidato.curriculo_upload_date && (
+                            <p className="text-xs text-gray-500 mt-2">
+                              Enviado em {new Date(selectedCandidatura.candidato.curriculo_upload_date).toLocaleDateString('pt-BR')}
+                            </p>
+                          )}
                         </div>
                       )}
                     </div>

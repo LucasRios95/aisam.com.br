@@ -247,13 +247,15 @@ export default function RecrutadorVagas() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Link
-                      to={`/recrutador/vagas/${vaga.id}`}
+                    <a
+                      href={`${import.meta.env.VITE_INSTITUTIONAL_FRONTEND_URL || 'https://aisam.com.br'}/vagas/${vaga.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-2 text-gray-600 hover:text-primary-600"
-                      title="Visualizar"
+                      title="Visualizar vaga publicada"
                     >
                       <Eye size={20} />
-                    </Link>
+                    </a>
 
                     <Link
                       to={`/recrutador/vagas/${vaga.id}/editar`}

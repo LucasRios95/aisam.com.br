@@ -22,6 +22,7 @@ import EditarNoticia from './pages/Admin/EditarNoticia';
 import RecrutadorDashboard from './pages/Recrutador/Dashboard';
 import RecrutadorVagas from './pages/Recrutador/Vagas';
 import NovaVaga from './pages/Recrutador/NovaVaga';
+import EditarVaga from './pages/Recrutador/EditarVaga';
 import RecrutadorCandidaturas from './pages/Recrutador/Candidaturas';
 import RecrutadorRelatorios from './pages/Recrutador/Relatorios';
 
@@ -143,6 +144,14 @@ function App() {
             }
           />
           <Route
+            path="/recrutador/vagas/:id/editar"
+            element={
+              <ProtectedRoute allowedRoles={['RECRUTADOR']}>
+                <EditarVaga />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/recrutador/candidaturas"
             element={
               <ProtectedRoute allowedRoles={['RECRUTADOR']}>
@@ -158,11 +167,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* Rotas futuras */}
-          {/* <Route path="/recrutador/vagas/:id" element={...} /> */}
-          {/* <Route path="/recrutador/vagas/:id/editar" element={...} /> */}
-          {/* <Route path="/candidato/*" element={<CandidatoLayout />} /> */}
 
           {/* Rota 404 - deve ser a última */}
           <Route path="*" element={<NotFound />} />
