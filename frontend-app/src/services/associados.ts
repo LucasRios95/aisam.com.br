@@ -72,6 +72,16 @@ class AssociadosService {
   async deletar(id: string): Promise<void> {
     await api.delete(`/associados/${id}`);
   }
+
+  async ativar(id: string): Promise<Associado> {
+    const response = await api.patch<Associado>(`/associados/${id}/ativar`);
+    return response.data;
+  }
+
+  async desativar(id: string): Promise<Associado> {
+    const response = await api.patch<Associado>(`/associados/${id}/desativar`);
+    return response.data;
+  }
 }
 
 export default new AssociadosService();

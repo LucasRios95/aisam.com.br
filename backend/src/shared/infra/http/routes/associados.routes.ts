@@ -6,6 +6,8 @@ import { ListAssociadosController } from "@modules/Associado/useCases/ListAssoci
 import { ListPedidosAssociacaoController } from "@modules/Associado/useCases/ListPedidosAssociacao/ListPedidosAssociacaoController";
 import { CreateAssociadoController } from "@modules/Associado/useCases/CreateAssociado/CreateAssociadoController";
 import { UpdateAssociadoController } from "@modules/Associado/useCases/UpdateAssociado/UpdateAssociadoController";
+import { AtivarAssociadoController } from "@modules/Associado/useCases/AtivarAssociado/AtivarAssociadoController";
+import { DesativarAssociadoController } from "@modules/Associado/useCases/DesativarAssociado/DesativarAssociadoController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { validateDTO } from "../middlewares/validateDTO";
@@ -20,6 +22,8 @@ const aprovarPedidoAssociacaoController = new AprovarPedidoAssociacaoController(
 const listAssociadosController = new ListAssociadosController();
 const createAssociadoController = new CreateAssociadoController();
 const updateAssociadoController = new UpdateAssociadoController();
+const ativarAssociadoController = new AtivarAssociadoController();
+const desativarAssociadoController = new DesativarAssociadoController();
 
 associadoRoutes.post("/pedido-associacao", validateDTO(CreateAssociadoDTO), createPedidoAssociacaoController.handle); // Público
 associadoRoutes.get("/pedido-associacao", ensureAuthenticated, ensureAdmin, listPedidosAssociacaoController.handle);
@@ -29,5 +33,7 @@ associadoRoutes.put("/aprovar-pedido", ensureAuthenticated, ensureAdmin, aprovar
 associadoRoutes.get("/", ensureAuthenticated, listAssociadosController.handle);
 associadoRoutes.post("/", ensureAuthenticated, ensureAdmin, validateDTO(CreateAssociadoDTO), createAssociadoController.handle);
 associadoRoutes.patch("/:id", ensureAuthenticated, ensureAdmin, updateAssociadoController.handle);
+associadoRoutes.patch("/:id/ativar", ensureAuthenticated, ensureAdmin, ativarAssociadoController.handle);
+associadoRoutes.patch("/:id/desativar", ensureAuthenticated, ensureAdmin, desativarAssociadoController.handle);
 
 export { associadoRoutes };

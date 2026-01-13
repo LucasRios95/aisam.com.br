@@ -90,21 +90,6 @@ export default function AdminRecrutadores() {
     }
   }
 
-  async function handleToggleStatus(id: string, ativo: boolean) {
-    try {
-      if (ativo) {
-        await recrutadoresService.desativar(id);
-      } else {
-        await recrutadoresService.ativar(id);
-      }
-      alert(`Recrutador ${ativo ? 'desativado' : 'ativado'} com sucesso!`);
-      await carregarDados();
-    } catch (error) {
-      console.error('Erro ao alterar status:', error);
-      alert('Erro ao alterar status do recrutador');
-    }
-  }
-
   async function handleDelete(id: string) {
     if (!confirm('Tem certeza que deseja excluir este recrutador?')) return;
 
@@ -371,19 +356,6 @@ export default function AdminRecrutadores() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() =>
-                            handleToggleStatus(recrutador.id, recrutador.ativo)
-                          }
-                          className={`p-2 ${
-                            recrutador.ativo
-                              ? 'text-gray-600 hover:text-yellow-600'
-                              : 'text-gray-600 hover:text-green-600'
-                          }`}
-                          title={recrutador.ativo ? 'Desativar' : 'Ativar'}
-                        >
-                          {recrutador.ativo ? <X size={18} /> : <Check size={18} />}
-                        </button>
                         <button
                           onClick={() => handleDelete(recrutador.id)}
                           className="p-2 text-gray-600 hover:text-red-600"

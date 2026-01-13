@@ -8,6 +8,8 @@ import { EnviarConviteRecrutadorController } from "@modules/Recrutador/useCases/
 import { AceitarConviteRecrutadorController } from "@modules/Recrutador/useCases/AceitarConviteRecrutador/AceitarConviteRecrutadorController";
 import { ForgotPasswordController } from "@modules/Recrutador/useCases/ForgotPassword/ForgotPasswordController";
 import { ResetPasswordController } from "@modules/Recrutador/useCases/ResetPassword/ResetPasswordController";
+import { AtivarRecrutadorController } from "@modules/Recrutador/useCases/AtivarRecrutador/AtivarRecrutadorController";
+import { DesativarRecrutadorController } from "@modules/Recrutador/useCases/DesativarRecrutador/DesativarRecrutadorController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { ensureAdminOrRecrutadorOwner } from "../middlewares/ensureAdminOrRecrutadorOwner";
@@ -27,6 +29,8 @@ const enviarConviteRecrutadorController = new EnviarConviteRecrutadorController(
 const aceitarConviteRecrutadorController = new AceitarConviteRecrutadorController();
 const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
+const ativarRecrutadorController = new AtivarRecrutadorController();
+const desativarRecrutadorController = new DesativarRecrutadorController();
 
 recrutadoresRoutes.post("/", ensureAuthenticated, ensureAdmin, createRecrutadorController.handle);
 recrutadoresRoutes.post("/convite", ensureAuthenticated, ensureAdmin, enviarConviteRecrutadorController.handle);
@@ -36,6 +40,8 @@ recrutadoresRoutes.post("/reset-password", rateLimiterMiddleware, validateDTO(Re
 recrutadoresRoutes.get("/", ensureAuthenticated, ensureAdmin, listRecrutadoresController.handle);
 recrutadoresRoutes.get("/:id", ensureAuthenticated, ensureAdmin, findRecrutadorByIdController.handle);
 recrutadoresRoutes.put("/:id", ensureAuthenticated, ensureAdminOrRecrutadorOwner, updateRecrutadorController.handle);
+recrutadoresRoutes.patch("/:id/ativar", ensureAuthenticated, ensureAdmin, ativarRecrutadorController.handle);
+recrutadoresRoutes.patch("/:id/desativar", ensureAuthenticated, ensureAdmin, desativarRecrutadorController.handle);
 recrutadoresRoutes.delete("/:id", ensureAuthenticated, ensureAdmin, deleteRecrutadorController.handle);
 
 export { recrutadoresRoutes };
