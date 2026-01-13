@@ -7,9 +7,11 @@ interface IRecrutadorRepository {
     findById(id: string): Promise<Recrutador>;
     findByEmail(email: string): Promise<Recrutador>;
     findByConviteToken(token: string): Promise<Recrutador>;
+    findByResetToken(token: string): Promise<Recrutador>;
     findByAssociadoId(associado_id: string): Promise<Recrutador[]>;
     list(): Promise<Recrutador[]>;
     update(data: IUpdateRecrutadorDTO | Recrutador): Promise<Recrutador>;
+    save(recrutador: Recrutador): Promise<Recrutador>;
     delete(id: string): Promise<void>;
 }
 

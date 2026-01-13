@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import NotFound from './pages/NotFound';
 
 // Admin Pages
@@ -30,6 +32,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/esqueci-senha" element={<ForgotPassword />} />
+          <Route path="/redefinir-senha" element={<ResetPassword />} />
 
           {/* ===== Rotas Admin ===== */}
           <Route

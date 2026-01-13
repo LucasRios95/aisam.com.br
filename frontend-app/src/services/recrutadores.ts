@@ -51,6 +51,16 @@ class RecrutadoresService {
   async deletar(id: string): Promise<void> {
     await api.delete(`/recrutadores/${id}`);
   }
+
+  async forgotPassword(email: string): Promise<{ message: string }> {
+    const response = await api.post('/recrutadores/forgot-password', { email });
+    return response.data;
+  }
+
+  async resetPassword(token: string, senha: string): Promise<{ message: string }> {
+    const response = await api.post('/recrutadores/reset-password', { token, senha });
+    return response.data;
+  }
 }
 
 export default new RecrutadoresService();

@@ -46,6 +46,18 @@ class AdminAisamRepository implements IAdminAisamRepository {
         return user;
     }
 
+    async findByResetToken(token: string): Promise<AdminAisam> {
+        const admin = await this.repository.findOne({
+            where: { reset_password_token: token }
+        });
+        return admin;
+    }
+
+    async save(admin: AdminAisam): Promise<AdminAisam> {
+        await this.repository.save(admin);
+        return admin;
+    }
+
     async delete(id: string): Promise<boolean> {
         const isDeleted = await this.repository.delete(id)
 

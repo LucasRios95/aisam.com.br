@@ -6,9 +6,15 @@ import { UpdateRecrutadorController } from "@modules/Recrutador/useCases/UpdateR
 import { DeleteRecrutadorController } from "@modules/Recrutador/useCases/DeleteRecrutador/DeleteRecrutadorController";
 import { EnviarConviteRecrutadorController } from "@modules/Recrutador/useCases/EnviarConviteRecrutador/EnviarConviteRecrutadorController";
 import { AceitarConviteRecrutadorController } from "@modules/Recrutador/useCases/AceitarConviteRecrutador/AceitarConviteRecrutadorController";
+import { ForgotPasswordController } from "@modules/Recrutador/useCases/ForgotPassword/ForgotPasswordController";
+import { ResetPasswordController } from "@modules/Recrutador/useCases/ResetPassword/ResetPasswordController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { ensureAdminOrRecrutadorOwner } from "../middlewares/ensureAdminOrRecrutadorOwner";
+import { rateLimiterMiddleware } from "../middlewares/rateLimiter";
+import { validateDTO } from "../middlewares/validateDTO";
+import { ForgotPasswordDTO } from "@modules/Recrutador/dtos/ForgotPasswordDTO";
+import { ResetPasswordDTO } from "@modules/Recrutador/dtos/ResetPasswordDTO";
 
 const recrutadoresRoutes = Router();
 
@@ -19,10 +25,14 @@ const updateRecrutadorController = new UpdateRecrutadorController();
 const deleteRecrutadorController = new DeleteRecrutadorController();
 const enviarConviteRecrutadorController = new EnviarConviteRecrutadorController();
 const aceitarConviteRecrutadorController = new AceitarConviteRecrutadorController();
+const forgotPasswordController = new ForgotPasswordController();
+const resetPasswordController = new ResetPasswordController();
 
 recrutadoresRoutes.post("/", ensureAuthenticated, ensureAdmin, createRecrutadorController.handle);
 recrutadoresRoutes.post("/convite", ensureAuthenticated, ensureAdmin, enviarConviteRecrutadorController.handle);
 recrutadoresRoutes.post("/aceitar-convite", aceitarConviteRecrutadorController.handle); // Público
+recrutadoresRoutes.post("/forgot-password", rateLimiterMiddleware, validateDTO(ForgotPasswordDTO), forgotPasswordController.handle); // Público
+recrutadoresRoutes.post("/reset-password", rateLimiterMiddleware, validateDTO(ResetPasswordDTO), resetPasswordController.handle); // Público
 recrutadoresRoutes.get("/", ensureAuthenticated, ensureAdmin, listRecrutadoresController.handle);
 recrutadoresRoutes.get("/:id", ensureAuthenticated, ensureAdmin, findRecrutadorByIdController.handle);
 recrutadoresRoutes.put("/:id", ensureAuthenticated, ensureAdminOrRecrutadorOwner, updateRecrutadorController.handle);

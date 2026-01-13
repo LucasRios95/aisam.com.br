@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Building2, Users, HandshakeIcon } from "lucide-react";
-import backgroundImage from "@/assets/heroimg.jpg";
+import backgroundImage from "@/assets/industria_limpa.png";
 
 
 const Hero = () => {

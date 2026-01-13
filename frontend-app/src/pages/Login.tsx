@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LogIn, Mail } from 'lucide-react';
 import aisamLogo from '../assets/aisam-logo.webp';
@@ -77,9 +77,17 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Senha
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-sm font-medium text-gray-700">
+                  Senha
+                </label>
+                <Link
+                  to={`/esqueci-senha${activeTab === 'admin' ? '?type=admin' : ''}`}
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Esqueci minha senha
+                </Link>
+              </div>
               <input
                 type="password"
                 value={senha}

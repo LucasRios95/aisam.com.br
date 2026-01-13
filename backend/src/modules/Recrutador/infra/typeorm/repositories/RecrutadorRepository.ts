@@ -54,6 +54,13 @@ class RecrutadorRepository implements IRecrutadorRepository {
         return recrutador;
     }
 
+    async findByResetToken(token: string): Promise<Recrutador> {
+        const recrutador = await this.repository.findOne({
+            where: { reset_password_token: token }
+        });
+        return recrutador;
+    }
+
     async findByAssociadoId(associado_id: string): Promise<Recrutador[]> {
         const recrutadores = await this.repository.find({
             where: { associado_id },
@@ -92,6 +99,11 @@ class RecrutadorRepository implements IRecrutadorRepository {
 
         await this.repository.save(recrutador);
 
+        return recrutador;
+    }
+
+    async save(recrutador: Recrutador): Promise<Recrutador> {
+        await this.repository.save(recrutador);
         return recrutador;
     }
 

@@ -21,6 +21,12 @@ export class AdminAisam {
     @Column()
     mfa_enabled: boolean;
 
+    @Column({ nullable: true })
+    reset_password_token: string;
+
+    @Column({ nullable: true })
+    reset_password_expires_at: Date;
+
     @CreateDateColumn()
     created_at: Date;
 
