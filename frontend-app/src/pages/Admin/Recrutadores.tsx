@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { Plus, Search, Mail, Shield, ShieldCheck, Trash2, Check, X, Building } from 'lucide-react';
+import { Plus, Search, Mail, Shield, ShieldCheck, Trash2, Check, X, Building, Edit2 } from 'lucide-react';
 import recrutadoresService, { type Recrutador } from '../../services/recrutadores';
 import associadosService, { type Associado } from '../../services/associados';
 
@@ -15,6 +15,7 @@ export default function AdminRecrutadores() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [editingRecrutador, setEditingRecrutador] = useState<Recrutador | null>(null);
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -52,8 +53,22 @@ export default function AdminRecrutadores() {
       recrutador.associado?.razao_social.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  function handleEdit(recrutador: Recrutador) {
+    setEditingRecrutador(recrutador);
+    setFormData({
+      nome: recrutador.nome,
+      email: recrutador.email,
+      senha: '',
+      confirmarSenha: '',
+      perfil: recrutador.perfil,
+      associado_id: recrutador.associado_id,
+    });
+    setShowForm(true);
+  }
+
   function handleCancel() {
     setShowForm(false);
+    setEditingRecrutador(null);
     setFormData({
       nome: '',
       email: '',
@@ -67,26 +82,36 @@ export default function AdminRecrutadores() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Validar senhas
-    if (formData.senha.length < 6) {
-      alert('A senha deve ter no mínimo 6 caracteres');
-      return;
-    }
+    // Validar senhas apenas para criação
+    if (!editingRecrutador) {
+      if (formData.senha.length < 6) {
+        alert('A senha deve ter no mínimo 6 caracteres');
+        return;
+      }
 
-    if (formData.senha !== formData.confirmarSenha) {
-      alert('As senhas não coincidem');
-      return;
+      if (formData.senha !== formData.confirmarSenha) {
+        alert('As senhas não coincidem');
+        return;
+      }
     }
 
     try {
-      const { confirmarSenha, ...dadosRecrutador } = formData;
-      await recrutadoresService.criar(dadosRecrutador);
-      alert('Recrutador criado com sucesso!');
+      if (editingRecrutador) {
+        // Atualizar recrutador
+        const { senha, confirmarSenha, ...dadosRecrutador } = formData;
+        await recrutadoresService.atualizar(editingRecrutador.id, dadosRecrutador);
+        alert('Recrutador atualizado com sucesso!');
+      } else {
+        // Criar novo recrutador
+        const { confirmarSenha, ...dadosRecrutador } = formData;
+        await recrutadoresService.criar(dadosRecrutador);
+        alert('Recrutador criado com sucesso!');
+      }
       await carregarDados();
       handleCancel();
     } catch (error: any) {
-      console.error('Erro ao criar recrutador:', error);
-      alert(error.response?.data?.error || 'Erro ao criar recrutador');
+      console.error('Erro ao salvar recrutador:', error);
+      alert(error.response?.data?.error || 'Erro ao salvar recrutador');
     }
   }
 
@@ -160,10 +185,12 @@ export default function AdminRecrutadores() {
         {showForm && (
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Criar Novo Recrutador
+              {editingRecrutador ? 'Editar Recrutador' : 'Criar Novo Recrutador'}
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              Preencha os dados do recrutador e defina uma senha de acesso
+              {editingRecrutador
+                ? 'Atualize os dados do recrutador'
+                : 'Preencha os dados do recrutador e defina uma senha de acesso'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -194,36 +221,40 @@ export default function AdminRecrutadores() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Senha *
-                  </label>
-                  <input
-                    type="password"
-                    value={formData.senha}
-                    onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
-                    className="input-field"
-                    minLength={6}
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Mínimo de 6 caracteres
-                  </p>
-                </div>
+                {!editingRecrutador && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Senha *
+                      </label>
+                      <input
+                        type="password"
+                        value={formData.senha}
+                        onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
+                        className="input-field"
+                        minLength={6}
+                        required
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Mínimo de 6 caracteres
+                      </p>
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Confirmar Senha *
-                  </label>
-                  <input
-                    type="password"
-                    value={formData.confirmarSenha}
-                    onChange={(e) => setFormData({ ...formData, confirmarSenha: e.target.value })}
-                    className="input-field"
-                    minLength={6}
-                    required
-                  />
-                </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Confirmar Senha *
+                      </label>
+                      <input
+                        type="password"
+                        value={formData.confirmarSenha}
+                        onChange={(e) => setFormData({ ...formData, confirmarSenha: e.target.value })}
+                        className="input-field"
+                        minLength={6}
+                        required
+                      />
+                    </div>
+                  </>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -271,8 +302,17 @@ export default function AdminRecrutadores() {
 
               <div className="flex gap-3">
                 <button type="submit" className="btn-primary flex items-center gap-2">
-                  <Plus size={20} />
-                  Criar Recrutador
+                  {editingRecrutador ? (
+                    <>
+                      <Edit2 size={20} />
+                      Salvar Alterações
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={20} />
+                      Criar Recrutador
+                    </>
+                  )}
                 </button>
                 <button type="button" onClick={handleCancel} className="btn-secondary">
                   Cancelar
@@ -356,6 +396,13 @@ export default function AdminRecrutadores() {
                       </div>
 
                       <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEdit(recrutador)}
+                          className="p-2 text-gray-600 hover:text-primary-600"
+                          title="Editar"
+                        >
+                          <Edit2 size={18} />
+                        </button>
                         <button
                           onClick={() => handleDelete(recrutador.id)}
                           className="p-2 text-gray-600 hover:text-red-600"

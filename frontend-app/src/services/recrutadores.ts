@@ -22,6 +22,13 @@ export interface CriarRecrutadorDTO {
   associado_id: string;
 }
 
+export interface AtualizarRecrutadorDTO {
+  nome?: string;
+  email?: string;
+  perfil?: 'admin' | 'recrutador';
+  associado_id?: string;
+}
+
 class RecrutadoresService {
   async listar(): Promise<Recrutador[]> {
     const response = await api.get<Recrutador[]>('/recrutadores');
@@ -35,6 +42,11 @@ class RecrutadoresService {
 
   async criar(dados: CriarRecrutadorDTO): Promise<Recrutador> {
     const response = await api.post('/recrutadores', dados);
+    return response.data;
+  }
+
+  async atualizar(id: string, dados: AtualizarRecrutadorDTO): Promise<Recrutador> {
+    const response = await api.put(`/recrutadores/${id}`, dados);
     return response.data;
   }
 

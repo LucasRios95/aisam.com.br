@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { Plus, Search, Edit2, Trash2, Building, Check, X } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Building, Check, X, Power } from 'lucide-react';
 import associadosService, { type Associado } from '../../services/associados';
 
 export default function AdminAssociados() {
@@ -109,6 +109,24 @@ export default function AdminAssociados() {
     } catch (error) {
       console.error('Erro ao excluir associado:', error);
       alert('Erro ao excluir associado');
+    }
+  }
+
+  async function handleToggleStatus(associado: Associado) {
+    const acao = associado.ativo ? 'desativar' : 'ativar';
+    if (!confirm(`Tem certeza que deseja ${acao} este associado?`)) return;
+
+    try {
+      if (associado.ativo) {
+        await associadosService.desativar(associado.id);
+      } else {
+        await associadosService.ativar(associado.id);
+      }
+      alert(`Associado ${acao === 'ativar' ? 'ativado' : 'desativado'} com sucesso!`);
+      await carregarAssociados();
+    } catch (error) {
+      console.error(`Erro ao ${acao} associado:`, error);
+      alert(`Erro ao ${acao} associado`);
     }
   }
 
@@ -443,6 +461,17 @@ export default function AdminAssociados() {
                     </div>
 
                     <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleToggleStatus(associado)}
+                        className={`p-2 ${
+                          associado.ativo
+                            ? 'text-gray-600 hover:text-orange-600'
+                            : 'text-gray-600 hover:text-green-600'
+                        }`}
+                        title={associado.ativo ? 'Desativar' : 'Ativar'}
+                      >
+                        <Power size={18} />
+                      </button>
                       <button
                         onClick={() => handleEdit(associado)}
                         className="p-2 text-gray-600 hover:text-primary-600"
