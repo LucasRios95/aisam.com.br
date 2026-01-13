@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IAdminAisamRepository } from "@modules/AdminAisam/repositories/IAdminAisamRepository";
-import { IEmailProvider } from "@shared/container/providers/EmailProvider/IEmailProvider";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 import { AppError } from "@shared/errors/AppError";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,8 +9,8 @@ export class ForgotPasswordUseCase {
   constructor(
     @inject("AdminAisamRepository")
     private adminRepository: IAdminAisamRepository,
-    @inject("EmailProvider")
-    private emailProvider: IEmailProvider
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
   ) {}
 
   async execute(email: string): Promise<void> {
@@ -38,7 +38,7 @@ export class ForgotPasswordUseCase {
 
     // Enviar e-mail
     try {
-      await this.emailProvider.sendMail({
+      await this.mailProvider.sendMail({
         to: email,
         subject: "Recuperação de Senha - AISAM (Admin)",
         body: `
