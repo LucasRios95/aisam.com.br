@@ -15,6 +15,7 @@ interface AuthContextData {
   signIn: (email: string, senha: string, userType: 'admin' | 'recrutador') => Promise<void>;
   signInCandidato: (email: string) => Promise<void>;
   signOut: () => void;
+  updateUser: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -103,8 +104,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   }
 
+  function updateUser(data: Partial<User>) {
+    if (user) {
+      const updatedUser = { ...user, ...data };
+      setUser(updatedUser);
+      localStorage.setItem('@AisamRecrutamento:user', JSON.stringify(updatedUser));
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, token, loading, signIn, signInCandidato, signOut }}>
+    <AuthContext.Provider value={{ user, token, loading, signIn, signInCandidato, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

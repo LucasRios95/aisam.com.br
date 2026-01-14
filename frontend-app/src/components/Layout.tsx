@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { LogOut, Home, Briefcase, Users, FileText, BarChart, UserCheck, Newspaper } from 'lucide-react';
+import { LogOut, Home, Briefcase, Users, FileText, BarChart, UserCheck, Newspaper, User } from 'lucide-react';
 import aisamLogo from '../assets/aisam-logo.webp';
 
 interface LayoutProps {
@@ -110,6 +110,14 @@ export default function Layout({ children, title }: LayoutProps) {
                   <BarChart size={20} />
                   Relatórios
                 </Link>
+                <hr className="my-2 border-gray-200" />
+                <Link
+                  to="/admin/perfil"
+                  className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <User size={20} />
+                  Meu Perfil
+                </Link>
               </>
             )}
 
@@ -142,6 +150,14 @@ export default function Layout({ children, title }: LayoutProps) {
                 >
                   <BarChart size={20} />
                   Relatórios
+                </Link>
+                <hr className="my-2 border-gray-200" />
+                <Link
+                  to="/recrutador/perfil"
+                  className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <User size={20} />
+                  Meu Perfil
                 </Link>
               </>
             )}

@@ -29,6 +29,25 @@ export interface AtualizarRecrutadorDTO {
   associado_id?: string;
 }
 
+export interface RecrutadorProfile {
+  id: string;
+  nome: string;
+  email: string;
+  perfil: string;
+  status: string;
+  associado: {
+    id: string;
+    razao_social: string;
+  } | null;
+  created_at: string;
+}
+
+export interface UpdateRecrutadorProfileDTO {
+  nome?: string;
+  senha_atual?: string;
+  nova_senha?: string;
+}
+
 class RecrutadoresService {
   async listar(): Promise<Recrutador[]> {
     const response = await api.get<Recrutador[]>('/recrutadores');
@@ -71,6 +90,16 @@ class RecrutadoresService {
 
   async resetPassword(token: string, senha: string): Promise<{ message: string }> {
     const response = await api.post('/recrutadores/reset-password', { token, senha });
+    return response.data;
+  }
+
+  async getProfile(): Promise<RecrutadorProfile> {
+    const response = await api.get<RecrutadorProfile>('/recrutadores/profile');
+    return response.data;
+  }
+
+  async updateProfile(dados: UpdateRecrutadorProfileDTO): Promise<RecrutadorProfile> {
+    const response = await api.put<RecrutadorProfile>('/recrutadores/profile', dados);
     return response.data;
   }
 }

@@ -10,8 +10,11 @@ import { ForgotPasswordController } from "@modules/Recrutador/useCases/ForgotPas
 import { ResetPasswordController } from "@modules/Recrutador/useCases/ResetPassword/ResetPasswordController";
 import { AtivarRecrutadorController } from "@modules/Recrutador/useCases/AtivarRecrutador/AtivarRecrutadorController";
 import { DesativarRecrutadorController } from "@modules/Recrutador/useCases/DesativarRecrutador/DesativarRecrutadorController";
+import { GetRecrutadorProfileController } from "@modules/Recrutador/useCases/GetRecrutadorProfile/GetRecrutadorProfileController";
+import { UpdateRecrutadorProfileController } from "@modules/Recrutador/useCases/UpdateRecrutadorProfile/UpdateRecrutadorProfileController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ensureRecrutador } from "../middlewares/ensureRecrutador";
 import { ensureAdminOrRecrutadorOwner } from "../middlewares/ensureAdminOrRecrutadorOwner";
 import { rateLimiterMiddleware } from "../middlewares/rateLimiter";
 import { validateDTO } from "../middlewares/validateDTO";
@@ -31,6 +34,12 @@ const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
 const ativarRecrutadorController = new AtivarRecrutadorController();
 const desativarRecrutadorController = new DesativarRecrutadorController();
+const getRecrutadorProfileController = new GetRecrutadorProfileController();
+const updateRecrutadorProfileController = new UpdateRecrutadorProfileController();
+
+// Rotas de perfil do recrutador (devem vir antes das rotas com :id)
+recrutadoresRoutes.get("/profile", ensureAuthenticated, ensureRecrutador, getRecrutadorProfileController.handle);
+recrutadoresRoutes.put("/profile", ensureAuthenticated, ensureRecrutador, updateRecrutadorProfileController.handle);
 
 recrutadoresRoutes.post("/", ensureAuthenticated, ensureAdmin, createRecrutadorController.handle);
 recrutadoresRoutes.post("/convite", ensureAuthenticated, ensureAdmin, enviarConviteRecrutadorController.handle);

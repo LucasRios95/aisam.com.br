@@ -17,6 +17,7 @@ import AdminRelatorios from './pages/Admin/Relatorios';
 import AdminNoticias from './pages/Admin/Noticias';
 import NovaNoticia from './pages/Admin/NovaNoticia';
 import EditarNoticia from './pages/Admin/EditarNoticia';
+import AdminPerfil from './pages/Admin/Perfil';
 
 // Recrutador Pages
 import RecrutadorDashboard from './pages/Recrutador/Dashboard';
@@ -25,6 +26,7 @@ import NovaVaga from './pages/Recrutador/NovaVaga';
 import EditarVaga from './pages/Recrutador/EditarVaga';
 import RecrutadorCandidaturas from './pages/Recrutador/Candidaturas';
 import RecrutadorRelatorios from './pages/Recrutador/Relatorios';
+import RecrutadorPerfil from './pages/Recrutador/Perfil';
 
 function App() {
   return (
@@ -117,6 +119,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/perfil"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN_AISAM']}>
+                <AdminPerfil />
+              </ProtectedRoute>
+            }
+          />
 
           {/* ===== Rotas Recrutador ===== */}
           <Route
@@ -164,6 +174,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['RECRUTADOR']}>
                 <RecrutadorRelatorios />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/recrutador/perfil"
+            element={
+              <ProtectedRoute allowedRoles={['RECRUTADOR']}>
+                <RecrutadorPerfil />
               </ProtectedRoute>
             }
           />
