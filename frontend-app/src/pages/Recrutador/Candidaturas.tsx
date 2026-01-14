@@ -211,6 +211,8 @@ export default function RecrutadorCandidaturas() {
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
             onClick={() => setSelectedCandidatura(null)}
           >
+            {console.log('Candidatura selecionada:', selectedCandidatura)}
+            {console.log('Curriculo URL:', selectedCandidatura.candidato?.curriculo_url)}
             <div
               className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
@@ -235,6 +237,32 @@ export default function RecrutadorCandidaturas() {
               </div>
 
               <div className="p-6 space-y-6">
+                {/* Download do Currículo - Destaque no topo */}
+                {selectedCandidatura.candidato?.curriculo_url && (
+                  <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-primary-900">Currículo Disponível</p>
+                        {selectedCandidatura.candidato.curriculo_upload_date && (
+                          <p className="text-xs text-primary-700 mt-1">
+                            Enviado em {new Date(selectedCandidatura.candidato.curriculo_upload_date).toLocaleDateString('pt-BR')}
+                          </p>
+                        )}
+                      </div>
+                      <a
+                        href={selectedCandidatura.candidato.curriculo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                      >
+                        <Download size={16} />
+                        Baixar Currículo (PDF)
+                      </a>
+                    </div>
+                  </div>
+                )}
+
                 {/* Status */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -328,27 +356,6 @@ export default function RecrutadorCandidaturas() {
                           <p className="text-sm text-gray-700 whitespace-pre-wrap">
                             {selectedCandidatura.candidato.resumo_curriculo}
                           </p>
-                        </div>
-                      )}
-
-                      {selectedCandidatura.candidato.curriculo_url && (
-                        <div className="pt-3 border-t">
-                          <p className="text-sm text-gray-500 mb-2">Currículo</p>
-                          <a
-                            href={selectedCandidatura.candidato.curriculo_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            download
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
-                          >
-                            <Download size={16} />
-                            Baixar Currículo (PDF)
-                          </a>
-                          {selectedCandidatura.candidato.curriculo_upload_date && (
-                            <p className="text-xs text-gray-500 mt-2">
-                              Enviado em {new Date(selectedCandidatura.candidato.curriculo_upload_date).toLocaleDateString('pt-BR')}
-                            </p>
-                          )}
                         </div>
                       )}
                     </div>
