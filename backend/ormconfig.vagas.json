@@ -2,7 +2,7 @@
     "name": "default",
     "type": "postgres",
     "port": 5432,
-    "host": "database_aisam",
+    "host": "localhost",
     "username": "docker",
     "password": "Lc_150595",
     "database": "database_aisam",

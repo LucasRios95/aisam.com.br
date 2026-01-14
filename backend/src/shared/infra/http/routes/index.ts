@@ -21,6 +21,7 @@ router.use("/docs", docsRoutes);
 router.use("/auth", authRoutes);
 router.use("/associados", associadoRoutes);
 router.use("/user", adminAisamRoutes);
+router.use("/admin-aisam", adminAisamRoutes);
 router.use("/users", usersRoutes);
 router.use("/recrutadores", recrutadoresRoutes);
 router.use("/candidatos", candidatosRoutes);
