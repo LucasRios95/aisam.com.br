@@ -6,6 +6,7 @@ import { FindCandidatoByIdController } from "@modules/Candidato/useCases/FindCan
 import { UpdateCandidatoController } from "@modules/Candidato/useCases/UpdateCandidato/UpdateCandidatoController";
 import { DeleteCandidatoController } from "@modules/Candidato/useCases/DeleteCandidato/DeleteCandidatoController";
 import { UploadCurriculoController } from "@modules/Candidato/useCases/UploadCurriculo/UploadCurriculoController";
+import { DownloadCurriculoController } from "@modules/Candidato/useCases/DownloadCurriculo/DownloadCurriculoController";
 import { GetCandidatoProfileController } from "@modules/Candidato/useCases/GetCandidatoProfile/GetCandidatoProfileController";
 import { GetCandidatoResumeController } from "@modules/Candidato/useCases/GetCandidatoResume/GetCandidatoResumeController";
 import { UpdateCandidatoResumeController } from "@modules/Candidato/useCases/UpdateCandidatoResume/UpdateCandidatoResumeController";
@@ -26,6 +27,7 @@ const findCandidatoByIdController = new FindCandidatoByIdController();
 const updateCandidatoController = new UpdateCandidatoController();
 const deleteCandidatoController = new DeleteCandidatoController();
 const uploadCurriculoController = new UploadCurriculoController();
+const downloadCurriculoController = new DownloadCurriculoController();
 const getCandidatoProfileController = new GetCandidatoProfileController();
 const getCandidatoResumeController = new GetCandidatoResumeController();
 const updateCandidatoResumeController = new UpdateCandidatoResumeController();
@@ -38,6 +40,7 @@ candidatosRoutes.get("/profile", ensureAuthenticated, getCandidatoProfileControl
 candidatosRoutes.get("/resume/me", ensureAuthenticated, getCandidatoResumeController.handle);
 candidatosRoutes.put("/resume", ensureAuthenticated, updateCandidatoResumeController.handle);
 candidatosRoutes.patch("/:id/curriculo", ensureAuthenticated, uploadCurriculo.single("curriculo"), uploadCurriculoController.handle);
+candidatosRoutes.get("/:id/curriculo/download", ensureAuthenticated, downloadCurriculoController.handle);
 
 // Rotas de Admin/Recrutador - Gerenciamento de candidatos
 candidatosRoutes.get("/", ensureAuthenticated, ensureRecrutador, listCandidatosController.handle);

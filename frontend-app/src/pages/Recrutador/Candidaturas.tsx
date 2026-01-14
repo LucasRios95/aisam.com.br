@@ -57,6 +57,37 @@ export default function RecrutadorCandidaturas() {
     }
   }
 
+  async function handleDownloadCurriculo(candidatoId: string) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/candidatos/${candidatoId}/curriculo/download`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Erro ao baixar currículo');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `curriculo-${candidatoId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Erro ao baixar currículo:', error);
+      alert('Erro ao baixar currículo');
+    }
+  }
+
   if (loading) {
     return (
       <Layout title="Candidaturas">
@@ -249,16 +280,13 @@ export default function RecrutadorCandidaturas() {
                           </p>
                         )}
                       </div>
-                      <a
-                        href={selectedCandidatura.candidato.curriculo_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        download
+                      <button
+                        onClick={() => handleDownloadCurriculo(selectedCandidatura.candidato!.id)}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
                       >
                         <Download size={16} />
                         Baixar Currículo (PDF)
-                      </a>
+                      </button>
                     </div>
                   </div>
                 )}
