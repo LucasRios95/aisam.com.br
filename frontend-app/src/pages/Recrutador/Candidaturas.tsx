@@ -237,17 +237,18 @@ export default function RecrutadorCandidaturas() {
         )}
 
         {/* Modal de Detalhes */}
-        {selectedCandidatura && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-            onClick={() => setSelectedCandidatura(null)}
-          >
-            {console.log('Candidatura selecionada:', selectedCandidatura)}
-            {console.log('Curriculo URL:', selectedCandidatura.candidato?.curriculo_url)}
+        {selectedCandidatura && (() => {
+          console.log('Candidatura selecionada:', selectedCandidatura);
+          console.log('Curriculo URL:', selectedCandidatura.candidato?.curriculo_url);
+          return (
             <div
-              className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+              onClick={() => setSelectedCandidatura(null)}
             >
+              <div
+                className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
               <div className="p-6 border-b border-gray-200">
                 <div className="flex justify-between items-start">
                   <div>
@@ -427,7 +428,8 @@ export default function RecrutadorCandidaturas() {
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
       </div>
     </Layout>
   );
