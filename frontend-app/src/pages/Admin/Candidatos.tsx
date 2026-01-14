@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { Plus, Search, Mail, Phone, MapPin, Calendar, FileText, Trash2, Edit, X, Upload, ExternalLink } from 'lucide-react';
+import { Plus, Search, Mail, Phone, MapPin, Calendar, FileText, Trash2, Edit, X, Upload, Download } from 'lucide-react';
 import candidatosService, { type Candidato } from '../../services/candidatos';
 import areasService, { type AreaAtuacao } from '../../services/areas';
 
@@ -172,6 +172,37 @@ export default function AdminCandidatos() {
         ? prev.areas_atuacao.filter((a) => a !== areaNome)
         : [...prev.areas_atuacao, areaNome],
     }));
+  }
+
+  async function handleDownloadCurriculo(candidatoId: string, candidatoNome: string) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/candidatos/${candidatoId}/curriculo/download`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Erro ao baixar currículo');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `curriculo-${candidatoNome.replace(/\s+/g, '-')}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Erro ao baixar currículo:', error);
+      alert('Erro ao baixar currículo');
+    }
   }
 
   if (loading) {
@@ -409,17 +440,20 @@ export default function AdminCandidatos() {
                   )}
                 </div>
                 {editingId && candidatos.find(c => c.id === editingId)?.curriculo_url && (
-                  <div className="mt-2 flex items-center gap-2 text-sm text-blue-600">
-                    <FileText size={16} />
-                    <a
-                      href={candidatos.find(c => c.id === editingId)?.curriculo_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline flex items-center gap-1"
+                  <div className="mt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const candidato = candidatos.find(c => c.id === editingId);
+                        if (candidato) {
+                          handleDownloadCurriculo(candidato.id, candidato.nome);
+                        }
+                      }}
+                      className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Visualizar currículo atual
-                      <ExternalLink size={14} />
-                    </a>
+                      <Download size={16} />
+                      Baixar currículo atual (PDF)
+                    </button>
                   </div>
                 )}
                 <p className="text-xs text-gray-500 mt-2">
@@ -537,16 +571,13 @@ export default function AdminCandidatos() {
 
                       {candidato.curriculo_url && (
                         <div className="mt-3">
-                          <a
-                            href={candidato.curriculo_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <button
+                            onClick={() => handleDownloadCurriculo(candidato.id, candidato.nome)}
                             className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 hover:underline"
                           >
-                            <FileText size={16} />
-                            Visualizar Currículo PDF
-                            <ExternalLink size={12} />
-                          </a>
+                            <Download size={16} />
+                            Baixar Currículo (PDF)
+                          </button>
                         </div>
                       )}
                     </div>
