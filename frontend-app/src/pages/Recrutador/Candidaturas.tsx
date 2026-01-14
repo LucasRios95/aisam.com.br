@@ -269,7 +269,7 @@ export default function RecrutadorCandidaturas() {
 
               <div className="p-6 space-y-6">
                 {/* Download do Currículo - Destaque no topo */}
-                {selectedCandidatura.candidato?.curriculo_url && (
+                {selectedCandidatura.candidato?.curriculo_url ? (
                   <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
                     <div className="flex items-center justify-between">
                       <div>
@@ -287,6 +287,17 @@ export default function RecrutadorCandidaturas() {
                         <Download size={16} />
                         Baixar Currículo (PDF)
                       </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div className="flex items-start gap-2">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-yellow-900">Currículo não disponível</p>
+                        <p className="text-xs text-yellow-700 mt-1">
+                          O candidato ainda não enviou o currículo em PDF.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
